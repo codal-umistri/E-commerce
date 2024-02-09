@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #c9cdd5;
+}
+
+/* header */
+
+header {
+    background-color: white;
+    height: 4.8rem;
+}
+
+.navbar {
+    padding-top: 0.295rem;
+}
+
+header .search_container {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .search_container .search-box {
+    all: unset;
+    padding: 1rem;
+    outline: none;
+    border: none;
+    width: 39rem;
+    height: 0.5rem;
+    font-size: 1.1rem;
+    background-color: aliceblue;
+    border-top-right-radius: 0.45rem;
+    border-bottom-right-radius: 0.45rem;
+}
+
+header .search_container .search-btn {
+    all: unset;
+    width: 2rem;
+    height: 2.2rem;
+    background-color: aliceblue;
+    cursor: pointer;
+    border: 0px;
+    padding-top: 0.30rem;
+    padding-left: 0.30rem;
+    font-size: 1.2rem;
+    border-top-left-radius: 0.45rem;
+    border-bottom-left-radius: 0.45rem;
+}
+
+header .login {
+    height: 2.3rem;
+    margin: 0 1rem;
+}
+
+header .login .login_text {
+    font-size: 1.25rem;
+}
+
+header .login:hover {
+    border-radius: 0.25rem;
+    border: 0.062rem solid rgba(4, 50, 137, 0.941);
+
+}
+
+header .cart-icon {
+    margin: 0 1rem;
+    height: 2.3rem;
+}
+
+header .cart-icon:hover {
+    border: 0.062rem solid rgba(4, 50, 137, 0.941);
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.ant-badge-count {
+    font-size: 1.25rem;
+    padding: 0 0.5rem;
+
+}
+
+header .become-seller {
+    margin: 0 1rem;
+    height: 2.3rem;
+    font-size: 1.25rem;
+}
+
+header .become-seller:hover {
+    border: 0.062rem solid rgba(4, 50, 137, 0.941);
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+header .more {
+    width: 2.22rem;
+    height: 2.22rem;
+    box-sizing: border-box;
+    padding-left: 0.6rem;
+    padding-top: 0.55rem;
+    margin-left: 1rem;
+}
+
+header .more:hover {
+    border: 0.062rem solid rgba(4, 50, 137, 0.941);
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+/* Slider */
+
+.slider {
+    margin-top: 1rem;
+}
+
+/* footer */
+
+footer {
+    margin-top: 15px;
+}
+
+.foot-panel1 {
+    background-color: #37475a;
+    color: white;
+    height: 3.125rem;
+}
+
+.foot-panel1_txt {
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.foot-panel_txt {
+    color: white;
+    font-weight: 300;
+    font-size: 0.90rem;
+}
+
+.foot-panel_txt:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.foot-Panel_txt {
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.foot-panel2 {
+    background-color: #222f3d;
+    color: white;
+    height: 23.25rem;
+}
+
+.foot-panel2 .column {
+    margin-top: 1.5rem;
+    margin: 0 1.8rem;
+    padding-top: 1rem;
+}
+
+.foot-panel3 {
+    background-color: #222f3d;
+    color: white;
+    border-top: 0.5px solid white;
+    height: 9.25rem;
+}
+
+.foot-panel3 .language_logo {
+    margin-top: 0.8rem;
+}
+
+.foot-panel3 .logo1 {
+    height: 3.1rem;
+    background-image: url("images/logo1.png");
+    background-size: cover;
+    width: 6.25rem;
+}
+
+.foot-panel3 .country .country_name {
+    color: white;
+}
+
+.foot-panel3 .country .country_name:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.foot-panel3 .country {
+    margin-top: 0.5rem;
+}
+
+.foot-panel4 {
+    background-color: #0f1111;
+    color: white;
+    height: 5rem;
+    font-size: 0.7rem;
+}
+
+.pages .txt {
+    padding-top: 25px;
+    color: white;
+}
+
+.pages .txt:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.copyright {
+    padding-top: 5px;
+    font-size: 0.8rem;
+}
+
+/* Gototop */
+
+.section-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.top-btn {
+    font-size: 2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    color: #090909;
+    background-color: rgba(219, 172, 124, 0.7);
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
+    border-radius: 50%;
+    position: fixed;
+    bottom: 5rem;
+    right: 3rem;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.top-btn--icon {
+    animation: gototop 1.2s linear infinite alternate-reverse;
+}
+
+@keyframes gototop {
+    0% {
+        transform: translateY(-0.5rem);
+    }
+
+    100% {
+        transform: translateY(1rem);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .top-btn {
+        right: 0;
+        left: 40%;
+    }
+}
+
+/* Simple Card */
+
+.card .btn .btn_txt {
+    all: unset;
+    border: none;
+    color: #007185;
+    font-size: 13px;
+}
+
+.card .btn .btn_txt:hover {
+    cursor: pointer;
+    color: red;
+    text-decoration: underline;
+}
+
+/* LongItem */
+
+.long_container {
+    background-image: url("https://i.ebayimg.com/00/s/NDEzWDE2MDA=/z/HOMAAOSw0nFlrleq/$_57.JPG");
+    height: 20.62rem;
+    margin-top: 1.2rem;
+    background-position: right;
+    background-size: cover;
+    position: relative;
+    border-radius: 0.7rem;
+}
+
+.long_container .txt_1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: rgb(114, 29, 29);
+}
+
+.long_container .txt_2 {
+    font-size: 1.2rem;
+    color: rgb(114, 29, 29);
+}
+
+.long_container .Container {
+    position: absolute;
+    left: 2rem;
+    top: 0.65rem;
+}
+
+.long_container .Container .btn {
+    position: absolute;
+    top: 195px;
+    height: 2.6rem;
+    width: 8.2rem;
+    border-radius: 2rem;
+    border: 1px solid rgb(114, 29, 29);
+    background: transparent;
+    font-size: 1rem;
+}
+
+.long_container .Container .btn:hover {
+    background-color: rgb(114, 29, 29);
+    color: yellow;
+    cursor: pointer;
+
+}
+
+/* Card */
+
+.Cards {
+    width: 370px;
+    background-color: white;
+    height: 415px;
+    margin-top: 13px;
+    position: relative;
+}
+
+.Cards .txt {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.Cards .card_container {
+    margin-top: 15px;
+}
+
+.Card_container {
+    margin-top: 0.9rem;
+}
+
+.Cards ._container {
+    position: absolute;
+    top: 23.8rem;
+}
+
+.Cards ._container .btn .Btn_txt {
+    font-size: 13px;
+    color: #007185;
+}
+
+.Cards ._container .btn .Btn_txt:hover {
+    cursor: pointer;
+    color: red;
+    text-decoration: underline;
+}
