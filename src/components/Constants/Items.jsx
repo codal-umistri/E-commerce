@@ -9,34 +9,33 @@ import { BsBagCheckFill } from "react-icons/bs";
 import { MdOutlineCardGiftcard } from "react-icons/md";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { FaStarOfLife } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 export const ITEMS = [
   {
     label: (
-      <a
-        target="_blank"
+      <Link
         rel="noopener noreferrer"
-        href="#"
+        to="register"
         style={{ fontSize: "17.5px", display: "flex", alignItems: "center" }}
       >
         New Customer ?
         <span style={{ marginLeft: "30px", color: "rgb(4, 50, 137)" }}>
           Sign Up
         </span>
-      </a>
+      </Link>
     ),
     key: "0",
   },
   {
-    label: <div style={{ borderTop: "1px solid #ccc", marginTop: "4.5px" }} />,
+    label: <div style={{ borderTop: "1px solid /ccc", marginTop: "4.5px" }} />,
     key: "separator",
   },
   {
     label: (
       <a
-        target="_blank"
         rel="noopener noreferrer"
-        href="#"
+        href="/"
         style={{
           fontSize: "17.5px",
           display: "flex",
@@ -52,9 +51,8 @@ export const ITEMS = [
   {
     label: (
       <a
-        target="_blank"
         rel="noopener noreferrer"
-        href="#"
+        href="/"
         style={{
           fontSize: "17.5px",
           display: "flex",
@@ -71,9 +69,8 @@ export const ITEMS = [
   {
     label: (
       <a
-        target="_blank"
         rel="noopener noreferrer"
-        href="#"
+        href="/"
         style={{
           fontSize: "17.5px",
           display: "flex",
@@ -90,9 +87,8 @@ export const ITEMS = [
   {
     label: (
       <a
-        target="_blank"
         rel="noopener noreferrer"
-        href="#"
+        href="/"
         style={{
           fontSize: "17.5px",
           display: "flex",
@@ -109,9 +105,8 @@ export const ITEMS = [
   {
     label: (
       <a
-        target="_blank"
         rel="noopener noreferrer"
-        href="#"
+        href="/"
         style={{
           fontSize: "17.5px",
           display: "flex",
@@ -131,9 +126,8 @@ export const MORE_ITEMS = [
   {
     label: (
       <a
-        target="_blank"
         rel="noopener noreferrer"
-        href="#"
+        href="/"
         style={{
           fontSize: "17.5px",
           display: "flex",
@@ -150,9 +144,8 @@ export const MORE_ITEMS = [
   {
     label: (
       <a
-        target="_blank"
         rel="noopener noreferrer"
-        href="#"
+        href="/"
         style={{
           fontSize: "17.5px",
           display: "flex",
@@ -169,9 +162,8 @@ export const MORE_ITEMS = [
   {
     label: (
       <a
-        target="_blank"
         rel="noopener noreferrer"
-        href="#"
+        href="/"
         style={{
           fontSize: "17.5px",
           display: "flex",
@@ -188,9 +180,8 @@ export const MORE_ITEMS = [
   {
     label: (
       <a
-        target="_blank"
         rel="noopener noreferrer"
-        href="#"
+        href="/"
         style={{
           fontSize: "17.5px",
           display: "flex",
@@ -328,7 +319,6 @@ export const CARDDATA = [
       "Lighting solutions",
     ],
   },
-  
 ];
 
 export const ALTERNATEDATA = [
@@ -355,7 +345,7 @@ export const ALTERNATEDATA = [
     title: "Bluetooth Smartwatch starts at ₹1,999",
     url: "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Wearables/PC_CategoryCard_379X304_1._SY304_CB614835787_.jpg",
   },
-     {
+  {
     id: 5,
     complex: false,
     title: "Starting ₹99 | Air-purifying plants",
@@ -422,6 +412,457 @@ export const ALTERNATEDATA = [
       "Jackets",
       "T-shirts, Polos & more",
       "Jeans",
+    ],
+  },
+];
+
+export const SECTIONDATA = [
+  {
+    id: 1,
+    cat_name: "Grocery",
+    url: "https://rukminim2.flixcart.com/flap/80/80/image/29327f40e9c4d26b.png?q=100",
+  },
+  {
+    id: 2,
+    cat_name: "Mobiles",
+    url: "https://rukminim2.flixcart.com/flap/80/80/image/22fddf3c7da4c4f4.png?q=100",
+  },
+  {
+    id: 3,
+    cat_name: "Fashion",
+    url: "https://rukminim2.flixcart.com/fk-p-flap/80/80/image/0d75b34f7d8fbcb3.png?q=100",
+  },
+  {
+    id: 4,
+    cat_name: "Electronics",
+    url: "https://rukminim2.flixcart.com/flap/80/80/image/69c6589653afdb9a.png?q=100",
+  },
+  {
+    id: 5,
+    cat_name: "Home & Furniture",
+    url: "https://rukminim2.flixcart.com/flap/80/80/image/ab7e2b022a4587dd.jpg?q=100",
+  },
+  {
+    id: 6,
+    cat_name: "Appliances",
+    url: "https://rukminim2.flixcart.com/fk-p-flap/80/80/image/0139228b2f7eb413.jpg?q=10",
+  },
+  {
+    id: 7,
+    cat_name: "AirLine",
+    url: "https://rukminim2.flixcart.com/flap/80/80/image/71050627a56b4693.png?q=100",
+  },
+  {
+    id: 8,
+    cat_name: "Beauty,Toys& More",
+    url: "https://rukminim2.flixcart.com/flap/80/80/image/dff3f7adcf3a90c6.png?q=100",
+  },
+  {
+    id: 9,
+    cat_name: "Two Wheelers",
+    url: "https://rukminim2.flixcart.com/fk-p-flap/80/80/image/05d708653beff580.png?q=100",
+  },
+];
+
+export const COUNTRYNAMES = [
+  { id: 1, country_name: "Australia" },
+  {
+    id: 2,
+    country_name: "Brazil",
+  },
+  {
+    id: 3,
+    country_name: "Canada",
+  },
+  {
+    id: 4,
+    country_name: "China",
+  },
+  {
+    id: 5,
+    country_name: "France",
+  },
+  {
+    id: 6,
+    country_name: "Germany",
+  },
+  {
+    id: 7,
+    country_name: "Italy",
+  },
+  {
+    id: 8,
+    country_name: "Japan",
+  },
+  {
+    id: 9,
+    country_name: "Mexico",
+  },
+  {
+    id: 10,
+    country_name: "Netherlands",
+  },
+  {
+    id: 11,
+    country_name: "Poland",
+  },
+  {
+    id: 12,
+    country_name: "Singapore",
+  },
+  {
+    id: 13,
+    country_name: "Spain",
+  },
+  {
+    id: 14,
+    country_name: "Turkey",
+  },
+  {
+    id: 15,
+    country_name: "United Arab Emirates",
+  },
+  {
+    id: 16,
+    country_name: "United Kingdom",
+  },
+  {
+    id: 17,
+    country_name: "United States",
+  },
+];
+
+export const FOOTERDATA = [
+  {
+    id: 1,
+    title: "Get to Know Us",
+    names: ["About Us", "Careers", "Press Releases", "Brightspace Science"],
+  },
+  {
+    id: 2,
+    title: "Connect with Us",
+    names: ["Facebook", "Twitter", "Instagram"],
+  },
+  {
+    id: 3,
+    title: "Make Money with Us",
+    names: [
+      "Sell on brightspace",
+      "Sell under Brightspace Accelerator",
+      "Protect and Build Your Brand",
+      "Brightspace Global Selling",
+      "Become an Affiliate",
+      "Fulfilment by Brightspace",
+      "Advertise Your Products",
+      "Brightspace Pay on Merchants",
+    ],
+  },
+  {
+    id: 4,
+    title: "Let us Help You",
+    names: [
+      "COVID-19 and Amazon",
+      "Your Account",
+      "Returns Centre",
+      "100% Purchashe Protection",
+      "Brightspace App Download",
+      "Fulfilment by Brightspace",
+      "Help",
+    ],
+  },
+];
+
+export const STATES = [
+  {
+    value: "AP",
+    label: "Andhra Pradesh",
+    cities: [
+      "Visakhapatnam",
+      "Vijayawada",
+      "Guntur",
+      "Nellore",
+      "Kurnool",
+      "Rajahmundry",
+    ],
+  },
+  {
+    value: "AR",
+    label: "Arunachal Pradesh",
+    cities: ["Itanagar", "Naharlagun", "Pasighat", "Roing", "Tezu", "Ziro"],
+  },
+  {
+    value: "AS",
+    label: "Assam",
+    cities: [
+      "Guwahati",
+      "Silchar",
+      "Dibrugarh",
+      "Jorhat",
+      "Nagaon",
+      "Tinsukia",
+    ],
+  },
+  {
+    value: "BR",
+    label: "Bihar",
+    cities: [
+      "Patna",
+      "Gaya",
+      "Bhagalpur",
+      "Muzaffarpur",
+      "Purnia",
+      "Darbhanga",
+    ],
+  },
+  {
+    value: "CG",
+    label: "Chhattisgarh",
+    cities: ["Raipur", "Bhilai", "Bilaspur", "Korba", "Raigarh", "Jagdalpur"],
+  },
+  {
+    value: "GA",
+    label: "Goa",
+    cities: [
+      "Panaji",
+      "Vasco da Gama",
+      "Margao",
+      "Mapusa",
+      "Ponda",
+      "Bicholim",
+    ],
+  },
+  {
+    value: "GJ",
+    label: "Gujarat",
+    cities: [
+      "Ahmedabad",
+      "Surat",
+      "Vadodara",
+      "Rajkot",
+      "Bhavnagar",
+      "Jamnagar",
+    ],
+  },
+  {
+    value: "HR",
+    label: "Haryana",
+    cities: [
+      "Faridabad",
+      "Gurgaon",
+      "Panipat",
+      "Ambala",
+      "Yamunanagar",
+      "Rohtak",
+    ],
+  },
+  {
+    value: "HP",
+    label: "Himachal Pradesh",
+    cities: ["Shimla", "Solan", "Dharamshala", "Mandi", "Kullu", "Chamba"],
+  },
+  {
+    value: "JK",
+    label: "Jammu and Kashmir",
+    cities: [
+      "Srinagar",
+      "Jammu",
+      "Anantnag",
+      "Baramulla",
+      "Kathua",
+      "Udhampur",
+    ],
+  },
+  {
+    value: "JH",
+    label: "Jharkhand",
+    cities: [
+      "Ranchi",
+      "Jamshedpur",
+      "Dhanbad",
+      "Bokaro Steel City",
+      "Deoghar",
+      "Phusro",
+    ],
+  },
+  {
+    value: "KA",
+    label: "Karnataka",
+    cities: [
+      "Bangalore",
+      "Hubli-Dharwad",
+      "Mysore",
+      "Belgaum",
+      "Mangalore",
+      "Gulbarga",
+    ],
+  },
+  {
+    value: "KL",
+    label: "Kerala",
+    cities: [
+      "Thiruvananthapuram",
+      "Kochi",
+      "Kozhikode",
+      "Thrissur",
+      "Kollam",
+      "Palakkad",
+    ],
+  },
+  {
+    value: "MP",
+    label: "Madhya Pradesh",
+    cities: ["Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain", "Sagar"],
+  },
+  {
+    value: "MH",
+    label: "Maharashtra",
+    cities: ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik", "Aurangabad"],
+  },
+  {
+    value: "MN",
+    label: "Manipur",
+    cities: [
+      "Imphal",
+      "Thoubal",
+      "Kakching",
+      "Mayang Imphal",
+      "Churachandpur",
+      "Bishnupur",
+    ],
+  },
+  {
+    value: "ML",
+    label: "Meghalaya",
+    cities: [
+      "Shillong",
+      "Tura",
+      "Nongstoin",
+      "Jowai",
+      "Baghmara",
+      "Williamnagar",
+    ],
+  },
+  {
+    value: "MZ",
+    label: "Mizoram",
+    cities: ["Aizawl", "Lunglei", "Saiha", "Champhai", "Kolasib", "Serchhip"],
+  },
+  {
+    value: "NL",
+    label: "Nagaland",
+    cities: [
+      "Kohima",
+      "Dimapur",
+      "Mokokchung",
+      "Tuensang",
+      "Wokha",
+      "Zunheboto",
+    ],
+  },
+  {
+    value: "OR",
+    label: "Odisha",
+    cities: [
+      "Bhubaneswar",
+      "Cuttack",
+      "Rourkela",
+      "Brahmapur",
+      "Sambalpur",
+      "Puri",
+    ],
+  },
+  {
+    value: "PB",
+    label: "Punjab",
+    cities: [
+      "Ludhiana",
+      "Amritsar",
+      "Jalandhar",
+      "Patiala",
+      "Bathinda",
+      "Mohali",
+    ],
+  },
+  {
+    value: "RJ",
+    label: "Rajasthan",
+    cities: ["Jaipur", "Jodhpur", "Kota", "Bikaner", "Ajmer", "Udaipur"],
+  },
+  {
+    value: "SK",
+    label: "Sikkim",
+    cities: [
+      "Gangtok",
+      "Namchi",
+      "Mangan",
+      "Gyalshing",
+      "Jorethang",
+      "Ravangla",
+    ],
+  },
+  {
+    value: "TN",
+    label: "Tamil Nadu",
+    cities: [
+      "Chennai",
+      "Coimbatore",
+      "Madurai",
+      "Tiruchirappalli",
+      "Salem",
+      "Tirunelveli",
+    ],
+  },
+  {
+    value: "TG",
+    label: "Telangana",
+    cities: [
+      "Hyderabad",
+      "Warangal",
+      "Nizamabad",
+      "Karimnagar",
+      "Ramagundam",
+      "Khammam",
+    ],
+  },
+  {
+    value: "TR",
+    label: "Tripura",
+    cities: [
+      "Agartala",
+      "Udaipur",
+      "Dharmanagar",
+      "Kailasahar",
+      "Belonia",
+      "Ambassa",
+    ],
+  },
+  {
+    value: "UP",
+    label: "Uttar Pradesh",
+    cities: ["Lucknow", "Kanpur", "Ghaziabad", "Agra", "Varanasi", "Meerut"],
+  },
+  {
+    value: "UK",
+    label: "Uttarakhand",
+    cities: [
+      "Dehradun",
+      "Haridwar",
+      "Roorkee",
+      "Haldwani",
+      "Rudrapur",
+      "Kashipur",
+    ],
+  },
+  {
+    value: "WB",
+    label: "West Bengal",
+    cities: [
+      "Kolkata",
+      "Asansol",
+      "Siliguri",
+      "Durgapur",
+      "Bardhaman",
+      "Malda",
     ],
   },
 ];

@@ -14,11 +14,13 @@ import {
   Badge,
   Layout,
 } from "antd";
-import { ITEMS, MORE_ITEMS } from "./Constants/Items";
+import { ITEMS, MORE_ITEMS } from "../Constants/Items";
+import { useNavigate } from "react-router-dom";
 
 const { Text, Link } = Typography;
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <header>
       <Row className="navbar" justify="space-around" align="middle">
@@ -43,7 +45,10 @@ const Navbar = () => {
             <Dropdown overlayStyle={{ width: "250px" }} menu={{ items: ITEMS }}>
               <Link
                 className="login_text"
-                onClick={(e) => e.preventDefault()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/login");
+                }}
                 to=""
               >
                 <Flex align="center" justify="center">
@@ -64,7 +69,8 @@ const Navbar = () => {
           </Flex>
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={3}>
-          <Flex className="become-seller" align="center" justify="center">
+          <Flex className="become-seller" align="center" justify="center" onClick={()=>
+          {navigate("/become-seller")}}>
             <ShopOutlined />
             &nbsp;
             <Text>Become a Seller</Text>

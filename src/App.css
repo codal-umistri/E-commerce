@@ -367,3 +367,45 @@ footer {
     color: red;
     text-decoration: underline;
 }
+
+/* Login page */
+
+.login_container {
+    background-color: white;
+    width: 32rem;
+    height: 27rem;
+    border-radius: 0.5rem;
+}
+
+/* Regiter Page */
+.register_container {
+    background-color: white;
+    height: 37rem;
+    width: 31rem;
+    border-radius: 0.5rem;
+
+}
+
+/* Seller-form */
+.seller_container {
+    background-color: white;
+    height: fit-content;
+    width: 45rem;
+    border-radius: 0.5rem;
+}
+
+.ant-list-bordered .ant-list-item {
+    color: blue;
+}
+
+/* Forgot-password */
+.forgotpassword_container{
+    background-color: white;
+    width: 32rem;
+    height: 20rem;
+    border-radius: 0.5rem;
+}
+
+.forgotpassword_container .form_btn:hover {
+    background-color: green;
+}
