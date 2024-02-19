@@ -16,10 +16,14 @@ body {
 header {
     background-color: white;
     height: 4.8rem;
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 .navbar {
     padding-top: 0.295rem;
+
 }
 
 header .search_container {
@@ -60,6 +64,8 @@ header .login {
 
 header .login .login_text {
     font-size: 1.25rem;
+    padding-top: 5px;
+
 }
 
 header .login:hover {
@@ -269,6 +275,27 @@ footer {
 
 /* Simple Card */
 
+.discription {
+    font-size: 15px;
+    font-weight: 600;
+    color: #007185;
+    /* text-overflow: ellipsis; */
+}
+
+.rating {
+    margin-top: 0.6rem;
+}
+
+.price {
+    margin-top: 0.6rem;
+    font-size: 25px;
+}
+
+.card {
+    margin-top: 0.7rem;
+
+}
+
 .card .btn .btn_txt {
     all: unset;
     border: none;
@@ -399,7 +426,7 @@ footer {
 }
 
 /* Forgot-password */
-.forgotpassword_container{
+.forgotpassword_container {
     background-color: white;
     width: 32rem;
     height: 20rem;
@@ -408,4 +435,43 @@ footer {
 
 .forgotpassword_container .form_btn:hover {
     background-color: green;
+}
+
+
+/* cart_item */
+.cart_container {
+    height: 220px;
+    width: 100 * 6px;
+    border: 1px solid black;
+    margin-top: 1rem;
+    border-radius: 10px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: white;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.horizontal-line {
+    height: 1px;
+    
+    background: linear-gradient(to right, black 33%, transparent 0%);
+    background-size: 8px 2px;
+    /* Adjust the size to control spacing between dashes */
+}
+
+
+/* cart */
+.price_container {
+    height: 310px;
+    width: 450px;
+    border: 1px solid black;
+    border-radius: 10px;
+    position: sticky;
+    margin-top: 1rem;
+    top: 95px;
+    background-color: white;
+    margin-bottom: 1rem;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
 }

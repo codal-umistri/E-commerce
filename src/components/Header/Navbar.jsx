@@ -12,15 +12,74 @@ import {
   Flex,
   Typography,
   Badge,
-  Layout,
+  Menu,
 } from "antd";
-import { ITEMS, MORE_ITEMS } from "../Constants/Items";
+import { ITEMS, MORE_ITEMS, ITEMS1 } from "../Constants/Items";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
+import { SearchItemsactions } from "../store/searchitems";
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const storedData = JSON.parse(localStorage.getItem("logindata"));
   const navigate = useNavigate();
+  const inputref = useRef(null);
+  const bagitems = useSelector((store) => store.BagItems);
+  const allproducts = JSON.parse(localStorage.getItem("Allproducts"));
+
+  const handleSearch = () => {
+    console.log(inputref.current.input.value);
+    console.log(typeof inputref.current.input.value);
+
+    !inputref.current.input.value
+      ? dispatch(SearchItemsactions.AddAllProdcuts(allproducts))
+      : dispatch(
+          SearchItemsactions.AddAllProdcuts(
+            allproducts.filter((item) => {
+              return new RegExp(inputref.current.input.value, "i").test(
+                item.title
+              );
+            })
+          )
+        );
+  };
+  const limitedBagItems = bagitems.slice(0, 4);
+  const menu = bagitems.length ? (
+    <Menu>
+      {limitedBagItems.map((item) => (
+        <Menu.Item key={item.id}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={item.images[0]}
+              alt={item.name}
+              style={{ width: "30px", marginRight: "10px" }}
+            />
+            <div>
+              <div>{item.title}</div>
+            </div>
+          </div>
+        </Menu.Item>
+      ))}
+      {bagitems.length > 4 && (
+        <Menu.Item key="see-more" style={{ textAlign: "center" }}>
+          <Link to="/cart" style={{ color: "blue" }}>
+            See More
+          </Link>
+        </Menu.Item>
+      )}
+    </Menu>
+  ) : (
+    <Menu>
+      <Menu.Item key="see-more" style={{ textAlign: "center" }}>
+        <Text style={{ color: "blue" }}>Select item</Text>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <header>
       <Row className="navbar" justify="space-around" align="middle">
@@ -36,41 +95,69 @@ const Navbar = () => {
             </Button>
             <Input
               className="search-box"
+              ref={inputref}
               placeholder="Search for Products, Brands and More"
+              onChange={handleSearch}
             />
           </Flex>
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={2}>
           <div className="login" align="center" justify="center">
-            <Dropdown overlayStyle={{ width: "250px" }} menu={{ items: ITEMS }}>
-              <Link
-                className="login_text"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate("/login");
-                }}
-                to=""
+            {storedData?.loginstatus ? (
+              <Dropdown
+                overlayStyle={{ width: "250px" }}
+                menu={{ items: ITEMS1 }}
               >
-                <Flex align="center" justify="center">
-                  <GoPerson style={{ all: "unset" }} /> &nbsp;
-                  <Text>Login</Text>
-                </Flex>
-              </Link>
-            </Dropdown>
+                <Link to="/">
+                  <Flex align="center" justify="center" className="login_text">
+                    <GoPerson style={{ all: "unset" }} /> &nbsp;
+                    <Text>{storedData.Email.split("@")[0]}</Text>
+                  </Flex>
+                </Link>
+              </Dropdown>
+            ) : (
+              <Dropdown
+                overlayStyle={{ width: "250px" }}
+                menu={{ items: ITEMS }}
+              >
+                <Link to="/login">
+                  <Flex align="center" justify="center" className="login_text">
+                    <GoPerson style={{ all: "unset" }} /> &nbsp;
+                    <Text>Login</Text>
+                  </Flex>
+                </Link>
+              </Dropdown>
+            )}
           </div>
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={2}>
-          <Flex className="cart-icon" align="center" justify="center">
-            <Badge count={5} className="ant-badge-count">
-              <ShoppingCartOutlined />
-              &nbsp;
-              <Text>Cart</Text>
-            </Badge>
-          </Flex>
+          <Dropdown overlayStyle={{ width: "250px" }} overlay={menu}>
+            <Flex
+              className="cart-icon"
+              align="center"
+              justify="center"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/cart");
+              }}
+            >
+              <Badge count={bagitems.length} className="ant-badge-count">
+                <ShoppingCartOutlined />
+                &nbsp;
+                <Text>Cart</Text>
+              </Badge>
+            </Flex>
+          </Dropdown>
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={3}>
-          <Flex className="become-seller" align="center" justify="center" onClick={()=>
-          {navigate("/become-seller")}}>
+          <Flex
+            className="become-seller"
+            align="center"
+            justify="center"
+            onClick={() => {
+              navigate("/become-seller");
+            }}
+          >
             <ShopOutlined />
             &nbsp;
             <Text>Become a Seller</Text>
@@ -97,58 +184,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// <header>
-//   <div className="navbar">
-//     <div className="logo">
-//       <img src="images/logo1.png" alt="asca" />
-//     </div>
-//     <div className="search">
-//       <div className="search_container">
-//         <button className="search-btn">
-//           <TfiSearch />
-//         </button>
-//         <input
-//           type="text"
-//           className="search-box"
-//           placeholder="Search for Products, Brands and More"
-//         />
-//       </div>
-//     </div>
-//     <div className="login">
-//       <Dropdown
-//         overlayStyle={{ width: "250px" }}
-//         menu={{
-//           items,
-//         }}
-//       >
-//         <a onClick={(e) => e.preventDefault()}>
-//           <GoPerson /> &nbsp;
-//           <span>Login</span>
-//         </a>
-//       </Dropdown>
-//     </div>
-//     <div className="cart-icon">
-//       <ShoppingCartOutlined />
-//       &nbsp;
-//       <span>Cart</span>
-//     </div>
-//     <div className="become-seller">
-//       <ShopOutlined />
-//       &nbsp;
-//       <span>Become a Seller</span>
-//     </div>
-//     <div className="more">
-//       <Dropdown
-//         overlayStyle={{ width: "250px" }}
-//         menu={{
-//           items: more_items,
-//         }}
-//       >
-//         <a onClick={(e) => e.preventDefault()}>
-//           <HiOutlineDotsVertical />
-//         </a>
-//       </Dropdown>
-//     </div>
-//   </div>
-// </header>

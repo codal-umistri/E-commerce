@@ -23,7 +23,7 @@ const MultipleProductCards = () => {
   }, []);
   return (
     <>
-      <Dividers tag={"Top Offers"} />
+      {/* <Dividers tag={"Top Offers"} /> */}
       <Row style={{ marginTop: "2rem" }}>
         <Col span={24}>
           <Flex justify="space-evenly" wrap="wrap">

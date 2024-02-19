@@ -16,7 +16,7 @@ const Section = () => {
         >
           {SECTIONDATA.map((item) => {
             return (
-              <Flex className="section-item" vertical>
+              <Flex className="section-item" key={item.id} vertical>
                 <Image
                   src={item.url}
                   preview={false}

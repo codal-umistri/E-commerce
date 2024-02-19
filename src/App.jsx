@@ -5,24 +5,39 @@ import Section from "./components/Header/Section";
 import SimpleSlider from "./components/Slider/SimpleSlider";
 import GotoTop from "./components/Scroll/GotoTop";
 import LongItem from "./components/Slider/LongItem";
-import AlternateCard from "./components/Cards/AlternateCards";
-import SingleProductCards from "./components/Cards/SingleProductCards";
-import MultipleProductCards from "./components/Cards/MultipleProductCards";
-import Login from "./components/pages/Login";
-import Register from "./components/pages/Register";
-import BecomeSeller from "./components/pages/BecomeSeller";
-import ForgotPassword from "./components/pages/ForgotPassword";
-import Home from "./components/Layout/Home";
+import Dividers from "./components/Divider/Divders";
+import SeeAll from "./components/pages/SeeAll";
+import { Flex, Spin } from "antd";
+import { Suspense, lazy } from "react"; 
+import { useSelector } from "react-redux";
+const SingleProductCards = lazy(() => import("./components/Cards/SingleProductCards"));
 
 function App() {
+
+  // const item = useSelector((store)=> store.Items);
+
+  // console.log(item + " from main layout")
   return (
     <>
-    <Navbar/>
-    <Section/>
-    <SimpleSlider />
-    <MultipleProductCards />
-    <LongItem />
-    <Footer />
+      <Navbar />
+      <Section />
+      <SimpleSlider />
+      <Dividers tag={"Top Products"} />
+      <Flex justify="space-evenly" wrap="wrap">
+            <Suspense
+              fallback={
+                <Flex justify="center" align="center">
+                  <Spin tip="Loading" size="large" />
+                </Flex>
+              }
+            >
+              <SingleProductCards />
+            </Suspense>
+          </Flex>
+      <SeeAll />
+      <LongItem />
+      <Footer />
+      <GotoTop />
     </>
   );
 }

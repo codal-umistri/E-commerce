@@ -28,7 +28,7 @@ const SimpleSlider = () => {
                 src={data.url}
                 alt="banner"
                 preview={false}
-                style={{ width: "225vh", height: "280px" }}
+                style={{ minWidth: "225vh", height: "280px" }}
               />
             </div>
           ))}

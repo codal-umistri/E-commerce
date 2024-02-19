@@ -20,12 +20,12 @@ const Footer = () => {
       <div className="foot-panel2">
         <Flex className="columns" justify="center">
           {FOOTERDATA.map((item, index) => (
-            <div className="column">
+            <div className="column" key={item.title}>
               <List>
                 <List.Item>
-                  <Flex vertical gap={8}>
+                  <Flex vertical gap={8} >
                     <Text className="foot-Panel_txt">{item.title}</Text>
-                    {item.names.map((data) => (
+                    {item.names.map((data, index) => (
                       <Text className="foot-panel_txt">{data}</Text>
                     ))}
                   </Flex>
