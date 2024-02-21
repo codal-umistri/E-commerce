@@ -23,30 +23,25 @@ import { SearchItemsactions } from "../store/searchitems";
 
 const { Text } = Typography;
 
-const Navbar = () => {
+const Navbar = ({ searchInputValue, setSearchInputValue }) => {
   const dispatch = useDispatch();
   const storedData = JSON.parse(localStorage.getItem("logindata"));
   const navigate = useNavigate();
   const inputref = useRef(null);
   const bagitems = useSelector((store) => store.BagItems);
-  const allproducts = JSON.parse(localStorage.getItem("Allproducts"));
+  const allproducts = useSelector((store) => store.SearchItems);
 
-  const handleSearch = () => {
-    console.log(inputref.current.input.value);
-    console.log(typeof inputref.current.input.value);
-
+  const handleSearch = (e) => {
+    setSearchInputValue(e.target.value);
     !inputref.current.input.value
-      ? dispatch(SearchItemsactions.AddAllProdcuts(allproducts))
+      ? dispatch(SearchItemsactions.AddAllProdcuts(allproducts.allProducts))
       : dispatch(
-          SearchItemsactions.AddAllProdcuts(
-            allproducts.filter((item) => {
-              return new RegExp(inputref.current.input.value, "i").test(
-                item.title
-              );
-            })
-          )
+          SearchItemsactions.filterProductsBySearch({
+            input: inputref.current.input.value,
+          })
         );
   };
+
   const limitedBagItems = bagitems.slice(0, 4);
   const menu = bagitems.length ? (
     <Menu>
@@ -97,7 +92,8 @@ const Navbar = () => {
               className="search-box"
               ref={inputref}
               placeholder="Search for Products, Brands and More"
-              onChange={handleSearch}
+              onChange={(e) => handleSearch(e)}
+              value={searchInputValue}
             />
           </Flex>
         </Col>

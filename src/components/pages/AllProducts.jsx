@@ -2,11 +2,8 @@ import { Col, Flex, Row } from "antd";
 import { Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import Navbar from "../Header/Navbar";
 import { Spin } from "antd";
-import Footer from "../Footer/Footer";
 import { SearchItemsactions } from "../store/searchitems";
-
 const SingleProductCard = lazy(() => import("../Cards/SingleProductCard"));
 
 const AllProducts = () => {
@@ -24,20 +21,16 @@ const AllProducts = () => {
         }
         const data = await response.json();
         dispatch(SearchItemsactions.AddAllProdcuts(data.products));
-        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchProducts();
   }, []);
 
-
-
   return (
     <>
-      {Items.length ? (
+      {Items?.filteredProducts?.length ? (
         <Row style={{ marginTop: "2rem" }}>
           <Col span={24}>
             <Flex justify="space-evenly" wrap="wrap">
@@ -48,7 +41,7 @@ const AllProducts = () => {
                   </Flex>
                 }
               >
-                {Items?.map((item) => {
+                {Items?.filteredProducts?.map((item) => {
                   return <SingleProductCard key={item.id} item={item} />;
                 })}
               </Suspense>
@@ -57,7 +50,7 @@ const AllProducts = () => {
         </Row>
       ) : (
         <Flex justify="center">
-        <h2>No items found</h2>
+          <h2>No items found</h2>
         </Flex>
       )}
     </>

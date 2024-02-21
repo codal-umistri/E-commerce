@@ -455,17 +455,15 @@ footer {
 
 .horizontal-line {
     height: 1px;
-    
     background: linear-gradient(to right, black 33%, transparent 0%);
     background-size: 8px 2px;
-    /* Adjust the size to control spacing between dashes */
-}
 
+}
 
 /* cart */
 .price_container {
-    height: 310px;
-    width: 450px;
+    height: fit-content;
+    width: 400px;
     border: 1px solid black;
     border-radius: 10px;
     position: sticky;
@@ -474,4 +472,18 @@ footer {
     background-color: white;
     margin-bottom: 1rem;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.showcoupen {
+    font-size: 18px;
+    display: block;
+}
+
+.showbadge {
+    display: block;
+}
+
+.notshowcoupen {
+    display: none;
 }

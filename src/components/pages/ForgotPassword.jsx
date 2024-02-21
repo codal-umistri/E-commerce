@@ -117,5 +117,3 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
-
-// Enter the email address associated with your account and we'll send you alink to reset you password

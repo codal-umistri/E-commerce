@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import brighspaceStore from "./components/store/index.js";
 import Products from "./components/Layout/products.jsx";
 import Cart from "./components/pages/Cart.jsx";
+import ProductPreview from "./components/pages/ProductPreview.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,12 +34,16 @@ const router = createBrowserRouter([
     element: <BecomeSeller />,
   },
   {
-    path:"/allproducts",
-    element : <Products />
+    path: "/allproducts",
+    element: <Products />,
   },
   {
-    path:"/cart",
-    element : <Cart />
+    path: "/cart",
+    element: <Cart />,
+  },
+  {
+    path:'/single-product/:id',
+    element:<ProductPreview />
   }
 ]);
 

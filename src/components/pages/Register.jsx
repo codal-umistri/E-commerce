@@ -21,8 +21,6 @@ const Register = () => {
 
   const validateConfirmPassword = ({ getFieldValue }) => ({
     validator(_, value) {
-      // console.log("Password Value:", getFieldValue("Password"));
-      // console.log("Confirm Password Value:", value);
       if (!value || getFieldValue("Password") == value) {
         return Promise.resolve();
       }
@@ -194,7 +192,7 @@ const Register = () => {
               </Checkbox>
             </Form.Item>
             <Form.Item>
-            <ConfigProvider
+              <ConfigProvider
                 theme={{
                   components: {
                     Button: {
@@ -203,14 +201,14 @@ const Register = () => {
                   },
                 }}
               >
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="form_btn"
-                style={{ width: "50%", height: "35px" }}
-              >
-                Sign Up
-              </Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="form_btn"
+                  style={{ width: "50%", height: "35px" }}
+                >
+                  Sign Up
+                </Button>
               </ConfigProvider>
             </Form.Item>
           </Form>

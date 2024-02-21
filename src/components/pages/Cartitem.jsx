@@ -4,7 +4,7 @@ import { BagItemsactions } from "../store/Bagitems";
 
 const Cartitem = ({ item }) => {
   const dispatch = useDispatch();
-  
+
   const handleRemoveFromBag = () => {
     dispatch(BagItemsactions.removefromBag(item.id));
   };

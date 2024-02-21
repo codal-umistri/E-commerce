@@ -1,5 +1,3 @@
-//
-
 import { Flex, Row, Col } from "antd";
 import SingleProductCard from "./SingleProductCard";
 import { useEffect, useState } from "react";

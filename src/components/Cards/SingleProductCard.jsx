@@ -3,10 +3,12 @@ import { Rate } from "antd";
 import { FaDollarSign } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { BagItemsactions } from "../store/Bagitems";
+import { useNavigate } from "react-router-dom";
 
 const SingleProductCard = ({ item }) => {
   const dispatch = useDispatch();
   const bagitems = useSelector((store) => store.BagItems);
+  const navigate = useNavigate();
 
   const handleAddtoBag = () => {
     dispatch(BagItemsactions.addtoBag(item));
@@ -27,7 +29,8 @@ const SingleProductCard = ({ item }) => {
           marginTop: 13,
           boxShadow: "4px 8px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "10px",
-          border:"2px solid #37475a "
+          border: "2px solid #37475a ",
+         
         }}
         cover={
           <div style={{ padding: "13px" }}>
@@ -44,6 +47,7 @@ const SingleProductCard = ({ item }) => {
             />
           </div>
         }
+        // onClick={()=> navigate(`/single-product/${item.id}`)}
       >
         <div className="discription">{item.description.slice(0, 35)}</div>
         <div className="rating">

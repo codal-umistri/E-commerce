@@ -1,32 +1,25 @@
 import { Flex } from "antd";
 import { Radio } from "antd";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SearchItemsactions } from "../store/searchitems";
 
-const Catogory = () => {
+const Catogory = ({clearSearchInput}) => {
   const [cat, Setcat] = useState(0);
   const [prange, Setprange] = useState(0);
 
   const dispatch = useDispatch();
-  const allproducts = useSelector((store) => store.SearchItems);
 
   const oncatChange = (e) => {
     Setcat(e.target.value);
+    clearSearchInput();
   };
 
   const onpriceChange = (e) => {
     Setprange(e.target.value);
-    const lvalue = parseInt(e.target.value.split("-")[0]);
-    const rvalue = parseInt(e.target.value.split("-")[1]);
-    //Get Products from Store
+    const [minPrice, maxPrice] = e.target.value.split("-");
     dispatch(
-      SearchItemsactions.AddAllProdcuts(
-        allproducts.filter((item) => {
-          console.log(item.price);
-          return item.price > lvalue && item.price < rvalue;
-        })
-      )
+      SearchItemsactions.filterProductsByPriceRange({ minPrice, maxPrice })
     );
   };
 
@@ -38,16 +31,20 @@ const Catogory = () => {
       console.error("error");
     } else {
       const data = await response.json();
-      dispatch(SearchItemsactions.AddAllProdcuts(data.products));
+      if (prange) {
+        const [minPrice, maxPrice] = prange.split("-");
+        dispatch(SearchItemsactions.AddAllProdcuts(data.products));
+        dispatch(
+          SearchItemsactions.filterProductsByPriceRange({ minPrice, maxPrice })
+        );
+      } else {
+        dispatch(SearchItemsactions.AddAllProdcuts(data.products));
+      }
     }
   };
 
   useEffect(() => {
-    if (cat === 0) {
-      return;
-    } else {
-      filteredproduct();
-    }
+    cat === 0 ? null : filteredproduct();
   }, [cat]);
 
   return (

@@ -113,8 +113,7 @@ export const ITEMS1 = [
           alignItems: "center",
           gap: "6px",
         }}
-        onClick={()=>
-        {
+        onClick={() => {
           localStorage.clear();
         }}
       >
@@ -979,5 +978,24 @@ export const STATES = [
       "Bardhaman",
       "Malda",
     ],
+  },
+];
+
+ export const COUPENCODE = [
+  {
+    Code: "ABC",
+    discountPercentage: 25,
+  },
+  {
+    Code: "BCD",
+    discountPercentage: 15,
+  },
+  {
+    Code: "CDE",
+    discountPercentage: 10,
+  },
+  {
+    Code: "XYZ",
+    discountPercentage: 5,
   },
 ];

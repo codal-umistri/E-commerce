@@ -21,10 +21,6 @@ const BecomeSeller = () => {
   const [SelectedState, SetSelectedState] = useState(false);
   const [citySelected, setCitySelected] = useState(false);
   const [cities, setCities] = useState([]);
-  // const [GSTList, setGSTList] = useState([]);
-  // const [AadharCardList, setAadharCardList] = useState([]);
-  // const [AddressList, setAdressList] = useState([]);
-  // const [PanCardList, setPanCardList] = useState([]);
 
   const handleCityChange = (selectedCity) => {
     if (selectedCity) {
@@ -44,66 +40,6 @@ const BecomeSeller = () => {
       : [];
     setCities(selectedStateCities);
   };
-
-  // const handleGSTListChange = ({ fileList }) => {
-  //   const updatedFileList = fileList.map((file) => {
-  //     if (file.status === "done" || file.status === "uploading") {
-  //       return file;
-  //     } else {
-  //       return {
-  //         ...file,
-  //         status: "error",
-  //       };
-  //     }
-  //   });
-
-  //   setGSTList(updatedFileList.slice(-1));
-  // };
-
-  // const handlePanCardListChange = ({ fileList }) => {
-  //   const updatedFileList = fileList.map((file) => {
-  //     if (file.status === "done" || file.status === "uploading") {
-  //       return file;
-  //     } else {
-  //       return {
-  //         ...file,
-  //         status: "error",
-  //       };
-  //     }
-  //   });
-
-  //   setPanCardList(updatedFileList.slice(-1));
-  // };
-
-  // const handleAadharCardListChange = ({ fileList }) => {
-  //   const updatedFileList = fileList.map((file) => {
-  //     if (file.status === "done" || file.status === "uploading") {
-  //       return file;
-  //     } else {
-  //       return {
-  //         ...file,
-  //         status: "error",
-  //       };
-  //     }
-  //   });
-
-  //   setAadharCardList(updatedFileList.slice(-1));
-  // };
-
-  // const handleAddresListChange = ({ fileList }) => {
-  //   const updatedFileList = fileList.map((file) => {
-  //     if (file.status === "done" || file.status === "uploading") {
-  //       return file;
-  //     } else {
-  //       return {
-  //         ...file,
-  //         status: "error",
-  //       };
-  //     }
-  //   });
-
-  //   setAdressList(updatedFileList.slice(-1));
-  // };
 
   const validateFirstName = (_, value) => {
     const pattern = /[^a-zA-Z]/;

@@ -5,7 +5,7 @@ import SearchItemsSlice from "./searchitems";
 const brighspaceStore = configureStore({
   reducer: {
     BagItems: BagItemsSlice.reducer,
-    SearchItems: SearchItemsSlice.reducer
+    SearchItems: SearchItemsSlice.reducer,
   },
 });
 
