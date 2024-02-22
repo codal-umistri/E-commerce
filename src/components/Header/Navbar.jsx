@@ -14,8 +14,8 @@ import {
   Badge,
   Menu,
 } from "antd";
-import { ITEMS, MORE_ITEMS, ITEMS1 } from "../Constants/Items";
-import { useNavigate } from "react-router-dom";
+import { ITEMS, MORE_ITEMS, ITEMS1 } from "../Constants/Items"; 
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
@@ -27,19 +27,24 @@ const Navbar = ({ searchInputValue, setSearchInputValue }) => {
   const dispatch = useDispatch();
   const storedData = JSON.parse(localStorage.getItem("logindata"));
   const navigate = useNavigate();
+  const location = useLocation();
   const inputref = useRef(null);
   const bagitems = useSelector((store) => store.BagItems);
   const allproducts = useSelector((store) => store.SearchItems);
 
+  // console.log(location.pathname);
+
   const handleSearch = (e) => {
-    setSearchInputValue(e.target.value);
-    !inputref.current.input.value
-      ? dispatch(SearchItemsactions.AddAllProdcuts(allproducts.allProducts))
-      : dispatch(
-          SearchItemsactions.filterProductsBySearch({
-            input: inputref.current.input.value,
-          })
-        );
+    location.pathname == "/allproducts"
+      ? (setSearchInputValue(e.target.value),
+        !inputref.current.input.value
+          ? dispatch(SearchItemsactions.AddAllProdcuts(allproducts.allProducts))
+          : dispatch(
+              SearchItemsactions.filterProductsBySearch({
+                input: inputref.current.input.value,
+              })
+            ))
+      : null;
   };
 
   const limitedBagItems = bagitems.slice(0, 4);
@@ -80,7 +85,14 @@ const Navbar = ({ searchInputValue, setSearchInputValue }) => {
       <Row className="navbar" justify="space-around" align="middle">
         <Col xs={20} sm={16} md={12} lg={8} xl={2} offset={1}>
           <div className="logo">
-            <Image src="images/logo1.png" alt="asca" preview={false} />
+            <Image
+              src="/images/logo1.png"
+              alt="asca"
+              preview={false}
+              onClick={() => {
+                navigate("/");
+              }}
+            />
           </div>
         </Col>
         <Col xs={20} sm={16} md={12} lg={8} xl={10}>

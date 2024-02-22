@@ -8,10 +8,9 @@ import ForgotPassword from "./components/pages/ForgotPassword.jsx";
 import BecomeSeller from "./components/pages/BecomeSeller.jsx";
 import { Provider } from "react-redux";
 import brighspaceStore from "./components/store/index.js";
-import Products from "./components/Layout/products.jsx";
 import Cart from "./components/pages/Cart.jsx";
-import ProductPreview from "./components/pages/ProductPreview.jsx";
-
+import ProductPreview from "./components/Layout/ProductPreview.jsx";
+import FilterProducts from "./components/Layout/FilterProducts.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,22 +34,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/allproducts",
-    element: <Products />,
+    element: <FilterProducts />,
   },
   {
     path: "/cart",
     element: <Cart />,
   },
   {
-    path:'/single-product/:id',
-    element:<ProductPreview />
-  }
+    path: "/single-product/:id",
+    element: <ProductPreview />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={brighspaceStore}>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} >
+      </RouterProvider>
     </Provider>
   </React.StrictMode>
 );

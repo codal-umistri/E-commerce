@@ -12,18 +12,16 @@ body {
 }
 
 /* header */
-
 header {
     background-color: white;
     height: 4.8rem;
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 1001 !important;
 }
 
 .navbar {
     padding-top: 0.295rem;
-
 }
 
 header .search_container {
@@ -119,11 +117,21 @@ header .more:hover {
 }
 
 /* Slider */
-
 .slider {
     margin-top: 1rem;
 }
 
+.carousel-container {
+    padding-left: 70.5px;
+    padding-bottom: 25px;
+}
+
+.carousel-container .react-multi-carousel-arrow {
+    display: none !important;
+  }
+/* .slider1 {
+    z-index: -1;
+} */
 /* footer */
 
 footer {
@@ -184,7 +192,7 @@ footer {
 
 .foot-panel3 .logo1 {
     height: 3.1rem;
-    background-image: url("images/logo1.png");
+    background-image: url("/images/logo1.png");
     background-size: cover;
     width: 6.25rem;
 }

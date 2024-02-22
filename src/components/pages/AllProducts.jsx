@@ -7,6 +7,7 @@ import { SearchItemsactions } from "../store/searchitems";
 const SingleProductCard = lazy(() => import("../Cards/SingleProductCard"));
 
 const AllProducts = () => {
+
   const dispatch = useDispatch();
   let Items = useSelector((store) => {
     return store.SearchItems;
@@ -49,7 +50,7 @@ const AllProducts = () => {
           </Col>
         </Row>
       ) : (
-        <Flex justify="center">
+        <Flex justify="center" align="center" style={{width:"100%" , height:"100%"}}>
           <h2>No items found</h2>
         </Flex>
       )}

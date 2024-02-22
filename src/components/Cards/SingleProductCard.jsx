@@ -17,6 +17,10 @@ const SingleProductCard = ({ item }) => {
     dispatch(BagItemsactions.removefromBag(item.id));
   };
 
+   const handleClick = ()=>
+   {
+    navigate(`/single-product/${item.id}`)
+   }
   return (
     <>
       <Card
@@ -29,11 +33,10 @@ const SingleProductCard = ({ item }) => {
           marginTop: 13,
           boxShadow: "4px 8px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "10px",
-          border: "2px solid #37475a ",
-         
+          border: "2px solid #37475a",
         }}
         cover={
-          <div style={{ padding: "13px" }}>
+          <div style={{ padding: "13px" }}  onClick={handleClick}>
             <Image
               alt="example"
               src={item.images[0]}
@@ -44,10 +47,11 @@ const SingleProductCard = ({ item }) => {
                 height: 120,
                 marginLeft: "50px",
               }}
+              
+              onClick={() => handleClick()}
             />
           </div>
         }
-        // onClick={()=> navigate(`/single-product/${item.id}`)}
       >
         <div className="discription">{item.description.slice(0, 35)}</div>
         <div className="rating">

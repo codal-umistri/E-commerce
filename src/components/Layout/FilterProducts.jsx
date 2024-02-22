@@ -3,8 +3,10 @@ import Navbar from "../Header/Navbar";
 import Catogory from "../Sidebar/Catogory";
 import AllProducts from "../pages/AllProducts";
 import { useState } from "react";
+import GotoTop from "../Scroll/GotoTop";
+import ScrolltoTop from "../Scroll/ScrolltoTop";
 
-const Products = () => {
+const FilterProducts = () => {
   const [searchInputValue, setSearchInputValue] = useState("");
   console.log(searchInputValue);
 
@@ -14,6 +16,7 @@ const Products = () => {
   };
   return (
     <>
+    <ScrolltoTop />
       <Navbar
         searchInputValue={searchInputValue}
         setSearchInputValue={setSearchInputValue}
@@ -26,8 +29,9 @@ const Products = () => {
           <AllProducts />
         </Col>
       </Row>
+      <GotoTop />
     </>
   );
 };
 
-export default Products;
+export default FilterProducts;

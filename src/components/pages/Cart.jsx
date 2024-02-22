@@ -1,18 +1,15 @@
 import { Col, Row, Flex, ConfigProvider, Button, Input } from "antd";
 import Navbar from "../Header/Navbar";
 import { useSelector } from "react-redux";
-import Cartitem from "./Cartitem";
+import Cartitem from "../Cards/Cartitem";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import { COUPENCODE } from "../Constants/Items";
+import GotoTop from "../Scroll/GotoTop";
+import ScrolltoTop from "../Scroll/ScrolltoTop";
 
 const Cart = () => {
-
-
-
-
-  // ajdhgadwgahjgawwjd
   const coupenCode = useRef(null);
   const bagitems = useSelector((store) => store.BagItems);
   const [promoCode, setPromoCode] = useState(null);
@@ -22,11 +19,16 @@ const Cart = () => {
     const code = coupenCode.current.input.value;
     setPromoCode(code);
     const discount = COUPENCODE.find((item) => item.Code === code);
-    discount ? setcoupendiscount([discount]) : setcoupendiscount([]);
+    discount
+      ? setcoupendiscount([discount])
+      : (setcoupendiscount([]),
+        setPromoCode(null),
+        alert("There is no such Coupen-code"));
   };
 
   return (
     <>
+    <ScrolltoTop/>
       <Navbar />
       <Row style={{ marginTop: "1rem", backgroundColor: "transparent" }}>
         <Col span={15}>
@@ -216,6 +218,7 @@ const Cart = () => {
           </Flex>
         </Col>
       </Row>
+      <GotoTop/>
       <Footer />
     </>
   );
