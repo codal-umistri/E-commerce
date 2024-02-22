@@ -2,6 +2,7 @@ import {
   BellOutlined,
   CustomerServiceOutlined,
   DownloadOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
@@ -10,6 +11,119 @@ import { MdOutlineCardGiftcard } from "react-icons/md";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { FaStarOfLife } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+
+export const ITEMS1 = [
+  {
+    label: (
+      <a
+        rel="noopener noreferrer"
+        href="/"
+        style={{
+          fontSize: "17.5px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+        }}
+      >
+        <IoPersonCircleOutline /> <span>My Profile</span>
+      </a>
+    ),
+    key: "1",
+  },
+  {
+    label: (
+      <a
+        rel="noopener noreferrer"
+        href="/"
+        style={{
+          fontSize: "17.5px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+        }}
+      >
+        <FaStarOfLife />
+        <span>Plus Zone</span>
+      </a>
+    ),
+    key: "2",
+  },
+  {
+    label: (
+      <a
+        rel="noopener noreferrer"
+        href="/"
+        style={{
+          fontSize: "17.5px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+        }}
+      >
+        <BsBagCheckFill />
+        <span>Orders</span>
+      </a>
+    ),
+    key: "3",
+  },
+  {
+    label: (
+      <a
+        rel="noopener noreferrer"
+        href="/"
+        style={{
+          fontSize: "17.5px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+        }}
+      >
+        <CiHeart />
+        <span>WishList</span>
+      </a>
+    ),
+    key: "4",
+  },
+  {
+    label: (
+      <a
+        rel="noopener noreferrer"
+        href="/"
+        style={{
+          fontSize: "17.5px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+        }}
+      >
+        <MdOutlineCardGiftcard />
+        <span>Rewards</span>
+      </a>
+    ),
+    key: "5",
+  },
+  {
+    label: (
+      <a
+        rel="noopener noreferrer"
+        href="#"
+        style={{
+          fontSize: "17.5px",
+          display: "flex",
+          alignItems: "center",
+          gap: "6px",
+        }}
+        onClick={() => {
+          localStorage.clear();
+        }}
+      >
+        <LogoutOutlined />
+        <span>Logout</span>
+      </a>
+    ),
+    key: "6",
+  },
+];
 
 export const ITEMS = [
   {
@@ -28,7 +142,7 @@ export const ITEMS = [
     key: "0",
   },
   {
-    label: <div style={{ borderTop: "1px solid /ccc", marginTop: "4.5px" }} />,
+    label: <hr />,
     key: "separator",
   },
   {
@@ -227,6 +341,10 @@ export const BANNERDATA = [
 ];
 
 export const RESPONSIVE = {
+  superLargeDesktop: {
+    breakpoint: { max: 3000, min: 0 },
+    items: 1,
+  },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 1,
@@ -234,6 +352,27 @@ export const RESPONSIVE = {
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 1,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
+  
+  
+export const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 3000, min: 0 },
+    items: 3,
+    slidesToSlide: 3,
+  },
+  desktop: {
+    breakpoint: { max: 1024, min: 800 },
+    items: 4,
+  },
+  tablet: {
+    breakpoint: { max: 800, min: 464 },
+    items: 2,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -864,5 +1003,24 @@ export const STATES = [
       "Bardhaman",
       "Malda",
     ],
+  },
+];
+
+ export const COUPENCODE = [
+  {
+    Code: "ABC",
+    discountPercentage: 25,
+  },
+  {
+    Code: "BCD",
+    discountPercentage: 15,
+  },
+  {
+    Code: "CDE",
+    discountPercentage: 10,
+  },
+  {
+    Code: "XYZ",
+    discountPercentage: 5,
   },
 ];

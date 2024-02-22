@@ -1,37 +1,46 @@
+import React from "react";
 import { Flex, Row, Col } from "antd";
-import { SIMPLECARDDATA } from "../Constants/Items";
 import SingleProductCard from "./SingleProductCard";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const SingleProductCards = () => {
-  const [Carddata, SetCarddata] = useState([]);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    fetch("https://fakestoreapi.com/products?limit=8", { signal })
-      .then((res) => res.json())
-      .then((data) => SetCarddata(data));
-
-    return () => {
-      controller.abort();
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("https://dummyjson.com/products");
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const data = await response.json();
+        localStorage.setItem("Allproducts", JSON.stringify(data.products));
+        setItems(data.products.slice(0, 12));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
+
+    const storedItems = localStorage.getItem("Allproducts");
+    if (storedItems) {
+      setItems(JSON.parse(storedItems).slice(0, 12));
+    } else {
+      fetchProducts();
+    }
   }, []);
 
   return (
-    <>
+    <React.Fragment>
       <Row style={{ marginTop: "2rem" }}>
         <Col span={24}>
           <Flex justify="space-evenly" wrap="wrap">
-            {Carddata.length &&
-              Carddata?.map((item) => {
-                return <SingleProductCard key={item.id} item={item} />;
-              })}
+            {items.map((item) => (
+              <SingleProductCard key={item.id} item={item} />
+            ))}
           </Flex>
         </Col>
       </Row>
-    </>
+    </React.Fragment>
   );
 };
 

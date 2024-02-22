@@ -10,17 +10,13 @@ const SimpleSlider = () => {
       <Col span={23}>
         <Carousel
           responsive={RESPONSIVE}
-          swipeable={false}
-          draggable={false}
-          infinite={true}
+          showDots={true}
+          // // arrows={true}
           autoPlay={true}
-          autoPlaySpeed={2000}
-          keyBoardControl={true}
-          showDots={false}
-          slidesToSlide={1}
-          containerClass="carousel-container"
-          dotListClass="custom-dot-list-style"
-          itemClass="carousel-item-padding-40-px"
+          autoPlaySpeed={5000}
+          infinite={true}
+          // keyBoardControl={true}
+          // className="slider1"
         >
           {BANNERDATA.map((data, index) => (
             <div key={index}>
@@ -28,7 +24,7 @@ const SimpleSlider = () => {
                 src={data.url}
                 alt="banner"
                 preview={false}
-                style={{ width: "225vh", height: "280px" }}
+                style={{ minWidth: "225vh", height: "280px" }}
               />
             </div>
           ))}

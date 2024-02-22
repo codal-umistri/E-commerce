@@ -6,13 +6,11 @@ import {
   Row,
   Col,
   Image,
-  Typography,
   Flex,
 } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-const { Text } = Typography;
 
 const ForgotPassword = () => {
   return (
@@ -35,7 +33,7 @@ const ForgotPassword = () => {
               style={{ marginRight: "12.5px", marginTop: "5px" }}
             >
               <span style={{ fontWeight: "600", color: "#37475a" }}>
-                Enter the email address associated with your account and we'll
+                Enter the email address associated with your account and we`&apos;`ll
                 send you alink to reset you password
               </span>
             </div>
@@ -95,7 +93,7 @@ const ForgotPassword = () => {
           </Form>
 
           <div style={{ marginTop: "20px", marginLeft: "70px" }}>
-            <span>Don't Have an Account? </span>
+            <span>Don`&apos;`t Have an Account? </span>
             <Link to="/register">Register</Link>
           </div>
         </Col>
@@ -117,5 +115,3 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
-
-// Enter the email address associated with your account and we'll send you alink to reset you password

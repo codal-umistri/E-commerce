@@ -1,9 +1,20 @@
-import React from "react";
-import {ConfigProvider, Form, Input, Button, Row, Col, Image, Flex, Checkbox } from "antd";
+import {
+  ConfigProvider,
+  Form,
+  Input,
+  Button,
+  Row,
+  Col,
+  Image,
+  Flex,
+  Checkbox,
+} from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const validatePassword = (_, value) => {
     const uppercaseRegex = /[A-Z]/;
     const lowercaseRegex = /[a-z]/;
@@ -57,7 +68,14 @@ const Login = () => {
             initialValues={{ remember: true }}
             style={{ marginTop: "30px" }}
             onFinish={(values) => {
-              console.log({ values });
+              localStorage.clear();
+              const dataToStore = {
+                Email: values.Email,
+                Password: values.Password,
+                loginstatus: true,
+              };
+              localStorage.setItem("logindata", JSON.stringify(dataToStore));
+              navigate({pathname:'/'});
             }}
             onFinishFailed={(error) => {
               console.log({ error });
@@ -108,7 +126,7 @@ const Login = () => {
               </Form.Item>
             </Flex>
             <Form.Item>
-            <ConfigProvider
+              <ConfigProvider
                 theme={{
                   components: {
                     Button: {
@@ -117,19 +135,19 @@ const Login = () => {
                   },
                 }}
               >
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="form_btn"
-                style={{ width: "50%", height: "35px" }}
-              >
-                Log in
-              </Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="form_btn"
+                  style={{ width: "50%", height: "35px" }}
+                >
+                  Log in
+                </Button>
               </ConfigProvider>
             </Form.Item>
           </Form>
           <div style={{ marginTop: "20px", textAlign: "center" }}>
-            <span>Don't Have an Account? </span>
+            <span>Don`&apos;`t Have an Account? </span>
             <Link to="/register">Register</Link>
           </div>
         </Col>
