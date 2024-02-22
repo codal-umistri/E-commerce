@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "../Header/Navbar";
 import ProductSlider from "../Slider/ProductSlider";
 import Dividers from "../Divider/Divders";
@@ -10,8 +11,8 @@ const Product = lazy(() => import("../pages/Product"));
 
 const ProductPreview = () => {
   return (
-    <>
-    <ScrolltoTop />
+    <React.Fragment>
+      <ScrolltoTop />
       <Navbar />
       <Suspense
         fallback={
@@ -26,7 +27,7 @@ const ProductPreview = () => {
       <ProductSlider />
       <GotoTop />
       <Footer />
-    </>
+    </React.Fragment>
   );
 };
 

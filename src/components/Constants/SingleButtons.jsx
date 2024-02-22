@@ -9,7 +9,7 @@ const SingleButtons = ({ tag, item}) => {
   
     const handleAddtoBag = () => {
       dispatch(BagItemsactions.addtoBag(item));
-      navigate('/cart')
+      navigate({pathname:'/cart'})
     };
 
   return (
@@ -27,7 +27,7 @@ const SingleButtons = ({ tag, item}) => {
         htmlType="submit"
         className="form_btn"
         style={{ width: "35%", height: "40px" }}
-        onClick={handleAddtoBag}
+        onClick={()=> handleAddtoBag()}
       >
         {tag}
       </Button>

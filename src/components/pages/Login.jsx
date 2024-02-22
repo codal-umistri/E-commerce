@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ConfigProvider,
   Form,
@@ -76,7 +75,7 @@ const Login = () => {
                 loginstatus: true,
               };
               localStorage.setItem("logindata", JSON.stringify(dataToStore));
-              navigate("/");
+              navigate({pathname:'/'});
             }}
             onFinishFailed={(error) => {
               console.log({ error });
@@ -148,7 +147,7 @@ const Login = () => {
             </Form.Item>
           </Form>
           <div style={{ marginTop: "20px", textAlign: "center" }}>
-            <span>Don't Have an Account? </span>
+            <span>Don`&apos;`t Have an Account? </span>
             <Link to="/register">Register</Link>
           </div>
         </Col>

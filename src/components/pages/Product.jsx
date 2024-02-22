@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Buttons from "../Constants/Buttons";
 import SingleButtons from "../Constants/SingleButtons";
+import React from "react";
 
 const Product = () => {
   const { id } = useParams();
@@ -14,12 +15,11 @@ const Product = () => {
     }
   );
   const [imgsrc, Setimgsrc] = useState(item[0]?.images[0]);
+  const bagitems = useSelector((store) => store.BagItems);
 
   useEffect(() => {
     Setimgsrc(item[0]?.images[0]);
   }, [id]);
-
-  const bagitems = useSelector((store) => store.BagItems);
 
   return (
     <Flex justify="center">
@@ -58,12 +58,12 @@ const Product = () => {
                 width: "620px",
                 marginTop: "15px",
                 marginLeft: "15px",
-                marginBottom: "px",
+                marginBottom: "15px",
               }}
               justify="space-evenly"
               align="center"
             >
-              {item[0]?.images?.map((item) => (
+              {item[0]?.images?.map((item,index) => (
                 <Image
                   height={85}
                   width={85}
@@ -75,6 +75,7 @@ const Product = () => {
                     borderRadius: "10px",
                     objectFit: "cover",
                   }}
+                  key={index}
                 ></Image>
               ))}
             </Flex>
@@ -144,10 +145,10 @@ const Product = () => {
               }) ? (
                 <Buttons item={item[0]} />
               ) : (
-                <>
+                <React.Fragment>
                   <Buttons item={item[0]} />
                   <SingleButtons tag={"Buy Now"} item={item[0]} />
-                </>
+                  </React.Fragment>
               )}
             </Flex>
           </Flex>

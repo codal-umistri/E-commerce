@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Header/Navbar";
 import Section from "./components/Header/Section";
@@ -16,8 +17,8 @@ const SingleProductCards = lazy(() =>
 
 function App() {
   return (
-    <>
-    <ScrolltoTop/>
+    <React.Fragment>
+      <ScrolltoTop/>
       <Navbar />
       <Section />
       <SimpleSlider />
@@ -37,7 +38,7 @@ function App() {
       <LongItem />
       <Footer />
       <GotoTop />
-    </>
+    </React.Fragment>
   );
 }
 export default App;

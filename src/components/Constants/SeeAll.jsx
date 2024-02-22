@@ -23,7 +23,7 @@ const SeeAll = () => {
           htmlType="submit"
           className="form_btn"
           style={{ width: "25%", height: "35px" }}
-          onClick={() => navigate("/allproducts")}
+          onClick={() => navigate({pathname:'/allproducts'})}
         >
           See All Products
         </Button>

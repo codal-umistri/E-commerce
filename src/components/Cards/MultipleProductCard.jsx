@@ -18,9 +18,10 @@ const MultipleProductCard = ({ item }) => {
         <Row justify="space-evenly">
           {firstFourImages.length &&
             firstFourImages?.map((Item, index) => (
-              <Col span={10} style={{ padding: "7px" }}>
-                <Flex vertical>
+              <Col span={10} style={{ padding: "7px" }} key={index}>
+                <Flex vertical key={index}>
                   <Image
+                  key={index}
                     preview={false}
                     src={Item}
                     height={102}

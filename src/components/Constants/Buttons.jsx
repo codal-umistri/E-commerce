@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, ConfigProvider } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { BagItemsactions } from "../store/Bagitems";
@@ -15,7 +16,7 @@ const Buttons = ({ item }) => {
   };
 
   return (
-    <>
+    <React.Fragment>
       {bagitems.find((Item) => {
         return Item.id == item.id;
       }) ? (
@@ -49,7 +50,7 @@ const Buttons = ({ item }) => {
           </Button>
         </ConfigProvider>
       )}
-    </>
+    </React.Fragment>
   );
 };
 

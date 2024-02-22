@@ -1,3 +1,4 @@
+import React from "react";
 import { Flex, Row, Col } from "antd";
 import { ALTERNATEDATA } from "../Constants/Items";
 import MultipleProductCard from "./MultipleProductCard";
@@ -5,7 +6,7 @@ import SingleProductCard from "./SingleProductCard";
 
 const AlternateCard = () => {
   return (
-    <>
+    <React.Fragment>
       <Row style={{ marginTop: "0.8rem" }}>
         <Col span={24}>
           <Flex justify="space-around" wrap="wrap">
@@ -19,7 +20,7 @@ const AlternateCard = () => {
           </Flex>
         </Col>
       </Row>
-    </>
+    </React.Fragment>
   );
 };
 

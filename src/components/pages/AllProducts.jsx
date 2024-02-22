@@ -1,3 +1,4 @@
+import React from "react";
 import { Col, Flex, Row } from "antd";
 import { Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +31,7 @@ const AllProducts = () => {
   }, []);
 
   return (
-    <>
+    <React.Fragment>
       {Items?.filteredProducts?.length ? (
         <Row style={{ marginTop: "2rem" }}>
           <Col span={24}>
@@ -54,7 +55,7 @@ const AllProducts = () => {
           <h2>No items found</h2>
         </Flex>
       )}
-    </>
+   </React.Fragment>
   );
 };
 

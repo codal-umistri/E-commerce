@@ -1,6 +1,6 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { Flex, Row, Col } from "antd";
-import Dividers from "../Divider/Divders";
 import MultipleProductCard from "./MultipleProductCard";
 
 const MultipleProductCards = () => {
@@ -22,7 +22,7 @@ const MultipleProductCards = () => {
     };
   }, []);
   return (
-    <>
+    <React.Fragment>
       <Row style={{ marginTop: "2rem" }}>
         <Col span={24}>
           <Flex justify="space-evenly" wrap="wrap">
@@ -33,7 +33,7 @@ const MultipleProductCards = () => {
           </Flex>
         </Col>
       </Row>
-    </>
+    </React.Fragment>
   );
 };
 

@@ -1,3 +1,4 @@
+import React from "react";
 import { Col, Row, Flex, ConfigProvider, Button, Input } from "antd";
 import Navbar from "../Header/Navbar";
 import { useSelector } from "react-redux";
@@ -27,13 +28,13 @@ const Cart = () => {
   };
 
   return (
-    <>
-    <ScrolltoTop/>
+    <React.Fragment>
+      <ScrolltoTop />
       <Navbar />
       <Row style={{ marginTop: "1rem", backgroundColor: "transparent" }}>
         <Col span={15}>
           {bagitems.length ? (
-            bagitems.map((item) => <Cartitem item={item} />)
+            bagitems.map((item) => <Cartitem item={item} key={item.id} />)
           ) : (
             <Flex justify="center" align="center" style={{ height: "100%" }}>
               <Link
@@ -79,7 +80,7 @@ const Cart = () => {
                     : "notshowcoupen"
                 }
               >
-                Coupen"{coupenndiscount[0]?.Code}" is Applied
+                Coupen`&quot;`{coupenndiscount[0]?.Code}`&quot;` is Applied
               </span>
             </Flex>
             <Flex vertical gap={20}>
@@ -130,7 +131,7 @@ const Cart = () => {
               </Flex>
             </Flex>
           </Flex>
-          <div class="horizontal-line"></div>
+          <div className="horizontal-line"></div>
           <Flex gap={10} style={{ margin: "15px 0px" }}>
             <span
               style={{
@@ -179,7 +180,7 @@ const Cart = () => {
               </span>
             )}
           </Flex>
-          <div class="horizontal-line"></div>
+          <div className="horizontal-line"></div>
           <Flex justify="center" style={{ margin: "16px 0px" }}>
             <Input
               placeholder="Enter Promo Code"
@@ -218,9 +219,9 @@ const Cart = () => {
           </Flex>
         </Col>
       </Row>
-      <GotoTop/>
+      <GotoTop />
       <Footer />
-    </>
+    </React.Fragment>
   );
 };
 

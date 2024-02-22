@@ -1,3 +1,4 @@
+import React from "react";
 import { Row, Col } from "antd";
 import Navbar from "../Header/Navbar";
 import Catogory from "../Sidebar/Catogory";
@@ -15,8 +16,8 @@ const FilterProducts = () => {
     setSearchInputValue("");
   };
   return (
-    <>
-    <ScrolltoTop />
+    <React.Fragment>
+      <ScrolltoTop />
       <Navbar
         searchInputValue={searchInputValue}
         setSearchInputValue={setSearchInputValue}
@@ -30,7 +31,7 @@ const FilterProducts = () => {
         </Col>
       </Row>
       <GotoTop />
-    </>
+    </React.Fragment>
   );
 };
 

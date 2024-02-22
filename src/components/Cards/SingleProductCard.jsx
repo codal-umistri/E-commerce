@@ -1,3 +1,4 @@
+import React from "react";
 import { Card, Image, Button, Flex, ConfigProvider } from "antd";
 import { Rate } from "antd";
 import { FaDollarSign } from "react-icons/fa";
@@ -17,26 +18,26 @@ const SingleProductCard = ({ item }) => {
     dispatch(BagItemsactions.removefromBag(item.id));
   };
 
-   const handleClick = ()=>
-   {
-    navigate(`/single-product/${item.id}`)
-   }
+  const handleClick = () => {
+    navigate({
+      pathname: `/single-product/${item.id}`,
+    });
+  };
   return (
-    <>
+    <React.Fragment>
       <Card
         title={item.title}
         bordered={true}
         style={{
           width: 370,
           height: 415,
-          borderRadius: "0",
           marginTop: 13,
           boxShadow: "4px 8px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "10px",
           border: "2px solid #37475a",
         }}
         cover={
-          <div style={{ padding: "13px" }}  onClick={handleClick}>
+          <div style={{ padding: "13px" }}>
             <Image
               alt="example"
               src={item.images[0]}
@@ -47,8 +48,9 @@ const SingleProductCard = ({ item }) => {
                 height: 120,
                 marginLeft: "50px",
               }}
-              
-              onClick={() => handleClick()}
+              onClick={() => {
+                handleClick();
+              }}
             />
           </div>
         }
@@ -98,7 +100,7 @@ const SingleProductCard = ({ item }) => {
           )}
         </Flex>
       </Card>
-    </>
+    </React.Fragment>
   );
 };
 

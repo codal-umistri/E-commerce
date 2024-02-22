@@ -1,3 +1,4 @@
+import React from "react";
 import { Flex, Row, Col } from "antd";
 import SingleProductCard from "./SingleProductCard";
 import { useEffect, useState } from "react";
@@ -29,7 +30,7 @@ const SingleProductCards = () => {
   }, []);
 
   return (
-    <>
+    <React.Fragment>
       <Row style={{ marginTop: "2rem" }}>
         <Col span={24}>
           <Flex justify="space-evenly" wrap="wrap">
@@ -39,7 +40,7 @@ const SingleProductCards = () => {
           </Flex>
         </Col>
       </Row>
-    </>
+    </React.Fragment>
   );
 };
 

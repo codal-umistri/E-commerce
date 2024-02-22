@@ -14,7 +14,7 @@ import {
   Badge,
   Menu,
 } from "antd";
-import { ITEMS, MORE_ITEMS, ITEMS1 } from "../Constants/Items"; 
+import { ITEMS, MORE_ITEMS, ITEMS1 } from "../Constants/Items";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,7 @@ const Navbar = ({ searchInputValue, setSearchInputValue }) => {
   const bagitems = useSelector((store) => store.BagItems);
   const allproducts = useSelector((store) => store.SearchItems);
 
-  // console.log(location.pathname);
+  //  console.log(location.pathname);
 
   const handleSearch = (e) => {
     location.pathname == "/allproducts"
@@ -90,7 +90,7 @@ const Navbar = ({ searchInputValue, setSearchInputValue }) => {
               alt="asca"
               preview={false}
               onClick={() => {
-                navigate("/");
+                navigate({pathname:'/'});
               }}
             />
           </div>
@@ -110,7 +110,7 @@ const Navbar = ({ searchInputValue, setSearchInputValue }) => {
           </Flex>
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={2}>
-          <div className="login" align="center" justify="center">
+          <div className="login" >
             {storedData?.loginstatus ? (
               <Dropdown
                 overlayStyle={{ width: "250px" }}
@@ -146,7 +146,7 @@ const Navbar = ({ searchInputValue, setSearchInputValue }) => {
               justify="center"
               onClick={(e) => {
                 e.preventDefault();
-                navigate("/cart");
+                navigate({pathname:'/cart'});
               }}
             >
               <Badge count={bagitems.length} className="ant-badge-count">

@@ -11,6 +11,7 @@ import brighspaceStore from "./components/store/index.js";
 import Cart from "./components/pages/Cart.jsx";
 import ProductPreview from "./components/Layout/ProductPreview.jsx";
 import FilterProducts from "./components/Layout/FilterProducts.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
