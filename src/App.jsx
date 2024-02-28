@@ -1,44 +1,68 @@
-import "./App.css";
 import React from "react";
-import Footer from "./components/Footer/Footer";
-import Navbar from "./components/Header/Navbar";
-import Section from "./components/Header/Section";
-import SimpleSlider from "./components/Slider/SimpleSlider";
-import GotoTop from "./components/Scroll/GotoTop";
-import LongItem from "./components/Constants/LongItem";
-import Dividers from "./components/Divider/Divders";
-import SeeAll from "./components/Constants/SeeAll";
-import { Flex, Spin } from "antd";
-import { Suspense, lazy } from "react";
-import ScrolltoTop from "./components/Scroll/ScrolltoTop";
-const SingleProductCards = lazy(() =>
-  import("./components/Cards/SingleProductCards")
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Login from "./components/pages/Login.jsx";
+import Register from "./components/pages/Register.jsx";
+import ForgotPassword from "./components/pages/ForgotPassword.jsx";
+import BecomeSeller from "./components/pages/BecomeSeller.jsx";
+import { Provider } from "react-redux";
+import brighspaceStore from "./components/store/index.js";
+import Cart from "./components/pages/Cart.jsx";
+import ProductPreview from "./components/Layout/ProductPreview.jsx";
+import FilterProducts from "./components/Layout/FilterProducts.jsx";
+import "./App.css";
+import Home from "./components/Layout/Home.jsx";
+
+
+
+const router = createBrowserRouter([
+      {
+        path: "/",
+        element: <Home />,
+        loader : ()=> {window.scrollTo(0,0);  return null;}
+      },
+      {
+        path: "/allproducts",
+        element: <FilterProducts />,
+        loader : ()=> {window.scrollTo(0,0);  return null;}
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+        loader : ()=> {window.scrollTo(0,0);  return null;}
+      },
+      {
+        path: "/single-product/:id",
+        element: <ProductPreview />,
+        loader : ()=> {window.scrollTo(0,0);  return null;}
+      },
+      {
+        path: "/login",
+        element: <Login />,
+        loader : ()=> {window.scrollTo(0,0);  return null;}
+      },
+      {
+        path: "/register",
+        element: <Register />,
+        loader : ()=> {window.scrollTo(0,0);  return null;}
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+        loader : ()=> {window.scrollTo(0,0);  return null;}
+      },
+      {
+        path: "/become-seller",
+        element: <BecomeSeller />,
+        loader : ()=> {window.scrollTo(0,0);  return null;}
+      },
+    ],
 );
 
-function App() {
+const App = () => {
   return (
-    <React.Fragment>
-      <ScrolltoTop/>
-      <Navbar />
-      <Section />
-      <SimpleSlider />
-      <Dividers tag={"Top Products"} />
-      <Flex justify="space-evenly" wrap="wrap">
-        <Suspense
-          fallback={
-            <Flex justify="center" align="center">
-              <Spin tip="Loading" size="large" />
-            </Flex>
-          }
-        >
-          <SingleProductCards />
-        </Suspense>
-      </Flex>
-      <SeeAll />
-      <LongItem />
-      <Footer />
-      <GotoTop />
-    </React.Fragment>
+    <Provider store={brighspaceStore}>
+      <RouterProvider router={router}></RouterProvider>
+    </Provider>
   );
-}
+};
 export default App;
