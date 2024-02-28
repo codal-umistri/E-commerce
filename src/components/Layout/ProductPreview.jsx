@@ -5,14 +5,14 @@ import Dividers from "../Divider/Divders";
 import Footer from "../Footer/Footer";
 import { Suspense, lazy } from "react";
 import { Flex, Spin } from "antd";
-import GotoTop from "../Scroll/GotoTop";
-import ScrolltoTop from "../Scroll/ScrolltoTop";
+// import GotoTop from "../Scroll/GotoTop";
+// import ScrolltoTop from "../Scroll/ScrolltoTop";
 const Product = lazy(() => import("../pages/Product"));
 
 const ProductPreview = () => {
   return (
     <React.Fragment>
-      <ScrolltoTop />
+      {/* <ScrolltoTop /> */}
       <Navbar />
       <Suspense
         fallback={
@@ -25,7 +25,7 @@ const ProductPreview = () => {
       </Suspense>
       <Dividers tag={"New Arrivals"} />
       <ProductSlider />
-      <GotoTop />
+      {/* <GotoTop /> */}
       <Footer />
     </React.Fragment>
   );

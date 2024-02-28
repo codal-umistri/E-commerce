@@ -29,7 +29,7 @@ const Cart = () => {
 
   return (
     <React.Fragment>
-      <ScrolltoTop />
+      {/* <ScrolltoTop /> */}
       <Navbar />
       <Row style={{ marginTop: "1rem", backgroundColor: "transparent" }}>
         <Col span={15}>
@@ -219,7 +219,7 @@ const Cart = () => {
           </Flex>
         </Col>
       </Row>
-      <GotoTop />
+      {/* <GotoTop /> */}
       <Footer />
     </React.Fragment>
   );
