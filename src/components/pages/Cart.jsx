@@ -7,8 +7,6 @@ import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import { COUPENCODE } from "../Constants/Items";
-import GotoTop from "../Scroll/GotoTop";
-import ScrolltoTop from "../Scroll/ScrolltoTop";
 
 const Cart = () => {
   const coupenCode = useRef(null);
@@ -29,12 +27,13 @@ const Cart = () => {
 
   return (
     <React.Fragment>
-      {/* <ScrolltoTop /> */}
       <Navbar />
       <Row style={{ marginTop: "1rem", backgroundColor: "transparent" }}>
         <Col span={15}>
           {bagitems.length ? (
-            bagitems.map((item) => <Cartitem item={item} key={item.id} />)
+            bagitems.map((item) => (
+              <Cartitem item={item.item} key={item.item.id} />
+            ))
           ) : (
             <Flex justify="center" align="center" style={{ height: "100%" }}>
               <Link
@@ -86,7 +85,7 @@ const Cart = () => {
             <Flex vertical gap={20}>
               <span style={{ fontSize: "18px" }}>
                 {bagitems.reduce((acc, cul) => {
-                  return (acc = acc + cul.price);
+                  return (acc = acc + cul.item.price * cul.quantity);
                 }, 0)}
                 $/-
               </span>
@@ -98,10 +97,13 @@ const Cart = () => {
                 }}
               >
                 -
-                {bagitems.reduce((acc, cul) => {
-                  const price = (cul.price * cul.discountPercentage) / 100;
-                  return (acc = acc + Math.round(price));
-                }, 0)}
+                {bagitems
+                  .filter((item) => item.quantity > 0)
+                  .reduce((acc, cul) => {
+                    const price =
+                      (cul.item.price * cul.item.discountPercentage) / 100;
+                    return (acc = acc + Math.round(price));
+                  }, 0)}
                 $/-
               </span>
               <span style={{ fontSize: "18px", color: "green" }}>Free</span>
@@ -150,13 +152,18 @@ const Cart = () => {
                   fontWeight: "600",
                 }}
               >
-                {bagitems.reduce((acc, cul) => {
-                  return (acc = acc + cul.price);
-                }, 0) -
-                  bagitems.reduce((acc, cul) => {
-                    const price = (cul.price * cul.discountPercentage) / 100;
-                    return (acc = acc + Math.round(price));
-                  }, 0)}
+                {bagitems
+                  .filter((item) => item.quantity > 0)
+                  .reduce((acc, cul) => {
+                    return (acc = acc + cul.item.price);
+                  }, 0) -
+                  bagitems
+                    .filter((item) => item.quantity > 0)
+                    .reduce((acc, cul) => {
+                      const price =
+                        (cul.item.price * cul.item.discountPercentage) / 100;
+                      return (acc = acc + Math.round(price));
+                    }, 0)}
                 $/-
               </span>
             ) : (
@@ -167,13 +174,18 @@ const Cart = () => {
                   fontWeight: "600",
                 }}
               >
-                {((bagitems.reduce((acc, cul) => {
-                  return (acc = acc + cul.price);
-                }, 0) -
-                  bagitems.reduce((acc, cul) => {
-                    const price = (cul.price * cul.discountPercentage) / 100;
-                    return (acc = acc + Math.round(price));
-                  }, 0)) *
+                {((bagitems
+                  .filter((item) => item.quantity > 0)
+                  .reduce((acc, cul) => {
+                    return (acc = acc + cul.item.price);
+                  }, 0) -
+                  bagitems
+                    .filter((item) => item.quantity > 0)
+                    .reduce((acc, cul) => {
+                      const price =
+                        (cul.item.price * cul.item.discountPercentage) / 100;
+                      return (acc = acc + Math.round(price));
+                    }, 0)) *
                   coupenndiscount[0]?.discountPercentage) /
                   100}
                 $/-
@@ -185,13 +197,27 @@ const Cart = () => {
             <Input
               placeholder="Enter Promo Code"
               ref={coupenCode}
-              disabled={bagitems?.length ? false : true}
+              disabled={
+                bagitems.reduce((acc, cul) => {
+                  console.log(cul.quantity);
+                  return (acc = acc + cul.quantity);
+                }, 0) === 0
+                  ? true
+                  : false
+              }
               style={{ marginRight: "10px", width: "200px" }}
             />
             <Button
               type="primary"
               onClick={applyPromoCode}
-              disabled={bagitems?.length ? false : true}
+              disabled={
+                bagitems.reduce((acc, cul) => {
+                  console.log(cul.quantity);
+                  return (acc = acc + cul.quantity);
+                }, 0) === 0
+                  ? true
+                  : false
+              }
               style={{ height: "35px", backgroundColor: "green" }}
             >
               Apply
@@ -219,7 +245,6 @@ const Cart = () => {
           </Flex>
         </Col>
       </Row>
-      {/* <GotoTop /> */}
       <Footer />
     </React.Fragment>
   );

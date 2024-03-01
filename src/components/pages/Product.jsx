@@ -134,14 +134,14 @@ const Product = () => {
               style={{ marginTop: "25px" }}
               justify={
                 bagitems.find((Item) => {
-                  return Item.id == item[0].id;
+                  return Item.item.id == item[0].id;
                 })
                   ? "center"
                   : "space-around"
               }
             >
               {bagitems.find((Item) => {
-                return Item.id == item[0].id;
+                return Item.item.id == item[0].id;
               }) ? (
                 <Buttons item={item[0]} />
               ) : (

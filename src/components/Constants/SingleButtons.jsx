@@ -8,7 +8,7 @@ const SingleButtons = ({ tag, item}) => {
     const navigate = useNavigate();
   
     const handleAddtoBag = () => {
-      dispatch(BagItemsactions.addtoBag(item));
+      dispatch(BagItemsactions.addtoBag({item: item, quantity:1}));
       navigate({pathname:'/cart'})
     };
 
@@ -18,7 +18,7 @@ const SingleButtons = ({ tag, item}) => {
         components: {
           Button: {
             colorPrimaryHover: "green",
-          },
+          },  
         },
       }}
     >

@@ -1,12 +1,23 @@
 import { Flex, Image, Rate, Button } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BagItemsactions } from "../store/Bagitems";
+import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 
 const Cartitem = ({ item }) => {
   const dispatch = useDispatch();
 
+  const bagitems = useSelector((store) => store.BagItems);
+
   const handleRemoveFromBag = () => {
     dispatch(BagItemsactions.removefromBag(item.id));
+  };
+
+  const handleaddQuantity = () => {
+    dispatch(BagItemsactions.addQuantity(item.id));
+  };
+
+  const handleminusQuantity = () => {
+    dispatch(BagItemsactions.minusQuantity(item.id));
   };
   return (
     <div className="cart_container">
@@ -52,20 +63,43 @@ const Cartitem = ({ item }) => {
                 {item.discountPercentage}% Off
               </span>
             </Flex>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="form_btn"
-              style={{
-                width: "200px",
-                height: "35px",
-                backgroundColor: "red",
-                marginTop: "10px",
-              }}
-              onClick={handleRemoveFromBag}
-            >
-              remove from cart
-            </Button>
+            <Flex gap={40}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="form_btn"
+                style={{
+                  width: "200px",
+                  height: "35px",
+                  backgroundColor: "red",
+                  marginTop: "10px",
+                }}
+                onClick={handleRemoveFromBag}
+              >
+                remove from cart
+              </Button>
+              <Flex
+                style={{ marginTop: "8px", fontSize: "17px" }}
+                align="center"
+                gap={20}
+              >
+                <Button onClick={handleaddQuantity}>
+                  <PlusCircleOutlined />
+                </Button>
+                {bagitems.find((Item) => Item.item.id === item.id).quantity}
+                <Button
+                  onClick={handleminusQuantity}
+                  disabled={
+                    bagitems.find((Item) => Item.item.id == item.id)
+                      .quantity === 0
+                      ? true
+                      : false
+                  }
+                >
+                  <MinusCircleOutlined />
+                </Button>
+              </Flex>
+            </Flex>
           </Flex>
         </div>
       </Flex>

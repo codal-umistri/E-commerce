@@ -12,51 +12,72 @@ import FilterProducts from "./components/Layout/FilterProducts.jsx";
 import "./App.css";
 import Home from "./components/Layout/Home.jsx";
 
-
-
 const router = createBrowserRouter([
-      {
-        path: "/",
-        element: <Home />,
-        loader : ()=> {window.scrollTo(0,0);  return null;}
-      },
-      {
-        path: "/allproducts",
-        element: <FilterProducts />,
-        loader : ()=> {window.scrollTo(0,0);  return null;}
-      },
-      {
-        path: "/cart",
-        element: <Cart />,
-        loader : ()=> {window.scrollTo(0,0);  return null;}
-      },
-      {
-        path: "/single-product/:id",
-        element: <ProductPreview />,
-        loader : ()=> {window.scrollTo(0,0);  return null;}
-      },
-      {
-        path: "/login",
-        element: <Login />,
-        loader : ()=> {window.scrollTo(0,0);  return null;}
-      },
-      {
-        path: "/register",
-        element: <Register />,
-        loader : ()=> {window.scrollTo(0,0);  return null;}
-      },
-      {
-        path: "/forgot-password",
-        element: <ForgotPassword />,
-        loader : ()=> {window.scrollTo(0,0);  return null;}
-      },
-      {
-        path: "/become-seller",
-        element: <BecomeSeller />,
-        loader : ()=> {window.scrollTo(0,0);  return null;}
-      },
-    ],
-);
+  {
+    path: "/",
+    element: <Home />,
+    loader: () => {
+      window.scrollTo(0, 0);
+      return null;
+    },
+  },
+  {
+    path: "/allproducts",
+    element: <FilterProducts />,
+    loader: () => {
+      window.scrollTo(0, 0);
+      return null;
+    },
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
+    loader: () => {
+      window.scrollTo(0, 0);
+      return null;
+    },
+  },
+  {
+    path: "/single-product/:id",
+    element: <ProductPreview />,
+    loader: () => {
+      window.scrollTo(0, 0);
+      return null;
+    },
+  },
+  {
+    path: "/login",
+    element: <Login />,
+    loader: () => {
+      window.scrollTo(0, 0);
+      return null;
+    },
+  },
+  {
+    path: "/register",
+    element: <Register />,
+    loader: () => {
+      window.scrollTo(0, 0);
+      return null;
+    },
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+    loader: () => {
+      window.scrollTo(0, 0);
+      return null;
+    },
+  },
+  {
+    path: "/become-seller",
+    element: <BecomeSeller />,
+    loader: () => {
+      window.scrollTo(0, 0);
+      return null;
+    },
+  },
+]);
 
 const App = () => {
   return (
