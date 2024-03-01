@@ -12,7 +12,7 @@ const SingleProductCard = ({ item }) => {
   const navigate = useNavigate();
 
   const handleAddtoBag = () => {
-    dispatch(BagItemsactions.addtoBag(item));
+    dispatch(BagItemsactions.addtoBag({item: item, quantity:1}));
   };
   const handleRemoveFromBag = () => {
     dispatch(BagItemsactions.removefromBag(item.id));
@@ -66,7 +66,7 @@ const SingleProductCard = ({ item }) => {
         </div>
         <Flex align="center" justify="center" className="card">
           {bagitems.find((Item) => {
-            return Item.id == item.id;
+            return Item.item.id == item.id;
           }) ? (
             <Button
               type="primary"

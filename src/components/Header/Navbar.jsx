@@ -32,7 +32,6 @@ const Navbar = ({ searchInputValue, setSearchInputValue }) => {
   const bagitems = useSelector((store) => store.BagItems);
   const allproducts = useSelector((store) => store.SearchItems);
 
-  //  console.log(location.pathname);
 
   const handleSearch = (e) => {
     location.pathname == "/allproducts"
@@ -47,19 +46,19 @@ const Navbar = ({ searchInputValue, setSearchInputValue }) => {
       : null;
   };
 
-  const limitedBagItems = bagitems.slice(0, 4);
+  const limitedBagItems = bagitems.slice(0, 4);;
   const menu = bagitems.length ? (
     <Menu>
       {limitedBagItems.map((item) => (
-        <Menu.Item key={item.id}>
+        <Menu.Item key={item.item.id}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <img
-              src={item.images[0]}
-              alt={item.name}
+              src={item.item.images[0]}
+              alt={item.item.name}
               style={{ width: "30px", marginRight: "10px" }}
             />
             <div>
-              <div>{item.title}</div>
+              <div>{item.item.title}</div>
             </div>
           </div>
         </Menu.Item>
