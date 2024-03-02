@@ -5,19 +5,28 @@ import { useSelector } from "react-redux";
 import Cartitem from "../Cards/Cartitem";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { COUPENCODE } from "../Constants/Items";
 
 const Cart = () => {
-  const coupenCode = useRef(null);
   const bagitems = useSelector((store) => store.BagItems);
+  const [input, setinput] = useState(null);
   const [promoCode, setPromoCode] = useState(null);
   const [coupenndiscount, setcoupendiscount] = useState([]);
 
-  const applyPromoCode = () => {
-    const code = coupenCode.current.input.value;
-    setPromoCode(code);
-    const discount = COUPENCODE.find((item) => item.Code === code);
+  const anyItemHasQuantity = () => {
+    return bagitems.some((item) => item.quantity > 0);
+  };
+
+  const cancelPromoCode = () => {
+    setinput("");
+    setPromoCode(null);
+    setcoupendiscount([]);
+  };
+
+  const applyPromoCode = async () => {
+    setPromoCode(input);
+    const discount = COUPENCODE.find((item) => item.Code === input);
     discount
       ? setcoupendiscount([discount])
       : (setcoupendiscount([]),
@@ -71,15 +80,25 @@ const Cart = () => {
                 Price ({bagitems.length} items)
               </span>
               <span style={{ fontSize: "18px" }}>Discount</span>
-              <span style={{ fontSize: "18px" }}>Delivery Charges</span>
               <span
                 className={
-                  promoCode !== null && bagitems.length
+                  bagitems.reduce((acc, cul) => {
+                    return (acc = acc + cul.quantity);
+                  }, 0)
                     ? "showcoupen"
                     : "notshowcoupen"
                 }
               >
-                Coupen`&quot;`{coupenndiscount[0]?.Code}`&quot;` is Applied
+                Delivery Charges
+              </span>
+              <span
+                className={
+                  promoCode !== null && anyItemHasQuantity()
+                    ? "showcoupen"
+                    : "notshowcoupen"
+                }
+              >
+                Coupen&quot;{coupenndiscount[0]?.Code}&quot; is Applied
               </span>
             </Flex>
             <Flex vertical gap={20}>
@@ -106,11 +125,22 @@ const Cart = () => {
                   }, 0)}
                 $/-
               </span>
-              <span style={{ fontSize: "18px", color: "green" }}>Free</span>
+              <span
+                style={{ color: "green" }}
+                className={
+                  bagitems.reduce((acc, cul) => {
+                    return (acc = acc + cul.quantity);
+                  }, 0)
+                    ? "showcoupen"
+                    : "notshowcoupen"
+                }
+              >
+                Free
+              </span>
               <Flex align="center" gap={3}>
                 <span
                   className={
-                    promoCode !== null && bagitems.length
+                    promoCode !== null && anyItemHasQuantity()
                       ? "showcoupen"
                       : "notshowcoupen"
                   }
@@ -121,7 +151,7 @@ const Cart = () => {
                 {
                   <span
                     className={
-                      promoCode !== null && bagitems.length
+                      promoCode !== null && anyItemHasQuantity()
                         ? "showbadge"
                         : "notshowcoupen"
                     }
@@ -193,13 +223,13 @@ const Cart = () => {
             )}
           </Flex>
           <div className="horizontal-line"></div>
-          <Flex justify="center" style={{ margin: "16px 0px" }}>
+          <Flex justify="space-evenly" style={{ margin: "16px 0px" }}>
             <Input
               placeholder="Enter Promo Code"
-              ref={coupenCode}
+              value={input}
+              onChange={(e) => setinput(e.target.value)}
               disabled={
                 bagitems.reduce((acc, cul) => {
-                  console.log(cul.quantity);
                   return (acc = acc + cul.quantity);
                 }, 0) === 0
                   ? true
@@ -212,7 +242,6 @@ const Cart = () => {
               onClick={applyPromoCode}
               disabled={
                 bagitems.reduce((acc, cul) => {
-                  console.log(cul.quantity);
                   return (acc = acc + cul.quantity);
                 }, 0) === 0
                   ? true
@@ -221,6 +250,22 @@ const Cart = () => {
               style={{ height: "35px", backgroundColor: "green" }}
             >
               Apply
+            </Button>
+            <Button
+              type="primary"
+              onClick={cancelPromoCode}
+              disabled={
+                promoCode == null ||
+                bagitems.reduce((acc, cul) => {
+                  console.log(cul.quantity);
+                  return (acc = acc + cul.quantity);
+                }, 0) === 0
+                  ? true
+                  : false
+              }
+              style={{ height: "35px", backgroundColor: "green" }}
+            >
+              Cancel
             </Button>
           </Flex>
           <Flex justify="center" style={{ margin: "24px 0px" }}>

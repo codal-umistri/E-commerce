@@ -2,9 +2,11 @@ import { Flex, Image, Rate, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { BagItemsactions } from "../store/Bagitems";
 import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const Cartitem = ({ item }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const bagitems = useSelector((store) => store.BagItems);
 
@@ -19,10 +21,16 @@ const Cartitem = ({ item }) => {
   const handleminusQuantity = () => {
     dispatch(BagItemsactions.minusQuantity(item.id));
   };
+
+  const handleClick = () => {
+    navigate({
+      pathname: `/single-product/${item.id}`,
+    });
+  };
   return (
     <div className="cart_container">
       <Flex>
-        <div className="image">
+        <div className="image" >
           <Image
             preview={false}
             src={item.images[0]}
@@ -32,6 +40,10 @@ const Cartitem = ({ item }) => {
               paddingTop: "7.5px",
               paddingLeft: "10px",
               borderRadius: "15px",
+            }}
+            onClick={() => {
+              console.log("heyyyyy")
+              handleClick();
             }}
           />
         </div>
