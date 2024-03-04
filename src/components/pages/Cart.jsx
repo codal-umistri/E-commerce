@@ -15,7 +15,6 @@ const Cart = () => {
   const [promoCode, setPromoCode] = useState(null);
   const [coupenndiscount, setcoupendiscount] = useState([]);
 
-
   const anyItemHasQuantity = () => {
     return bagitems.some((item) => item.quantity > 0);
   };
@@ -51,7 +50,7 @@ const Cart = () => {
         },
         body: JSON.stringify({
           products: bagitems,
-          promoCode: promoCode, 
+          promoCode: promoCode,
         }),
       }
     );
@@ -153,13 +152,14 @@ const Cart = () => {
                 }}
               >
                 -
-                {bagitems
-                  .filter((item) => item.quantity > 0)
-                  .reduce((acc, cul) => {
-                    const price =
-                      (cul.item.price * cul.item.discountPercentage) / 100;
-                    return (acc = acc + Math.round(price));
-                  }, 0)}
+                {bagitems.reduce((acc, cul) => {
+                  const price =
+                    (cul.item.price *
+                      cul.quantity *
+                      cul.item.discountPercentage) /
+                    100;
+                  return (acc = acc + Math.round(price));
+                }, 0)}
                 $/-
               </span>
               <span
@@ -219,18 +219,17 @@ const Cart = () => {
                   fontWeight: "600",
                 }}
               >
-                {bagitems
-                  .filter((item) => item.quantity > 0)
-                  .reduce((acc, cul) => {
-                    return (acc = acc + cul.item.price);
-                  }, 0) -
-                  bagitems
-                    .filter((item) => item.quantity > 0)
-                    .reduce((acc, cul) => {
-                      const price =
-                        (cul.item.price * cul.item.discountPercentage) / 100;
-                      return (acc = acc + Math.round(price));
-                    }, 0)}
+                {bagitems.reduce((acc, cul) => {
+                  return (acc = acc + cul.item.price * cul.quantity);
+                }, 0) -
+                  bagitems.reduce((acc, cul) => {
+                    const price =
+                      (cul.item.price *
+                        cul.quantity *
+                        cul.item.discountPercentage) /
+                      100;
+                    return (acc = acc + Math.round(price));
+                  }, 0)}
                 $/-
               </span>
             ) : (
@@ -241,18 +240,17 @@ const Cart = () => {
                   fontWeight: "600",
                 }}
               >
-                {((bagitems
-                  .filter((item) => item.quantity > 0)
-                  .reduce((acc, cul) => {
-                    return (acc = acc + cul.item.price);
-                  }, 0) -
-                  bagitems
-                    .filter((item) => item.quantity > 0)
-                    .reduce((acc, cul) => {
-                      const price =
-                        (cul.item.price * cul.item.discountPercentage) / 100;
-                      return (acc = acc + Math.round(price));
-                    }, 0)) *
+                {((bagitems.reduce((acc, cul) => {
+                  return (acc = acc + cul.item.price * cul.quantity);
+                }, 0) -
+                  bagitems.reduce((acc, cul) => {
+                    const price =
+                      (cul.item.price *
+                        cul.quantity *
+                        cul.item.discountPercentage) /
+                      100;
+                    return (acc = acc + Math.round(price));
+                  }, 0)) *
                   coupenndiscount[0]?.discountPercentage) /
                   100}
                 $/-
@@ -294,7 +292,7 @@ const Cart = () => {
               disabled={
                 promoCode == null ||
                 bagitems.reduce((acc, cul) => {
-                  console.log(cul.quantity);
+                  // console.log(cul.quantity);
                   return (acc = acc + cul.quantity);
                 }, 0) === 0
                   ? true

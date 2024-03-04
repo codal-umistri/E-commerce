@@ -9,20 +9,85 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const COUPENCODE = [
+  {
+    Code: "ABC",
+    discountPercentage: 25,
+  },
+  {
+    Code: "BCD",
+    discountPercentage: 15,
+  },
+  {
+    Code: "CDE",
+    discountPercentage: 10,
+  },
+  {
+    Code: "XYZ",
+    discountPercentage: 5,
+  },
+];
+
 app.post("/api/v1/create-checkout-session", async (req, res) => {
   const { products, promoCode } = req.body;
 
-  const lineItems = products.map((product) => ({
-    price_data: {
-      currency: "usd",
-      product_data: {
-        name: product.item.title,
-        images: [product.item.images[0]],
-      },
-      unit_amount: Math.round(product.item.price * 100),
-    },
-    quantity: product.quantity,
-  }));
+  const CoupenDiscount =
+    promoCode !== null
+      ? COUPENCODE.find((item) => {
+          return item.Code === promoCode;
+        })
+      : null;
+
+  const CoupenDiscounForEachItem =
+    CoupenDiscount !== null
+      ? CoupenDiscount.discountPercentage /
+        products.reduce((acc, cul) => {
+          return (acc = acc + cul.quantity);
+        }, 0)
+      : null;
+
+  const lineItems =
+    promoCode === null
+      ? products.map((product) => ({
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: product.item.title,
+              images: [product.item.images[0]],
+            },
+            unit_amount: Math.round(
+              (product.item.price * product.quantity -
+                (product.item.price *
+                  product.quantity *
+                  product.item.discountPercentage) /
+                  100) *
+                100
+            ),
+          },
+          quantity: product.quantity,
+        }))
+      : products.map((product) => ({
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: product.item.title,
+              images: [product.item.images[0]],
+            },
+            unit_amount: Math.round(
+              (product.item.price * product.quantity -
+                (product.item.price *
+                  product.quantity *
+                  product.item.discountPercentage) /
+                  100 -
+                ((product.item.price -
+                  product.item.price * product.item.discountPercentage) *
+                  CoupenDiscounForEachItem) /
+                  100) *
+                100
+            ),
+          },
+          quantity: product.quantity,
+        }));
 
   try {
     const session = await stripe.checkout.sessions.create({
