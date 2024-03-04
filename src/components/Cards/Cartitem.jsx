@@ -103,7 +103,7 @@ const Cartitem = ({ item }) => {
                   onClick={handleminusQuantity}
                   disabled={
                     bagitems.find((Item) => Item.item.id == item.id)
-                      .quantity === 0
+                      .quantity === 1
                       ? true
                       : false
                   }

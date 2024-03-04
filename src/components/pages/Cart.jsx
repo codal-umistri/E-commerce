@@ -7,12 +7,14 @@ import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { COUPENCODE } from "../Constants/Items";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () => {
   const bagitems = useSelector((store) => store.BagItems);
   const [input, setinput] = useState(null);
   const [promoCode, setPromoCode] = useState(null);
   const [coupenndiscount, setcoupendiscount] = useState([]);
+
 
   const anyItemHasQuantity = () => {
     return bagitems.some((item) => item.quantity > 0);
@@ -32,6 +34,37 @@ const Cart = () => {
       : (setcoupendiscount([]),
         setPromoCode(null),
         alert("There is no such Coupen-code"));
+  };
+
+  const handlePlaceOrder = async () => {
+    const stripe = await loadStripe(
+      "pk_test_51OqXAgSINGykgmo3pAZ1len5t0ULnYYCs1diCeHF3vPgTadqVO7ocDT2Io5E2NGGrZ4SxYdcqaWWSulGEG0WTUwi00uOYYNZY2"
+    );
+    console.log(bagitems);
+
+    const response = await fetch(
+      "http://localhost:4040/api/v1/create-checkout-session",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          products: bagitems,
+          promoCode: promoCode, 
+        }),
+      }
+    );
+
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.log(result.error);
+    }
   };
 
   return (
@@ -77,7 +110,11 @@ const Cart = () => {
           <Flex style={{ margin: "10px 0px" }} justify="space-around">
             <Flex vertical gap={20}>
               <span style={{ fontSize: "18px" }}>
-                Price ({bagitems.length} items)
+                Price (
+                {bagitems.reduce((acc, cul) => {
+                  return (acc = acc + cul.quantity);
+                }, 0)}{" "}
+                items)
               </span>
               <span style={{ fontSize: "18px" }}>Discount</span>
               <span
@@ -283,6 +320,7 @@ const Cart = () => {
                 htmlType="submit"
                 className="form_btn"
                 style={{ width: "50%", height: "35px" }}
+                onClick={() => handlePlaceOrder()}
               >
                 PLACE ORDER
               </Button>

@@ -128,11 +128,7 @@ header .more:hover {
 
 .carousel-container .react-multi-carousel-arrow {
     display: none !important;
-  }
-/* .slider1 {
-    z-index: -1;
-} */
-/* footer */
+}
 
 footer {
     margin-top: 15px;
@@ -233,7 +229,6 @@ footer {
 }
 
 /* Gototop */
-
 .section-wrapper {
     display: flex;
     justify-content: center;
@@ -282,7 +277,6 @@ footer {
 }
 
 /* Simple Card */
-
 .discription {
     font-size: 15px;
     font-weight: 600;
@@ -318,7 +312,6 @@ footer {
 }
 
 /* LongItem */
-
 .long_container {
     background-image: url("https://i.ebayimg.com/00/s/NDEzWDE2MDA=/z/HOMAAOSw0nFlrleq/$_57.JPG");
     height: 20.62rem;
@@ -365,7 +358,6 @@ footer {
 }
 
 /* Card */
-
 .Cards {
     width: 370px;
     background-color: white;
@@ -404,7 +396,6 @@ footer {
 }
 
 /* Login page */
-
 .login_container {
     background-color: white;
     width: 32rem;
@@ -445,7 +436,6 @@ footer {
     background-color: green;
 }
 
-
 /* cart_item */
 .cart_container {
     height: 220px;
@@ -482,7 +472,6 @@ footer {
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
 }
 
-
 .showcoupen {
     font-size: 18px;
     display: block;
@@ -494,4 +483,12 @@ footer {
 
 .notshowcoupen {
     display: none;
+}
+
+/* success page */
+.success_container {
+    background-color: white;
+    width: 27rem;
+    height: 17rem;
+    border-radius: 0.5rem;
 }

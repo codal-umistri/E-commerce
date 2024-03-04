@@ -11,6 +11,8 @@ import ProductPreview from "./components/Layout/ProductPreview.jsx";
 import FilterProducts from "./components/Layout/FilterProducts.jsx";
 import "./App.css";
 import Home from "./components/Layout/Home.jsx";
+import SuccessPayment from "./components/pages/SuccessPayment.jsx";
+import CancelPayment from "./components/pages/CancelPayment.jsx";
 
 const scrollToTop = () => {
   window.scrollTo(0, 0);
@@ -56,6 +58,16 @@ const router = createBrowserRouter([
   {
     path: "/become-seller",
     element: <BecomeSeller />,
+    loader: scrollToTop,
+  },
+  {
+    path: "/success",
+    element: <SuccessPayment />,
+    loader: scrollToTop,
+  },
+  {
+    path: "/cancel",
+    element: <CancelPayment />,
     loader: scrollToTop,
   },
 ]);
