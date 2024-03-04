@@ -1,6 +1,4 @@
-<center>## React + Vite (E-commerce Simple Project)</center>
-
-## Description
+## React + Vite (E-commerce Simple Project)
 
 This project is a simple e-commerce application built using React and various libraries. It utilizes a dummy JSON API to simulate backend functionality.
 
