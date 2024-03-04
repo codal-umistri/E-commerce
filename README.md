@@ -1,30 +1,30 @@
-## React + Vite (E-commerce Simple Project)
-
-Creating a beautiful and effective README file is crucial for your project, as it serves as the first point of contact for potential users and collaborators. Here's a template you can use to craft your README:
+<center>## React + Vite (E-commerce Simple Project)</center>
 
 ## Description
+
 This project is a simple e-commerce application built using React and various libraries. It utilizes a dummy JSON API to simulate backend functionality.
 
 ## Features
-Browse products
-Add products to cart
-Checkout functionality
-Search a product
-Filter products
+ 1. Browse products
+ 2. Add products to cart 
+ 3. Checkout functionality
+ 4. Search a product
+ 5. Filter products
 
 ## Technologies Used
-React
-React Router DOM
-Redux Toolkit
-Ant Design
-Styled Components
-Stripe for payments
+ 1. React
+ 2. React Router DOM
+ 3. Redux Toolkit
+ 4. Ant Design
+ 5. Styled Components
+ 6. Stripe for payments
 
  ## Installation
-Clone the repository using command ```git clone https://github.com/codal-umistri/jwt_verification.git ```
-Navigate to the project directory.
-Run ```npm install``` to install dependencies.
-Run ```npm run dev``` to start the development server.
+ 1. Clone the repository using command <br>
+ ```git clone https://github.com/codal-umistri/jwt_verification.git ```
+ 2. Navigate to the project directory.
+ 3. Run ```npm install``` to install dependencies.
+ 4. Run ```npm run dev``` to start the development server.
 
 
 ## Acknowledgements
