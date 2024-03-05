@@ -15,17 +15,13 @@ const Cart = () => {
   const [promoCode, setPromoCode] = useState(null);
   const [coupenndiscount, setcoupendiscount] = useState([]);
 
-  const anyItemHasQuantity = () => {
-    return bagitems.some((item) => item.quantity > 0);
-  };
-
   const cancelPromoCode = () => {
     setinput("");
     setPromoCode(null);
     setcoupendiscount([]);
   };
 
-  const applyPromoCode = async () => {
+  const applyPromoCode = () => {
     setPromoCode(input);
     const discount = COUPENCODE.find((item) => item.Code === input);
     discount
@@ -92,137 +88,67 @@ const Cart = () => {
           )}
         </Col>
         <Col span={7} offset={1} className="price_container">
-          <Flex justify="center">
-            <span
-              style={{
-                fontSize: "18px",
-                fontWeight: "500",
-                padding: "10px 0px",
-                color: "#007185",
-                opacity: 0.8,
-              }}
-            >
-              PRICE DETAILS
-            </span>
-          </Flex>
-          <hr />
-          <Flex style={{ margin: "10px 0px" }} justify="space-around">
-            <Flex vertical gap={20}>
-              <span style={{ fontSize: "18px" }}>
-                Price (
-                {bagitems.reduce((acc, cul) => {
-                  return (acc = acc + cul.quantity);
-                }, 0)}{" "}
-                items)
-              </span>
-              <span style={{ fontSize: "18px" }}>Discount</span>
-              <span
-                className={
-                  bagitems.reduce((acc, cul) => {
-                    return (acc = acc + cul.quantity);
-                  }, 0)
-                    ? "showcoupen"
-                    : "notshowcoupen"
-                }
-              >
-                Delivery Charges
-              </span>
-              <span
-                className={
-                  promoCode !== null && anyItemHasQuantity()
-                    ? "showcoupen"
-                    : "notshowcoupen"
-                }
-              >
-                Coupen&quot;{coupenndiscount[0]?.Code}&quot; is Applied
-              </span>
-            </Flex>
-            <Flex vertical gap={20}>
-              <span style={{ fontSize: "18px" }}>
-                {bagitems.reduce((acc, cul) => {
-                  return (acc = acc + cul.item.price * cul.quantity);
-                }, 0)}
-                $/-
-              </span>
+          <Flex vertical>
+            <Flex justify="center">
               <span
                 style={{
                   fontSize: "18px",
-                  color: "green",
-                  marginRight: "10px",
+                  fontWeight: "500",
+                  padding: "10px 0px",
+                  color: "#007185",
+                  opacity: 0.8,
                 }}
               >
-                -
-                {bagitems.reduce((acc, cul) => {
-                  const price =
-                    (cul.item.price *
-                      cul.quantity *
-                      cul.item.discountPercentage) /
-                    100;
-                  return (acc = acc + Math.round(price));
-                }, 0)}
-                $/-
+                PRICE DETAILS
               </span>
-              <span
-                style={{ color: "green" }}
-                className={
-                  bagitems.reduce((acc, cul) => {
+            </Flex>
+            <hr />
+            <Flex style={{ margin: "10px 0px" }} justify="space-around">
+              <Flex vertical gap={20}>
+                <span style={{ fontSize: "18px" }}>
+                  Price (
+                  {bagitems.reduce((acc, cul) => {
                     return (acc = acc + cul.quantity);
-                  }, 0)
-                    ? "showcoupen"
-                    : "notshowcoupen"
-                }
-              >
-                Free
-              </span>
-              <Flex align="center" gap={3}>
+                  }, 0)}{" "}
+                  items)
+                </span>
+                <span style={{ fontSize: "18px" }}>Discount</span>
                 <span
                   className={
-                    promoCode !== null && anyItemHasQuantity()
-                      ? "showcoupen"
+                    bagitems.reduce((acc, cul) => {
+                      return (acc = acc + cul.quantity);
+                    }, 0)
+                      ? "showdelivery"
                       : "notshowcoupen"
                   }
-                  style={{ color: "green" }}
                 >
-                  {coupenndiscount[0]?.discountPercentage}%{" "}
+                  Delivery Charges
                 </span>
-                {
-                  <span
-                    className={
-                      promoCode !== null && anyItemHasQuantity()
-                        ? "showbadge"
-                        : "notshowcoupen"
-                    }
-                    style={{ color: "green" }}
-                  >
-                    Discount
-                  </span>
-                }
+                <span
+                  style={{
+                    fontSize: "20px",
+                    fontWeight: "650",
+                  }}
+                >
+                  Total Price
+                </span>
               </Flex>
-            </Flex>
-          </Flex>
-          <div className="horizontal-line"></div>
-          <Flex gap={10} style={{ margin: "15px 0px" }}>
-            <span
-              style={{
-                fontSize: "20px",
-                fontWeight: "650",
-                marginLeft: "60px",
-              }}
-            >
-              Total Amount
-            </span>
-            {promoCode == null ? (
-              <span
-                style={{
-                  fontSize: "18px",
-                  marginLeft: "113px",
-                  fontWeight: "600",
-                }}
-              >
-                {bagitems.reduce((acc, cul) => {
-                  return (acc = acc + cul.item.price * cul.quantity);
-                }, 0) -
-                  bagitems.reduce((acc, cul) => {
+              <Flex vertical gap={20}>
+                <span style={{ fontSize: "18px" }}>
+                  {bagitems.reduce((acc, cul) => {
+                    return (acc = acc + cul.item.price * cul.quantity);
+                  }, 0)}
+                  $/-
+                </span>
+                <span
+                  style={{
+                    fontSize: "18px",
+                    color: "green",
+                    marginRight: "10px",
+                  }}
+                >
+                  -
+                  {bagitems.reduce((acc, cul) => {
                     const price =
                       (cul.item.price *
                         cul.quantity *
@@ -230,45 +156,97 @@ const Cart = () => {
                       100;
                     return (acc = acc + Math.round(price));
                   }, 0)}
-                $/-
-              </span>
-            ) : (
-              <span
-                style={{
-                  fontSize: "18px",
-                  marginLeft: "113px",
-                  fontWeight: "600",
-                }}
-              >
-                {bagitems.reduce((acc, cul) => {
-                  return (acc = acc + cul.item.price * cul.quantity);
-                }, 0) -
-                  bagitems.reduce((acc, cul) => {
-                    const price =
-                      (cul.item.price *
-                        cul.quantity *
-                        cul.item.discountPercentage) /
-                      100;
-                    return (acc = acc + Math.round(price));
-                  }, 0) -
-                  ((bagitems.reduce((acc, cul) => {
-                    return (acc = acc + cul.item.price * cul.quantity);
-                  }, 0) -
+                  $/-
+                </span>
+                <span
+                  style={{ color: "green" }}
+                  className={
                     bagitems.reduce((acc, cul) => {
-                      const price =
-                        (cul.item.price *
-                          cul.quantity *
-                          cul.item.discountPercentage) /
-                        100;
-                      return (acc = acc + Math.round(price));
-                    }, 0)) *
-                    coupenndiscount[0]?.discountPercentage) /
-                    100}
-                $/-
+                      return (acc = acc + cul.quantity);
+                    }, 0)
+                      ? "showdelivery"
+                      : "notshowcoupen"
+                  }
+                >
+                  Free
+                </span>
+                <Flex justify="center">
+                  {promoCode == null ? (
+                    <span
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        marginRight: "10px",
+                      }}
+                    >
+                      {bagitems.reduce((acc, cul) => {
+                        return (acc = acc + cul.item.price * cul.quantity);
+                      }, 0) -
+                        bagitems.reduce((acc, cul) => {
+                          const price =
+                            (cul.item.price *
+                              cul.quantity *
+                              cul.item.discountPercentage) /
+                            100;
+                          return (acc = acc + Math.round(price));
+                        }, 0)}
+                      $/-
+                    </span>
+                  ) : (
+                    <span
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        marginRight: "10px",
+                      }}
+                    >
+                      {bagitems.reduce((acc, cul) => {
+                        return (acc = acc + cul.item.price * cul.quantity);
+                      }, 0) -
+                        bagitems.reduce((acc, cul) => {
+                          const price =
+                            (cul.item.price *
+                              cul.quantity *
+                              cul.item.discountPercentage) /
+                            100;
+                          return (acc = acc + Math.round(price));
+                        }, 0) -
+                        ((bagitems.reduce((acc, cul) => {
+                          return (acc = acc + cul.item.price * cul.quantity);
+                        }, 0) -
+                          bagitems.reduce((acc, cul) => {
+                            const price =
+                              (cul.item.price *
+                                cul.quantity *
+                                cul.item.discountPercentage) /
+                              100;
+                            return (acc = acc + Math.round(price));
+                          }, 0)) *
+                          coupenndiscount[0]?.discountPercentage) /
+                          100}
+                      $/-
+                    </span>
+                  )}
+                </Flex>
+              </Flex>
+            </Flex>
+            <Flex align="center" justify="center" gap={3}>
+              <span
+                className={promoCode !== null ? "showcoupen" : "notshowcoupen"}
+                style={{ color: "green" }}
+              >
+                {coupenndiscount[0]?.discountPercentage}%{" "}
               </span>
-            )}
+              {
+                <span
+                  className={promoCode !== null ? "showbadge" : "notshowcoupen"}
+                  style={{ color: "green" }}
+                >
+                  Discount
+                </span>
+              }
+            </Flex>
           </Flex>
-          <div className="horizontal-line"></div>
           <Flex justify="space-evenly" style={{ margin: "16px 0px" }}>
             <Input
               placeholder="Enter Promo Code"
@@ -303,7 +281,6 @@ const Cart = () => {
               disabled={
                 promoCode == null ||
                 bagitems.reduce((acc, cul) => {
-                  // console.log(cul.quantity);
                   return (acc = acc + cul.quantity);
                 }, 0) === 0
                   ? true

@@ -1,7 +1,9 @@
 const express = require("express");
+const dotenv =  require("dotenv");
+dotenv.config();
 const app = express();
 const stripe = require("stripe")(
-  "sk_test_51OqXAgSINGykgmo3WnHByaJLJ1QXMFZKoSZtWe4wWQCcBefP03qVG1Oywhif7HB0ayxqbhhqeZsYeJKUjAJ4iZ9u00ajtAcFBs"
+  process.env.STRIPE_SECERET_KEY
 );
 const cors = require("cors");
 
@@ -67,8 +69,8 @@ app.post("/api/v1/create-checkout-session", async (req, res) => {
       billing_address_collection: "auto",
       line_items: lineItems,
       mode: "payment",
-      success_url: "http://localhost:5173/success",
-      cancel_url: "http://localhost:5173/cancel",
+      success_url: process.env.SUCCESS_URL,
+      cancel_url: process.env.CANCEL_URL,
     });
     res.json({ id: session.id });
   } catch (error) {

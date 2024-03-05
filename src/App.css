@@ -33,7 +33,7 @@ header .search_container .search-box {
     padding: 1rem;
     outline: none;
     border: none;
-    width: 39rem;
+    width: 100%;
     height: 0.5rem;
     font-size: 1.1rem;
     background-color: aliceblue;
@@ -481,6 +481,11 @@ footer {
     display: block;
 }
 
+.showdelivery {
+    font-size: 18px;
+    display: block;
+}
+ 
 .notshowcoupen {
     display: none;
 }

@@ -23,6 +23,7 @@ This project is a simple e-commerce application built using React and various li
  2. Navigate to the project directory.
  3. Run ```npm install``` to install dependencies.
  4. Run ```npm run dev``` to start the development server.
+ 5. Create .env file as per .env.example file.
 
 
 ## Acknowledgements
