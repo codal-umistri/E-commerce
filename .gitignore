@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 server/node_modules
-dummy/server/.env
+server/.env
