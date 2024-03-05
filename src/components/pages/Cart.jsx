@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Flex, ConfigProvider, Button, Input } from "antd";
+import { Col, Row, Flex, ConfigProvider, Button, Input, Alert } from "antd";
 import Navbar from "../Header/Navbar";
 import { useSelector } from "react-redux";
 import Cartitem from "../Cards/Cartitem";
@@ -62,7 +62,7 @@ const Cart = () => {
     });
 
     if (result.error) {
-      console.log(result.error);
+      alert(result.error);
     }
   };
 
@@ -240,7 +240,7 @@ const Cart = () => {
                   fontWeight: "600",
                 }}
               >
-                {((bagitems.reduce((acc, cul) => {
+                {bagitems.reduce((acc, cul) => {
                   return (acc = acc + cul.item.price * cul.quantity);
                 }, 0) -
                   bagitems.reduce((acc, cul) => {
@@ -250,9 +250,20 @@ const Cart = () => {
                         cul.item.discountPercentage) /
                       100;
                     return (acc = acc + Math.round(price));
-                  }, 0)) *
-                  coupenndiscount[0]?.discountPercentage) /
-                  100}
+                  }, 0) -
+                  ((bagitems.reduce((acc, cul) => {
+                    return (acc = acc + cul.item.price * cul.quantity);
+                  }, 0) -
+                    bagitems.reduce((acc, cul) => {
+                      const price =
+                        (cul.item.price *
+                          cul.quantity *
+                          cul.item.discountPercentage) /
+                        100;
+                      return (acc = acc + Math.round(price));
+                    }, 0)) *
+                    coupenndiscount[0]?.discountPercentage) /
+                    100}
                 $/-
               </span>
             )}
