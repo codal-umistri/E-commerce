@@ -10,6 +10,7 @@ import { COUPENCODE } from "../Constants/Items";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () => {
+  // console.log(import.meta.env.REACT_APP_KEY)
   const bagitems = useSelector((store) => store.BagItems);
   const [input, setinput] = useState(null);
   const [promoCode, setPromoCode] = useState(null);
@@ -33,7 +34,7 @@ const Cart = () => {
 
   const handlePlaceOrder = async () => {
     const stripe = await loadStripe(
-      "pk_test_51OqXAgSINGykgmo3pAZ1len5t0ULnYYCs1diCeHF3vPgTadqVO7ocDT2Io5E2NGGrZ4SxYdcqaWWSulGEG0WTUwi00uOYYNZY2"
+      import.meta.env.VITE_APP_KEY
     );
     console.log(bagitems);
 
