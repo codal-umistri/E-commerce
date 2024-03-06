@@ -11,78 +11,71 @@ import ProductPreview from "./components/Layout/ProductPreview.jsx";
 import FilterProducts from "./components/Layout/FilterProducts.jsx";
 import "./App.css";
 import Home from "./components/Layout/Home.jsx";
+import SuccessPayment from "./components/pages/SuccessPayment.jsx";
+import CancelPayment from "./components/pages/CancelPayment.jsx";
+
+const scrollToTop = () => {
+  window.scrollTo(0, 0);
+  return null;
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    loader: () => {
-      window.scrollTo(0, 0);
-      return null;
-    },
+    loader: scrollToTop,
   },
   {
     path: "/allproducts",
     element: <FilterProducts />,
-    loader: () => {
-      window.scrollTo(0, 0);
-      return null;
-    },
+    loader: scrollToTop,
   },
   {
     path: "/cart",
     element: <Cart />,
-    loader: () => {
-      window.scrollTo(0, 0);
-      return null;
-    },
+    loader: scrollToTop,
   },
   {
     path: "/single-product/:id",
     element: <ProductPreview />,
-    loader: () => {
-      window.scrollTo(0, 0);
-      return null;
-    },
+    loader: scrollToTop,
   },
   {
     path: "/login",
     element: <Login />,
-    loader: () => {
-      window.scrollTo(0, 0);
-      return null;
-    },
+    loader: scrollToTop,
   },
   {
     path: "/register",
     element: <Register />,
-    loader: () => {
-      window.scrollTo(0, 0);
-      return null;
-    },
+    loader: scrollToTop,
   },
   {
     path: "/forgot-password",
     element: <ForgotPassword />,
-    loader: () => {
-      window.scrollTo(0, 0);
-      return null;
-    },
+    loader: scrollToTop,
   },
   {
     path: "/become-seller",
     element: <BecomeSeller />,
-    loader: () => {
-      window.scrollTo(0, 0);
-      return null;
-    },
+    loader: scrollToTop,
+  },
+  {
+    path: "/success",
+    element: <SuccessPayment />,
+    loader: scrollToTop,
+  },
+  {
+    path: "/cancel",
+    element: <CancelPayment />,
+    loader: scrollToTop,
   },
 ]);
 
 const App = () => {
   return (
     <Provider store={brighspaceStore}>
-      <RouterProvider router={router}></RouterProvider>
+      <RouterProvider router={router} />
     </Provider>
   );
 };

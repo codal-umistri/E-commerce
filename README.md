@@ -1,8 +1,31 @@
-# React + Vite
+## React + Vite (E-commerce Simple Project)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simple e-commerce application built using React and various libraries. It utilizes a dummy JSON API to simulate backend functionality.
 
-Currently, two official plugins are available:
+## Features
+ 1. Browse products
+ 2. Add products to cart 
+ 3. Checkout functionality
+ 4. Search a product
+ 5. Filter products
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies Used
+ 1. React
+ 2. React Router DOM
+ 3. Redux Toolkit
+ 4. Ant Design
+ 5. Styled Components
+ 6. Stripe for payments
+
+ ## Installation
+ 1. Clone the repository using command <br>
+ ```git clone https://github.com/codal-umistri/jwt_verification.git ```
+ 2. Navigate to the project directory.
+ 3. Run ```npm install``` to install dependencies.
+ 4. Run ```npm run dev``` to start the development server.
+ 5. Create .env file as per .env.example file.
+
+
+## Acknowledgements
+Special thanks to [API Provider] for the [dummy JSON API](https://dummyjson.com/docs/products).
+
