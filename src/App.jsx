@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./components/pages/Login.jsx";
 import Register from "./components/pages/Register.jsx";
@@ -13,6 +13,7 @@ import "./App.css";
 import Home from "./components/Layout/Home.jsx";
 import SuccessPayment from "./components/pages/SuccessPayment.jsx";
 import CancelPayment from "./components/pages/CancelPayment.jsx";
+import Layout from "./components/Layout/Layout.jsx";
 
 const scrollToTop = () => {
   window.scrollTo(0, 0);
@@ -22,38 +23,30 @@ const scrollToTop = () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-    loader: scrollToTop,
-  },
-  {
-    path: "/allproducts",
-    element: <FilterProducts />,
-    loader: scrollToTop,
-  },
-  {
-    path: "/cart",
-    element: <Cart />,
-    loader: scrollToTop,
-  },
-  {
-    path: "/single-product/:id",
-    element: <ProductPreview />,
-    loader: scrollToTop,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-    loader: scrollToTop,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-    loader: scrollToTop,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPassword />,
-    loader: scrollToTop,
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+        loader: scrollToTop,
+      },
+      {
+        path: "/allproducts",
+        element: <FilterProducts />,
+        loader: scrollToTop,
+      },
+      {
+        path: "/allproducts/:serach",
+        element: <FilterProducts />,
+        loader: scrollToTop,
+      },
+      { path: "/cart", element: <Cart />, loader: scrollToTop },
+      {
+        path: "/single-product/:id",
+        element: <ProductPreview />,
+        loader: scrollToTop,
+      },
+    ],
   },
   {
     path: "/become-seller",
@@ -61,21 +54,37 @@ const router = createBrowserRouter([
     loader: scrollToTop,
   },
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+  },
+  {
     path: "/success",
     element: <SuccessPayment />,
-    loader: scrollToTop,
   },
   {
     path: "/cancel",
     element: <CancelPayment />,
-    loader: scrollToTop,
   },
 ]);
 
+export const StateContext = createContext();
+
 const App = () => {
+  const [searchInputValue, setSearchInputValue] = useState("");
+
   return (
     <Provider store={brighspaceStore}>
-      <RouterProvider router={router} />
+      <StateContext.Provider value={{ searchInputValue, setSearchInputValue }}>
+        <RouterProvider router={router} />
+      </StateContext.Provider>
     </Provider>
   );
 };

@@ -2,9 +2,12 @@ import React from "react";
 import { Flex, Row, Col } from "antd";
 import SingleProductCard from "./SingleProductCard";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import {SearchItemsactions} from "../store/searchitems"
 
 const SingleProductCards = () => {
   const [items, setItems] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -15,6 +18,7 @@ const SingleProductCards = () => {
         }
         const data = await response.json();
         localStorage.setItem("Allproducts", JSON.stringify(data.products));
+        dispatch(SearchItemsactions.AddAllProdcuts(data.products));
         setItems(data.products.slice(0, 12));
       } catch (error) {
         console.error("Error fetching data:", error);

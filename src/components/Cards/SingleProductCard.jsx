@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Image, Button, Flex, ConfigProvider } from "antd";
+import { Card, Image, Button, Flex, notification } from "antd";
 import { Rate } from "antd";
 import { FaDollarSign } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,11 +11,32 @@ const SingleProductCard = ({ item }) => {
   const bagitems = useSelector((store) => store.BagItems);
   const navigate = useNavigate();
 
-  const handleAddtoBag = () => {
-    dispatch(BagItemsactions.addtoBag({item: item, quantity:1}));
+  const openNotification = (type, message, item) => {
+    notification[type]({
+      message: message,
+      description: (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Image
+            src={item.images[0]}
+            width={50}
+            height={50}
+            style={{ marginRight: 10 }}
+          />
+          <span>{item.title}</span>
+        </div>
+      ),
+      placement: "bottomRight",
+    });
   };
+
+  const handleAddtoBag = () => {
+    dispatch(BagItemsactions.addtoBag({ item: item, quantity: 1 }));
+    openNotification("success", "Item added to cart", item);
+  };
+
   const handleRemoveFromBag = () => {
     dispatch(BagItemsactions.removefromBag(item.id));
+    openNotification("error", "Item removed from cart", item);
   };
 
   const handleClick = () => {
@@ -23,6 +44,7 @@ const SingleProductCard = ({ item }) => {
       pathname: `/single-product/${item.id}`,
     });
   };
+
   return (
     <React.Fragment>
       <Card
@@ -72,31 +94,25 @@ const SingleProductCard = ({ item }) => {
               type="primary"
               htmlType="submit"
               className="form_btn"
-              style={{ width: "50%", height: "35px", backgroundColor: "red" }}
+              style={{
+                width: "50%",
+                height: "35px",
+                backgroundColor: "red",
+              }}
               onClick={handleRemoveFromBag}
             >
               remove from cart
             </Button>
           ) : (
-            <ConfigProvider
-              theme={{
-                components: {
-                  Button: {
-                    colorPrimaryHover: "green",
-                  },
-                },
-              }}
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="form_btn"
+              style={{ width: "50%", height: "35px" }}
+              onClick={handleAddtoBag}
             >
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="form_btn"
-                style={{ width: "50%", height: "35px" }}
-                onClick={handleAddtoBag}
-              >
-                Add To Cart
-              </Button>
-            </ConfigProvider>
+              Add To Cart
+            </Button>
           )}
         </Flex>
       </Card>

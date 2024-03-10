@@ -7,7 +7,6 @@ const Buttons = ({ item }) => {
   const dispatch = useDispatch();
   const bagitems = useSelector((store) => store.BagItems);
 
-  // console.log(item.id);
   const handleAddtoBag = () => {
     dispatch(BagItemsactions.addtoBag({item: item, quantity:1}));
   };

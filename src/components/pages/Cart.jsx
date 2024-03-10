@@ -1,6 +1,5 @@
 import React from "react";
 import { Col, Row, Flex, ConfigProvider, Button, Input, Alert } from "antd";
-import Navbar from "../Header/Navbar";
 import { useSelector } from "react-redux";
 import Cartitem from "../Cards/Cartitem";
 import Footer from "../Footer/Footer";
@@ -10,13 +9,12 @@ import { COUPENCODE } from "../Constants/Items";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () => {
-  // console.log(import.meta.env.REACT_APP_KEY)
   const bagitems = useSelector((store) => store.BagItems);
   const [input, setinput] = useState(null);
   const [promoCode, setPromoCode] = useState(null);
   const [coupenndiscount, setcoupendiscount] = useState([]);
 
-  const cancelPromoCode = () => {
+  const cancelPromoCode = () => {s
     setinput("");
     setPromoCode(null);
     setcoupendiscount([]);
@@ -65,7 +63,6 @@ const Cart = () => {
 
   return (
     <React.Fragment>
-      <Navbar />
       <Row style={{ marginTop: "1rem", backgroundColor: "transparent" }}>
         <Col span={15}>
           {bagitems.length ? (

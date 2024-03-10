@@ -18,35 +18,43 @@ import { ITEMS, MORE_ITEMS, ITEMS1 } from "../Constants/Items";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useRef } from "react";
+import { useContext } from "react";
 import { SearchItemsactions } from "../store/searchitems";
+import { StateContext } from "../../App";
 
 const { Text } = Typography;
 
-const Navbar = ({ searchInputValue, setSearchInputValue }) => {
+const Navbar = () => {
   const dispatch = useDispatch();
   const storedData = JSON.parse(localStorage.getItem("logindata"));
   const navigate = useNavigate();
   const location = useLocation();
-  const inputref = useRef(null);
   const bagitems = useSelector((store) => store.BagItems);
   const allproducts = useSelector((store) => store.SearchItems);
 
+  const { setSearchInputValue, searchInputValue } = useContext(StateContext);
 
-  const handleSearch = (e) => {
-    location.pathname == "/allproducts"
-      ? (setSearchInputValue(e.target.value),
-        !inputref.current.input.value
-          ? dispatch(SearchItemsactions.AddAllProdcuts(allproducts.allProducts))
-          : dispatch(
-              SearchItemsactions.filterProductsBySearch({
-                input: inputref.current.input.value,
-              })
-            ))
-      : null;
+  const handleSearch = () => {
+    !searchInputValue
+      ? dispatch(SearchItemsactions.AddAllProdcuts(allproducts.allProducts))
+      : dispatch(
+          SearchItemsactions.filterProductsBySearch({
+            input: searchInputValue,
+          })
+        );
   };
 
-  const limitedBagItems = bagitems.slice(0, 4);;
+  const handleChnage = (e) => {
+    if (location.pathname !== "/allproducts") {
+      navigate("/allproducts");
+    }
+    if (e.target.value === "") {
+      dispatch(SearchItemsactions.AddAllProdcuts(allproducts.allProducts));
+    }
+    setSearchInputValue(e.target.value);
+  };
+
+  const limitedBagItems = bagitems.slice(0, 4);
   const menu = bagitems.length ? (
     <Menu>
       {limitedBagItems.map((item) => (
@@ -89,27 +97,26 @@ const Navbar = ({ searchInputValue, setSearchInputValue }) => {
               alt="asca"
               preview={false}
               onClick={() => {
-                navigate({pathname:'/'});
+                navigate({ pathname: "/" });
               }}
             />
           </div>
         </Col>
         <Col xs={20} sm={16} md={12} lg={8} xl={10}>
           <Flex className="search_container">
-            <Button className="search-btn">
-              <TfiSearch />
-            </Button>
             <Input
               className="search-box"
-              ref={inputref}
               placeholder="Search for Products, Brands and More"
-              onChange={(e) => handleSearch(e)}
+              onChange={(e) => handleChnage(e)}
               value={searchInputValue}
             />
+            <Button className="search-btn" onClick={() => handleSearch()}>
+              <TfiSearch />
+            </Button>
           </Flex>
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={2}>
-          <div className="login" >
+          <div className="login">
             {storedData?.loginstatus ? (
               <Dropdown
                 overlayStyle={{ width: "250px" }}
@@ -145,7 +152,7 @@ const Navbar = ({ searchInputValue, setSearchInputValue }) => {
               justify="center"
               onClick={(e) => {
                 e.preventDefault();
-                navigate({pathname:'/cart'});
+                navigate({ pathname: "/cart" });
               }}
             >
               <Badge count={bagitems.length} className="ant-badge-count">
