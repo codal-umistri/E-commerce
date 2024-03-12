@@ -11,12 +11,9 @@ const SimpleSlider = () => {
         <Carousel
           responsive={RESPONSIVE}
           showDots={true}
-          // // arrows={true}
           autoPlay={true}
           autoPlaySpeed={5000}
           infinite={true}
-          // keyBoardControl={true}
-          // className="slider1"
         >
           {BANNERDATA.map((data, index) => (
             <div key={index}>

@@ -1,4 +1,5 @@
-import { Flex, Image, Rate, Button } from "antd";
+import React from "react";
+import { Flex, Image, Rate, Button, notification } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { BagItemsactions } from "../store/Bagitems";
 import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
@@ -10,8 +11,27 @@ const Cartitem = ({ item }) => {
 
   const bagitems = useSelector((store) => store.BagItems);
 
+  const openNotification = (type, message, item) => {
+    notification[type]({
+      message: message,
+      description: (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Image
+            src={item.images[0]}
+            width={50}
+            height={50}
+            style={{ marginRight: 10 }}
+          />
+          <span>{item.title}</span>
+        </div>
+      ),
+      placement: "bottomRight",
+    });
+  };
+
   const handleRemoveFromBag = () => {
     dispatch(BagItemsactions.removefromBag(item.id));
+    openNotification("error", "Item removed from cart", item);
   };
 
   const handleaddQuantity = () => {
@@ -27,10 +47,11 @@ const Cartitem = ({ item }) => {
       pathname: `/single-product/${item.id}`,
     });
   };
+
   return (
     <div className="cart_container">
       <Flex>
-        <div className="image" >
+        <div className="image">
           <Image
             preview={false}
             src={item.images[0]}
@@ -42,7 +63,6 @@ const Cartitem = ({ item }) => {
               borderRadius: "15px",
             }}
             onClick={() => {
-              console.log("heyyyyy")
               handleClick();
             }}
           />
@@ -102,7 +122,7 @@ const Cartitem = ({ item }) => {
                 <Button
                   onClick={handleminusQuantity}
                   disabled={
-                    bagitems.find((Item) => Item.item.id == item.id)
+                    bagitems.find((Item) => Item.item.id === item.id)
                       .quantity === 1
                       ? true
                       : false

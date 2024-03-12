@@ -1,23 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Row, Col } from "antd";
-import Navbar from "../Header/Navbar";
 import Catogory from "../Sidebar/Catogory";
 import AllProducts from "../pages/AllProducts";
-import { useState } from "react";
+import { StateContext } from "../../App";
 
 const FilterProducts = () => {
-  const [searchInputValue, setSearchInputValue] = useState("");
+  const { setSearchInputValue, searchInputValue } = useContext(StateContext);
+  console.log(searchInputValue + " from filtered");
 
   const clearSearchInput = () => {
     console.log(searchInputValue);
     setSearchInputValue("");
   };
+
   return (
     <React.Fragment>
-      <Navbar
-        searchInputValue={searchInputValue}
-        setSearchInputValue={setSearchInputValue}
-      />
       <Row>
         <Col span={5}>
           <Catogory clearSearchInput={clearSearchInput} />

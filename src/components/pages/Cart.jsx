@@ -1,6 +1,5 @@
 import React from "react";
 import { Col, Row, Flex, ConfigProvider, Button, Input, Alert } from "antd";
-import Navbar from "../Header/Navbar";
 import { useSelector } from "react-redux";
 import Cartitem from "../Cards/Cartitem";
 import Footer from "../Footer/Footer";
@@ -15,7 +14,7 @@ const Cart = () => {
   const [promoCode, setPromoCode] = useState(null);
   const [coupenndiscount, setcoupendiscount] = useState([]);
 
-  const cancelPromoCode = () => {
+  const cancelPromoCode = () => {s
     setinput("");
     setPromoCode(null);
     setcoupendiscount([]);
@@ -33,7 +32,7 @@ const Cart = () => {
 
   const handlePlaceOrder = async () => {
     const stripe = await loadStripe(
-      "pk_test_51OqXAgSINGykgmo3pAZ1len5t0ULnYYCs1diCeHF3vPgTadqVO7ocDT2Io5E2NGGrZ4SxYdcqaWWSulGEG0WTUwi00uOYYNZY2"
+      import.meta.env.VITE_APP_KEY
     );
     console.log(bagitems);
 
@@ -64,7 +63,6 @@ const Cart = () => {
 
   return (
     <React.Fragment>
-      <Navbar />
       <Row style={{ marginTop: "1rem", backgroundColor: "transparent" }}>
         <Col span={15}>
           {bagitems.length ? (
