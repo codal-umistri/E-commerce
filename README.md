@@ -19,7 +19,7 @@ This project is a simple e-commerce application built using React and various li
 
  ## Installation
  1. Clone the repository using command <br>
- ```git clone https://github.com/codal-umistri/jwt_verification.git ```
+ ```git clone https://github.com/codal-umistri/E-commerce ```
  2. Navigate to the project directory.
  3. Run ```npm install``` to install dependencies.
  4. Run ```npm run dev``` to start the development server.
