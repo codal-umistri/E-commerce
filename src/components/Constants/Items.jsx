@@ -114,7 +114,9 @@ export const ITEMS1 = [
           gap: "6px",
         }}
         onClick={() => {
+          
           localStorage.clear();
+
         }}
       >
         <LogoutOutlined />

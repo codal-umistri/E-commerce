@@ -30,13 +30,21 @@ const SingleProductCard = ({ item }) => {
   };
 
   const handleAddtoBag = () => {
-    dispatch(BagItemsactions.addtoBag({ item: item, quantity: 1 }));
-    openNotification("success", "Item added to cart", item);
+    if (localStorage.getItem("logindata")) {
+      dispatch(BagItemsactions.addtoBag({ item: item, quantity: 1 }));
+      openNotification("success", "Item added to cart", item);
+    } else {
+      alert("You are not authenticated");
+    }
   };
 
   const handleRemoveFromBag = () => {
-    dispatch(BagItemsactions.removefromBag(item.id));
-    openNotification("error", "Item removed from cart", item);
+    if (localStorage.getItem("logindata")) {
+      dispatch(BagItemsactions.removefromBag(item.id));
+      openNotification("error", "Item removed from cart", item);
+    } else {
+      alert("You are not authenticated");
+    }
   };
 
   const handleClick = () => {

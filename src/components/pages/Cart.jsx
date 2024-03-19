@@ -14,7 +14,8 @@ const Cart = () => {
   const [promoCode, setPromoCode] = useState(null);
   const [coupenndiscount, setcoupendiscount] = useState([]);
 
-  const cancelPromoCode = () => {s
+  const cancelPromoCode = () => {
+    s;
     setinput("");
     setPromoCode(null);
     setcoupendiscount([]);
@@ -31,33 +32,34 @@ const Cart = () => {
   };
 
   const handlePlaceOrder = async () => {
-    const stripe = await loadStripe(
-      import.meta.env.VITE_APP_KEY
-    );
-    console.log(bagitems);
+    if (!localStorage.getItem("logindata")) {
+      alert("You are not Authenticated");
+    } else {
+      const stripe = await loadStripe(import.meta.env.VITE_APP_KEY);
 
-    const response = await fetch(
-      "http://localhost:4040/api/v1/create-checkout-session",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          products: bagitems,
-          promoCode: promoCode,
-        }),
+      const response = await fetch(
+        "http://localhost:4040/api/v1/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            products: bagitems,
+            promoCode: promoCode,
+          }),
+        }
+      );
+
+      const session = await response.json();
+
+      const result = stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+      
+      if (result.error) {
+        alert(result.error);
       }
-    );
-
-    const session = await response.json();
-
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    if (result.error) {
-      alert(result.error);
     }
   };
 
@@ -303,6 +305,13 @@ const Cart = () => {
                 type="primary"
                 htmlType="submit"
                 className="form_btn"
+                disabled={
+                  bagitems.reduce((acc, cul) => {
+                    return (acc = acc + cul.quantity);
+                  }, 0) === 0
+                    ? true
+                    : false
+                }
                 style={{ width: "50%", height: "35px" }}
                 onClick={() => handlePlaceOrder()}
               >

@@ -147,7 +147,7 @@ const Login = () => {
             </Form.Item>
           </Form>
           <div style={{ marginTop: "20px", textAlign: "center" }}>
-            <span>Don`&apos;`t Have an Account? </span>
+            <span>Don&apos;t Have an Account? </span>
             <Link to="/register">Register</Link>
           </div>
         </Col>

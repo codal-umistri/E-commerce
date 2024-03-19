@@ -115,7 +115,7 @@ const Register = () => {
                 hasFeedback
               >
                 <Input
-                  placeholder="-Name"
+                  placeholder="Last-Name"
                   style={{ height: "35px", width: "183px" }}
                 />
               </Form.Item>
