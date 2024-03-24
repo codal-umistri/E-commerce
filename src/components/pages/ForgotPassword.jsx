@@ -33,7 +33,7 @@ const ForgotPassword = () => {
               style={{ marginRight: "12.5px", marginTop: "5px" }}
             >
               <span style={{ fontWeight: "600", color: "#37475a" }}>
-                Enter the email address associated with your account and we`&apos;`ll
+                Enter the email address associated with your account and we&apos;ll
                 send you alink to reset you password
               </span>
             </div>
@@ -93,13 +93,13 @@ const ForgotPassword = () => {
           </Form>
 
           <div style={{ marginTop: "20px", marginLeft: "70px" }}>
-            <span>Don`&apos;`t Have an Account? </span>
+            <span>Don&apos;t Have an Account? </span>
             <Link to="/register">Register</Link>
           </div>
         </Col>
       </Row>
       <div
-        style={{
+        style={{  
           position: "fixed",
           bottom: "20px",
           width: "100%",

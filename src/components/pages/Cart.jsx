@@ -1,5 +1,14 @@
 import React from "react";
-import { Col, Row, Flex, ConfigProvider, Button, Input, Alert } from "antd";
+import {
+  Col,
+  Row,
+  Flex,
+  ConfigProvider,
+  Button,
+  Input,
+  Alert,
+  Modal,
+} from "antd";
 import { useSelector } from "react-redux";
 import Cartitem from "../Cards/Cartitem";
 import Footer from "../Footer/Footer";
@@ -12,9 +21,11 @@ const Cart = () => {
   const bagitems = useSelector((store) => store.BagItems);
   const [input, setinput] = useState(null);
   const [promoCode, setPromoCode] = useState(null);
+  const [isModal1Open, setIsModal1Open] = useState(false);
+  const [isModal2Open, setIsModal2Open] = useState(false);
   const [coupenndiscount, setcoupendiscount] = useState([]);
 
-  const cancelPromoCode = () => {s
+  const cancelPromoCode = () => {
     setinput("");
     setPromoCode(null);
     setcoupendiscount([]);
@@ -27,37 +38,54 @@ const Cart = () => {
       ? setcoupendiscount([discount])
       : (setcoupendiscount([]),
         setPromoCode(null),
-        alert("There is no such Coupen-code"));
+        Modal.warning({
+          title: "Internet is  off",
+          content: "Please check your internet connection and try again.",
+          okText: "OK",
+          onOk: () => {
+            setIsModal1Open(false);
+            Onretry();
+          },
+        }));
   };
 
   const handlePlaceOrder = async () => {
-    const stripe = await loadStripe(
-      import.meta.env.VITE_APP_KEY
-    );
-    console.log(bagitems);
-
-    const response = await fetch(
-      "http://localhost:4040/api/v1/create-checkout-session",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    if (!localStorage.getItem("logindata")) {
+      Modal.warning({
+        title: "Internet is  off",
+        content: "Please check your internet connection and try again.",
+        okText: "OK",
+        onOk: () => {
+          setIsModal2Open(false);
+          Onretry();
         },
-        body: JSON.stringify({
-          products: bagitems,
-          promoCode: promoCode,
-        }),
+      });
+    } else {
+      const stripe = await loadStripe(import.meta.env.VITE_APP_KEY);
+
+      const response = await fetch(
+        "http://localhost:4040/api/v1/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            products: bagitems,
+            promoCode: promoCode,
+          }),
+        }
+      );
+
+      const session = await response.json();
+
+      const result = stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        alert(result.error);
       }
-    );
-
-    const session = await response.json();
-
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    if (result.error) {
-      alert(result.error);
     }
   };
 
@@ -303,6 +331,13 @@ const Cart = () => {
                 type="primary"
                 htmlType="submit"
                 className="form_btn"
+                disabled={
+                  bagitems.reduce((acc, cul) => {
+                    return (acc = acc + cul.quantity);
+                  }, 0) === 0
+                    ? true
+                    : false
+                }
                 style={{ width: "50%", height: "35px" }}
                 onClick={() => handlePlaceOrder()}
               >

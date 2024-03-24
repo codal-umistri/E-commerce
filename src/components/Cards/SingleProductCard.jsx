@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, Image, Button, Flex, notification } from "antd";
+import React, { useState } from "react";
+import { Card, Image, Button, Flex, notification, Modal } from "antd";
 import { Rate } from "antd";
 import { FaDollarSign } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,8 @@ import { BagItemsactions } from "../store/Bagitems";
 import { useNavigate } from "react-router-dom";
 
 const SingleProductCard = ({ item }) => {
+  const [isModal1Open, setIsModal1Open] = useState(false);
+  const [isModal2Open, setIsModal2Open] = useState(false);
   const dispatch = useDispatch();
   const bagitems = useSelector((store) => store.BagItems);
   const navigate = useNavigate();
@@ -30,13 +32,37 @@ const SingleProductCard = ({ item }) => {
   };
 
   const handleAddtoBag = () => {
-    dispatch(BagItemsactions.addtoBag({ item: item, quantity: 1 }));
-    openNotification("success", "Item added to cart", item);
+    if (localStorage.getItem("logindata")) {
+      dispatch(BagItemsactions.addtoBag({ item: item, quantity: 1 }));
+      openNotification("success", "Item added to cart", item);
+    } else {
+      Modal.warning({
+        title: "Unauthorized",
+        content: "You are not Authenticated",
+        centered:true,
+        okText: "OK",
+        onOk: () => {
+          setIsModal1Open(false);
+        },
+      })
+    }
   };
 
   const handleRemoveFromBag = () => {
-    dispatch(BagItemsactions.removefromBag(item.id));
-    openNotification("error", "Item removed from cart", item);
+    if (localStorage.getItem("logindata")) {
+      dispatch(BagItemsactions.removefromBag(item.id));
+      openNotification("error", "Item removed from cart", item);
+    } else {
+      Modal.warning({
+        title: "Unauthorized",
+        content: "You are not Authenticated",
+        centered:true,
+        okText: "OK",
+        onOk: () => {
+          setIsModal2Open(false);
+        },
+      })
+    }
   };
 
   const handleClick = () => {
