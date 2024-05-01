@@ -44,6 +44,24 @@ const Login = () => {
 
     return Promise.resolve();
   };
+
+  const handleLogin = async (data) => {
+    const response = await fetch("http://localhost:4040/api/v1/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const res = await response.json();
+    if (res.auth) {
+      localStorage.setItem("Auth", JSON.stringify(res.auth));
+      navigate("/");
+    } else {
+      console.log("no user found")
+    }
+  };
   return (
     <Flex justify="center" align="center" style={{ minHeight: "100vh" }}>
       <Row className="login_container">
@@ -68,21 +86,23 @@ const Login = () => {
             initialValues={{ remember: true }}
             style={{ marginTop: "30px" }}
             onFinish={(values) => {
+              // localStorage.clear();
+              // const dataToStore = {
+              //   Email: values.Email,
+              //   Password: values.Password,
+              //   loginstatus: true,
+              // };
+              // localStorage.setItem("logindata", JSON.stringify(dataToStore));
+              // navigate({pathname:'/'});
               localStorage.clear();
-              const dataToStore = {
-                Email: values.Email,
-                Password: values.Password,
-                loginstatus: true,
-              };
-              localStorage.setItem("logindata", JSON.stringify(dataToStore));
-              navigate({pathname:'/'});
+              handleLogin(values);
             }}
             onFinishFailed={(error) => {
               console.log({ error });
             }}
           >
             <Form.Item
-              name="Email"
+              name="email"
               rules={[
                 {
                   required: true,
@@ -101,7 +121,7 @@ const Login = () => {
               />
             </Form.Item>
             <Form.Item
-              name="Password"
+              name="password"
               style={{ all: "unset" }}
               rules={[{ validator: validatePassword }]}
               hasFeedback

@@ -10,17 +10,41 @@ import {
   Select,
   Checkbox,
   ConfigProvider,
+  Modal,
 } from "antd";
 import { STATES } from "../Constants/Items";
 import FormItem from "antd/es/form/FormItem";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useForm } from "antd/es/form/Form";
+import { useNavigate } from "react-router-dom";
 
 const BecomeSeller = () => {
   const [form] = useForm();
+  const navigate = useNavigate();
   const [SelectedState, SetSelectedState] = useState(false);
   const [citySelected, setCitySelected] = useState(false);
   const [cities, setCities] = useState([]);
+  const [gst_file, setGst_File] = useState(null);
+  const [aadaharcard_file, setAadharcard_File] = useState(null);
+  const [address_file, setAddress_File] = useState(null);
+  const [pancard_file, setPancard_File] = useState(null);
+  const [ModalOpen, setModalOpen] = useState(false);
+
+  const handlePanCard = (e) => {
+    setPancard_File(e.target.files[0]);
+  };
+
+  const handleAddressFile = (e) => {
+    setAddress_File(e.target.files[0]);
+  };
+
+  const handleAadharCard = (e) => {
+    setAadharcard_File(e.target.files[0]);
+  };
+
+  const handleGstFile = (e) => {
+    setGst_File(e.target.files[0]);
+  };
 
   const handleCityChange = (selectedCity) => {
     if (selectedCity) {
@@ -154,6 +178,8 @@ const BecomeSeller = () => {
     },
   });
 
+  console.log(gst_file);
+
   const validatePassword = (_, value) => {
     const uppercaseRegex = /[A-Z]/;
     const lowercaseRegex = /[a-z]/;
@@ -190,6 +216,46 @@ const BecomeSeller = () => {
       : Promise.reject(new Error("You need to agree with Terms &Conditions"));
   };
 
+  const handleSeller = async (data) => {
+    try {
+      const formData = new FormData();
+
+      formData.append("first_name", data["First Name"]);
+      formData.append("last_name", data["Last Name"]);
+      formData.append("email", data["Email"]);
+      formData.append("gender", data["gender"]);
+      formData.append("password", data["Password"]);
+      formData.append("confirm_password", data["Confirm_Password"]);
+      formData.append("business_name", data["Business-name"]);
+      formData.append("gst_no", data["Gst-no"]);
+      formData.append("state", data["State"]);
+      formData.append("city", data["City"]);
+      formData.append("pin_code", data["PIN-Code"]);
+      formData.append("mobile_no", data["Mobile-no"]);
+      formData.append("street_address", data["Street-Address"]);
+      formData.append("additional_address", data["Additional-Address"]);
+      formData.append("gst_certificate_url", gst_file);
+      formData.append("aadhar_card_url", aadaharcard_file);
+      formData.append("address_proof_url", address_file);
+      formData.append("pan_card_url", pancard_file);
+
+      const response = await fetch("http://localhost:4040/api/v1/seller", {
+        method: "POST",
+        body: formData,
+      });
+
+      const res = await response.json();
+      if (res.message == "Registration failed: GST number already exists.") {
+        setModalOpen(true);
+      } else {
+        localStorage.setItem("Auth", JSON.stringify(res.auth));
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error submitting form", error);
+    }
+  };
+
   return (
     <Flex justify="center" align="center" style={{ minHeight: "100vh" }}>
       <Row className="seller_container">
@@ -215,8 +281,7 @@ const BecomeSeller = () => {
             initialValues={{ remember: true }}
             style={{ marginTop: "20px" }}
             onFinish={(values) => {
-              console.log({ values });
-              console.log(form.getFieldValue("City"));
+              handleSeller(values);
             }}
             onFinishFailed={(error) => {
               console.log({ error });
@@ -252,6 +317,16 @@ const BecomeSeller = () => {
                 />
               </Form.Item>
             </Flex>
+            <Form.Item name="gender" rules={[{ required: true }]} hasFeedback>
+              <Select
+                style={{ height: "37px", width: "530px" }}
+                placeholder="Select your gender"
+              >
+                <Select.Option value="Male">Male</Select.Option>
+                <Select.Option value="Female">Female</Select.Option>
+                <Select.Option value="Other">Other</Select.Option>
+              </Select>
+            </Form.Item>
             <Form.Item
               name="Business-name"
               rules={[
@@ -379,6 +454,7 @@ const BecomeSeller = () => {
                       padding: "6.5px 14px",
                     }}
                     accept=".pdf"
+                    onChange={(e) => handleGstFile(e)}
                   />
                 </Flex>
               </FormItem>
@@ -398,6 +474,7 @@ const BecomeSeller = () => {
                       padding: "6.5px 14px",
                     }}
                     accept=".pdf"
+                    onChange={(e) => handleAadharCard(e)}
                   />
                 </Flex>
               </FormItem>
@@ -419,6 +496,7 @@ const BecomeSeller = () => {
                       padding: "6.5px 14px",
                     }}
                     accept=".pdf"
+                    onChange={(e) => handleAddressFile(e)}
                   />
                 </Flex>
               </FormItem>
@@ -438,6 +516,7 @@ const BecomeSeller = () => {
                       padding: "6.5px 14px",
                     }}
                     accept=".pdf"
+                    onChange={(e) => handlePanCard(e)}
                   />
                 </Flex>
               </FormItem>
@@ -527,6 +606,19 @@ const BecomeSeller = () => {
           </Form>
         </Col>
       </Row>
+
+      {ModalOpen && (
+        <Modal
+          title="Duplicate GST"
+          visible={ModalOpen}
+          centered
+          okText="OK"
+          onCancel={() => setModalOpen(false)}
+          onOk={() => setModalOpen(false)}
+        >
+          DUPLICATE GST
+        </Modal>
+      )}
     </Flex>
   );
 };

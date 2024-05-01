@@ -32,7 +32,7 @@ const SingleProductCard = ({ item }) => {
   };
 
   const handleAddtoBag = () => {
-    if (localStorage.getItem("logindata")) {
+    if (localStorage.getItem("Auth")) {
       dispatch(BagItemsactions.addtoBag({ item: item, quantity: 1 }));
       openNotification("success", "Item added to cart", item);
     } else {
@@ -49,7 +49,7 @@ const SingleProductCard = ({ item }) => {
   };
 
   const handleRemoveFromBag = () => {
-    if (localStorage.getItem("logindata")) {
+    if (localStorage.getItem("Auth")) {
       dispatch(BagItemsactions.removefromBag(item.id));
       openNotification("error", "Item removed from cart", item);
     } else {

@@ -9,10 +9,16 @@ import {
   Select,
   Checkbox,
   Button,
+  Modal,
 } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [ModalOpen, setModalOpen] =  useState(false);
+
   const validateAgreement = (_, value) => {
     return value
       ? Promise.resolve()
@@ -21,7 +27,7 @@ const Register = () => {
 
   const validateConfirmPassword = ({ getFieldValue }) => ({
     validator(_, value) {
-      if (!value || getFieldValue("Password") == value) {
+      if (!value || getFieldValue("password") == value) {
         return Promise.resolve();
       }
       return Promise.reject("The two passwords that you entered do not match.");
@@ -58,6 +64,25 @@ const Register = () => {
     return Promise.resolve();
   };
 
+  const handleRegister = async (data) => {
+    const response = await fetch("http://localhost:4040/api/v1/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const res = await response.json();
+
+    if (!res.user) {
+      setModalOpen(true);
+    } else {
+      localStorage.setItem("Auth", JSON.stringify(res.auth));
+      navigate("/");
+    }
+  };
+
   return (
     <Flex justify="center" align="center" style={{ minHeight: "100vh" }}>
       <Row className="register_container">
@@ -78,7 +103,7 @@ const Register = () => {
             autoComplete="off"
             initialValues={{ remember: true }}
             onFinish={(values) => {
-              console.log({ values });
+              handleRegister(values);
             }}
             onFinishFailed={(error) => {
               console.log({ error });
@@ -86,7 +111,7 @@ const Register = () => {
           >
             <Flex justify="space-evenly" style={{ marginTop: "1.2rem" }}>
               <Form.Item
-                name="First Name"
+                name="first_name"
                 rules={[
                   {
                     required: true,
@@ -103,7 +128,7 @@ const Register = () => {
                 />
               </Form.Item>
               <Form.Item
-                name="Last Name"
+                name="last_name"
                 rules={[
                   {
                     required: true,
@@ -131,7 +156,7 @@ const Register = () => {
               </Select>
             </Form.Item>
             <Form.Item
-              name="Email"
+              name="email"
               rules={[
                 {
                   required: true,
@@ -150,7 +175,7 @@ const Register = () => {
               />
             </Form.Item>
             <Form.Item
-              name="Password"
+              name="password"
               rules={[{ validator: validatePassword }]}
               hasFeedback
             >
@@ -161,7 +186,7 @@ const Register = () => {
               />
             </Form.Item>
             <Form.Item
-              name="Confirm_Password"
+              name="confirm_password"
               rules={[
                 {
                   required: true,
@@ -172,7 +197,7 @@ const Register = () => {
             >
               <Input.Password
                 prefix={<LockOutlined />}
-                placeholder="    Confirm Your Password"
+                placeholder="  Confirm Your Password"
                 style={{ width: "83%", height: "35px" }}
               />
             </Form.Item>
@@ -226,6 +251,19 @@ const Register = () => {
           © 2024 BrightSpace. All Rights Reserved.
         </p>
       </div>
+
+      {ModalOpen && (
+      <Modal
+        title="User already Exists"
+        visible={ModalOpen}
+        centered
+        okText="OK"
+        onCancel={() => setModalOpen(false)}
+        onOk={() => setModalOpen(false)}
+      >
+        The email you have used is already registered.
+      </Modal>
+    )}
     </Flex>
   );
 };

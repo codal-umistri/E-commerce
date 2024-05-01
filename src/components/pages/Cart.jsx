@@ -39,24 +39,26 @@ const Cart = () => {
       : (setcoupendiscount([]),
         setPromoCode(null),
         Modal.warning({
-          title: "Internet is  off",
-          content: "Please check your internet connection and try again.",
+          title: "Invalid Coupon Code",
+          content: "The coupon code you entered is invalid or not applicable.",
           okText: "OK",
           onOk: () => {
             setIsModal1Open(false);
+            // eslint-disable-next-line no-undef
             Onretry();
           },
         }));
   };
 
   const handlePlaceOrder = async () => {
-    if (!localStorage.getItem("logindata")) {
+    if (!localStorage.getItem("Auth")) {
       Modal.warning({
-        title: "Internet is  off",
-        content: "Please check your internet connection and try again.",
+        title: "Unauthorized",
+        content: "You are not Authenticated",
         okText: "OK",
         onOk: () => {
           setIsModal2Open(false);
+          // eslint-disable-next-line no-undef
           Onretry();
         },
       });
@@ -69,6 +71,7 @@ const Cart = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer sk_test_51OqXAgSINGykgmo3WnHByaJLJ1QXMFZKoSZtWe4wWQCcBefP03qVG1Oywhif7HB0ayxqbhhqeZsYeJKUjAJ4iZ9u00ajtAcFBs`,
           },
           body: JSON.stringify({
             products: bagitems,

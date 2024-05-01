@@ -92,7 +92,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <Provider store={brighspaceStore}>
         <StateContext.Provider
           value={{ searchInputValue, setSearchInputValue }}
@@ -104,7 +104,7 @@ const App = () => {
           )}
         </StateContext.Provider>
       </Provider>
-    </>
+    </React.Fragment>
   );
 };
 

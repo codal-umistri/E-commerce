@@ -1,8 +1,12 @@
+// eslint-disable-next-line no-undef
 const express = require("express");
+// eslint-disable-next-line no-undef
 const dotenv = require("dotenv");
 dotenv.config();
 const app = express();
+// eslint-disable-next-line no-undef
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+// eslint-disable-next-line no-undef
 const cors = require("cors");
 
 app.use(cors());
@@ -67,7 +71,9 @@ app.post("/api/v1/create-checkout-session", async (req, res) => {
       billing_address_collection: "auto",
       line_items: lineItems,
       mode: "payment",
+      // eslint-disable-next-line no-undef
       success_url: process.env.SUCCESS_URL,
+      // eslint-disable-next-line no-undef
       cancel_url: process.env.CANCEL_URL,
     });
     res.json({ id: session.id });

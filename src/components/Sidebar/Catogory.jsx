@@ -1,51 +1,54 @@
 import { Flex } from "antd";
 import { Radio } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { SearchItemsactions } from "../store/searchitems";
+import { StateContext } from "../../App";
 
 const Catogory = ({clearSearchInput}) => {
-  const [cat, Setcat] = useState(0);
+  const [cat, Setcat] = useState("");
   const [prange, Setprange] = useState(0);
+  const { setSearchInputValue, searchInputValue } = useContext(StateContext);
 
   const dispatch = useDispatch();
 
+  const filteredproduct = async () => {
+    try {
+      let apiUrl = 'http://localhost:4040/api/v1/products?';
+      if (cat) {
+        apiUrl += `category=${cat}`;
+      }
+      if (cat && prange) {
+        apiUrl += '&';
+      }
+      if (prange) {
+        const [minPrice, maxPrice] = prange.split("-");
+        apiUrl += `minPrice=${minPrice}&maxPrice=${maxPrice}`;
+      }
+  
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+      const data = await response.json();
+      dispatch(SearchItemsactions.AddAllProdcuts(data));
+    } catch (error) {
+      console.error("Error fetching products:", error.message);
+    }
+  };
+  
   const oncatChange = (e) => {
     Setcat(e.target.value);
     clearSearchInput();
   };
-
+  
   const onpriceChange = (e) => {
     Setprange(e.target.value);
-    const [minPrice, maxPrice] = e.target.value.split("-");
-    dispatch(
-      SearchItemsactions.filterProductsByPriceRange({ minPrice, maxPrice })
-    );
-  };
-
-  const filteredproduct = async () => {
-    const response = await fetch(
-      `https://dummyjson.com/products/category/${cat}`
-    );
-    if (!response.ok) {
-      console.error("error");
-    } else {
-      const data = await response.json();
-      if (prange) {
-        const [minPrice, maxPrice] = prange.split("-");
-        dispatch(SearchItemsactions.AddAllProdcuts(data.products));
-        dispatch(
-          SearchItemsactions.filterProductsByPriceRange({ minPrice, maxPrice })
-        );
-      } else {
-        dispatch(SearchItemsactions.AddAllProdcuts(data.products));
-      }
-    }
   };
 
   useEffect(() => {
-    cat === 0 ? null : filteredproduct();
-  }, [cat]);
+   filteredproduct();
+  }, [cat, prange]);
 
   return (
     <div

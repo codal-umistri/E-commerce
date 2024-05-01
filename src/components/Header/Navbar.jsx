@@ -26,7 +26,8 @@ const { Text } = Typography;
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const storedData = JSON.parse(localStorage.getItem("logindata"));
+  const Auth = JSON.parse(localStorage.getItem("Auth"));
+  console.log(Auth.type)
   const navigate = useNavigate();
   const location = useLocation();
   const bagitems = useSelector((store) => store.BagItems);
@@ -47,9 +48,6 @@ const Navbar = () => {
   const handleChnage = (e) => {
     if (location.pathname !== "/allproducts") {
       navigate("/allproducts");
-    }
-    if (e.target.value === "") {
-      dispatch(SearchItemsactions.AddAllProdcuts(allproducts.allProducts));
     }
     setSearchInputValue(e.target.value);
   };
@@ -117,7 +115,7 @@ const Navbar = () => {
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={2}>
           <div className="login">
-            {storedData?.loginstatus ? (
+            {Auth? (
               <Dropdown
                 overlayStyle={{ width: "250px" }}
                 menu={{ items: ITEMS1 }}
@@ -125,7 +123,7 @@ const Navbar = () => {
                 <Link to="/">
                   <Flex align="center" justify="center" className="login_text">
                     <GoPerson style={{ all: "unset" }} /> &nbsp;
-                    <Text>{storedData.Email.split("@")[0]}</Text>
+                    <Text>{Auth.name}</Text>
                   </Flex>
                 </Link>
               </Dropdown>
@@ -164,18 +162,33 @@ const Navbar = () => {
           </Dropdown>
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={3}>
-          <Flex
-            className="become-seller"
-            align="center"
-            justify="center"
-            onClick={() => {
-              navigate("/become-seller");
-            }}
-          >
-            <ShopOutlined />
-            &nbsp;
-            <Text>Become a Seller</Text>
-          </Flex>
+          {Auth?.type === 2 ? (
+            <Flex
+              className="become-seller"
+              align="center"
+              justify="center"
+              onClick={() => {
+                navigate("/become-seller");
+              }}
+            >
+              <ShopOutlined />
+              &nbsp;
+              <Text>Admin</Text>
+            </Flex>
+          ) : (
+            <Flex
+              className="become-seller"
+              align="center"
+              justify="center"
+              onClick={() => {
+                navigate("/become-seller");
+              }}
+            >
+              <ShopOutlined />
+              &nbsp;
+              <Text>Become a Seller</Text>
+            </Flex>
+          )}
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={2}>
           <div className="more">

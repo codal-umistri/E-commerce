@@ -12,25 +12,18 @@ const SingleProductCards = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://dummyjson.com/products");
+        const response = await fetch("http://localhost:4040/api/v1/products");
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
         const data = await response.json();
-        localStorage.setItem("Allproducts", JSON.stringify(data.products));
-        dispatch(SearchItemsactions.AddAllProdcuts(data.products));
-        setItems(data.products.slice(0, 12));
+        dispatch(SearchItemsactions.AddAllProdcuts(data));
+        setItems(data.slice(0, 12));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
-    const storedItems = localStorage.getItem("Allproducts");
-    if (storedItems) {
-      setItems(JSON.parse(storedItems).slice(0, 12));
-    } else {
-      fetchProducts();
-    }
+          fetchProducts();
   }, []);
 
   return (
