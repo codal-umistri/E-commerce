@@ -16,9 +16,9 @@ const SingleProductCards = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
-        const data = await response.json();
-        dispatch(SearchItemsactions.AddAllProdcuts(data));
-        setItems(data.slice(0, 12));
+        const res = await response.json();
+        dispatch(SearchItemsactions.AddAllProdcuts(res.data));
+        setItems(res.data.slice(0, 12));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -32,6 +32,7 @@ const SingleProductCards = () => {
         <Col span={24}>
           <Flex justify="space-evenly" wrap="wrap">
             {items.map((item) => (
+              
               <SingleProductCard key={item.id} item={item} />
             ))}
           </Flex>

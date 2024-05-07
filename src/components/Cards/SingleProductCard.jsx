@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Card, Image, Button, Flex, notification, Modal } from "antd";
 import { Rate } from "antd";
 import { FaDollarSign } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { BagItemsactions } from "../store/Bagitems";
 import { useNavigate } from "react-router-dom";
+import { StateContext } from "../../App";
 
 const SingleProductCard = ({ item }) => {
-  const [isModal1Open, setIsModal1Open] = useState(false);
   const [isModal2Open, setIsModal2Open] = useState(false);
-  const dispatch = useDispatch();
-  const bagitems = useSelector((store) => store.BagItems);
   const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("Auth"));
+  const { cart, setCart } = useContext(StateContext);
 
   const openNotification = (type, message, item) => {
     notification[type]({
@@ -31,40 +29,68 @@ const SingleProductCard = ({ item }) => {
     });
   };
 
-  const handleAddtoBag = () => {
+  const handleAddtoBag = async () => {
     if (localStorage.getItem("Auth")) {
-      dispatch(BagItemsactions.addtoBag({ item: item, quantity: 1 }));
+      const res = await fetch("http://localhost:4040/api/v1/addproductincart", {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${token.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      });
+
+      const resposne = await res.json();
+      console.log(resposne);
+      cart ? setCart([...cart, resposne.item]) : setCart([resposne.item]);
       openNotification("success", "Item added to cart", item);
     } else {
       Modal.warning({
         title: "Unauthorized",
         content: "You are not Authenticated",
-        centered:true,
+        centered: true,
         okText: "OK",
         onOk: () => {
-          setIsModal1Open(false);
+          setIsModal2Open(false);
         },
-      })
+      });
     }
   };
 
-  const handleRemoveFromBag = () => {
+  const handleRemoveFromBag = async () => {
     if (localStorage.getItem("Auth")) {
-      dispatch(BagItemsactions.removefromBag(item.id));
+      const res = await fetch(
+        "http://localhost:4040/api/v1/removeproductfromcart",
+        {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${token.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(item),
+        }
+      );
+      const resposne = await res.json();
+      console.log(resposne);
+      // Filter out the item with the same product_id from the cart
+      //  const updatedCart = cart.filter(cartItem => cartItem.id !== item.id);
+      const updatedCart = cart.filter(
+        (cartItem) => cartItem.id !== resposne.item.product_id
+      );
+      setCart(updatedCart);
       openNotification("error", "Item removed from cart", item);
     } else {
       Modal.warning({
         title: "Unauthorized",
         content: "You are not Authenticated",
-        centered:true,
+        centered: true,
         okText: "OK",
         onOk: () => {
           setIsModal2Open(false);
         },
-      })
+      });
     }
   };
-
   const handleClick = () => {
     navigate({
       pathname: `/single-product/${item.id}`,
@@ -113,8 +139,9 @@ const SingleProductCard = ({ item }) => {
           </Flex>
         </div>
         <Flex align="center" justify="center" className="card">
-          {bagitems.find((Item) => {
-            return Item.item.id == item.id;
+          {cart?.find((Item) => {
+            // console.log(Item)
+            return Item.id === item.id;
           }) ? (
             <Button
               type="primary"

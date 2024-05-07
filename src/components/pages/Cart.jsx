@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Col,
   Row,
@@ -6,24 +6,25 @@ import {
   ConfigProvider,
   Button,
   Input,
-  Alert,
   Modal,
 } from "antd";
-import { useSelector } from "react-redux";
 import Cartitem from "../Cards/Cartitem";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { COUPENCODE } from "../Constants/Items";
 import { loadStripe } from "@stripe/stripe-js";
+import { StateContext } from "../../App";
 
 const Cart = () => {
-  const bagitems = useSelector((store) => store.BagItems);
+  // const cart = useSelector((store) => store.cart);
   const [input, setinput] = useState(null);
   const [promoCode, setPromoCode] = useState(null);
   const [isModal1Open, setIsModal1Open] = useState(false);
   const [isModal2Open, setIsModal2Open] = useState(false);
   const [coupenndiscount, setcoupendiscount] = useState([]);
+
+  const { cart } = useContext(StateContext);
 
   const cancelPromoCode = () => {
     setinput("");
@@ -74,7 +75,7 @@ const Cart = () => {
             "Authorization": `Bearer sk_test_51OqXAgSINGykgmo3WnHByaJLJ1QXMFZKoSZtWe4wWQCcBefP03qVG1Oywhif7HB0ayxqbhhqeZsYeJKUjAJ4iZ9u00ajtAcFBs`,
           },
           body: JSON.stringify({
-            products: bagitems,
+            products: cart,
             promoCode: promoCode,
           }),
         }
@@ -96,9 +97,9 @@ const Cart = () => {
     <React.Fragment>
       <Row style={{ marginTop: "1rem", backgroundColor: "transparent" }}>
         <Col span={15}>
-          {bagitems.length ? (
-            bagitems.map((item) => (
-              <Cartitem item={item.item} key={item.item.id} />
+          {cart?.length ? (
+            cart.map((item) => (
+              <Cartitem item={item} key={item.id} />
             ))
           ) : (
             <Flex justify="center" align="center" style={{ height: "100%" }}>
@@ -136,7 +137,7 @@ const Cart = () => {
               <Flex vertical gap={20}>
                 <span style={{ fontSize: "18px" }}>
                   Price (
-                  {bagitems.reduce((acc, cul) => {
+                  {cart.reduce((acc, cul) => {
                     return (acc = acc + cul.quantity);
                   }, 0)}{" "}
                   items)
@@ -144,7 +145,7 @@ const Cart = () => {
                 <span style={{ fontSize: "18px" }}>Discount</span>
                 <span
                   className={
-                    bagitems.reduce((acc, cul) => {
+                    cart.reduce((acc, cul) => {
                       return (acc = acc + cul.quantity);
                     }, 0)
                       ? "showdelivery"
@@ -164,8 +165,8 @@ const Cart = () => {
               </Flex>
               <Flex vertical gap={20}>
                 <span style={{ fontSize: "18px" }}>
-                  {bagitems.reduce((acc, cul) => {
-                    return (acc = acc + cul.item.price * cul.quantity);
+                  {cart.reduce((acc, cul) => {
+                    return (acc = acc + cul.price * cul.quantity);
                   }, 0)}
                   $/-
                 </span>
@@ -177,11 +178,11 @@ const Cart = () => {
                   }}
                 >
                   -
-                  {bagitems.reduce((acc, cul) => {
+                  {cart.reduce((acc, cul) => {
                     const price =
-                      (cul.item.price *
+                      (cul.price *
                         cul.quantity *
-                        cul.item.discountPercentage) /
+                        cul.discountPercentage) /
                       100;
                     return (acc = acc + Math.round(price));
                   }, 0)}
@@ -190,7 +191,7 @@ const Cart = () => {
                 <span
                   style={{ color: "green" }}
                   className={
-                    bagitems.reduce((acc, cul) => {
+                    cart.reduce((acc, cul) => {
                       return (acc = acc + cul.quantity);
                     }, 0)
                       ? "showdelivery"
@@ -208,14 +209,14 @@ const Cart = () => {
                         marginRight: "10px",
                       }}
                     >
-                      {bagitems.reduce((acc, cul) => {
-                        return (acc = acc + cul.item.price * cul.quantity);
+                      {cart.reduce((acc, cul) => {
+                        return (acc = acc + cul.price * cul.quantity);
                       }, 0) -
-                        bagitems.reduce((acc, cul) => {
+                        cart.reduce((acc, cul) => {
                           const price =
-                            (cul.item.price *
+                            (cul.price *
                               cul.quantity *
-                              cul.item.discountPercentage) /
+                              cul.discountPercentage) /
                             100;
                           return (acc = acc + Math.round(price));
                         }, 0)}
@@ -229,25 +230,25 @@ const Cart = () => {
                         marginRight: "10px",
                       }}
                     >
-                      {bagitems.reduce((acc, cul) => {
-                        return (acc = acc + cul.item.price * cul.quantity);
+                      {cart.reduce((acc, cul) => {
+                        return (acc = acc + cul.price * cul.quantity);
                       }, 0) -
-                        bagitems.reduce((acc, cul) => {
+                        cart.reduce((acc, cul) => {
                           const price =
-                            (cul.item.price *
+                            (cul.price *
                               cul.quantity *
-                              cul.item.discountPercentage) /
+                              cul.discountPercentage) /
                             100;
                           return (acc = acc + Math.round(price));
                         }, 0) -
-                        ((bagitems.reduce((acc, cul) => {
-                          return (acc = acc + cul.item.price * cul.quantity);
+                        ((cart.reduce((acc, cul) => {
+                          return (acc = acc + cul.price * cul.quantity);
                         }, 0) -
-                          bagitems.reduce((acc, cul) => {
+                          cart.reduce((acc, cul) => {
                             const price =
-                              (cul.item.price *
+                              (cul.price *
                                 cul.quantity *
-                                cul.item.discountPercentage) /
+                                cul.discountPercentage) /
                               100;
                             return (acc = acc + Math.round(price));
                           }, 0)) *
@@ -282,7 +283,7 @@ const Cart = () => {
               value={input}
               onChange={(e) => setinput(e.target.value)}
               disabled={
-                bagitems.reduce((acc, cul) => {
+                cart.reduce((acc, cul) => {
                   return (acc = acc + cul.quantity);
                 }, 0) === 0
                   ? true
@@ -294,7 +295,7 @@ const Cart = () => {
               type="primary"
               onClick={applyPromoCode}
               disabled={
-                bagitems.reduce((acc, cul) => {
+                cart.reduce((acc, cul) => {
                   return (acc = acc + cul.quantity);
                 }, 0) === 0
                   ? true
@@ -309,7 +310,7 @@ const Cart = () => {
               onClick={cancelPromoCode}
               disabled={
                 promoCode == null ||
-                bagitems.reduce((acc, cul) => {
+                cart.reduce((acc, cul) => {
                   return (acc = acc + cul.quantity);
                 }, 0) === 0
                   ? true
@@ -335,7 +336,7 @@ const Cart = () => {
                 htmlType="submit"
                 className="form_btn"
                 disabled={
-                  bagitems.reduce((acc, cul) => {
+                  cart.reduce((acc, cul) => {
                     return (acc = acc + cul.quantity);
                   }, 0) === 0
                     ? true

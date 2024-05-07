@@ -1,5 +1,10 @@
 import "./App.css";
-import React, { createContext, useLayoutEffect, useState } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import Login from "./components/pages/Login.jsx";
@@ -15,6 +20,7 @@ import SuccessPayment from "./components/pages/SuccessPayment.jsx";
 import CancelPayment from "./components/pages/CancelPayment.jsx";
 import Layout from "./components/Layout/Layout.jsx";
 import OfflinePage from "./components/pages/oflinePage.jsx";
+import TokenExpirationChecker from "./components/pages/TokenExpirationChecker.jsx";
 
 const scrollToTop = () => {
   window.scrollTo(0, 0);
@@ -71,11 +77,21 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const StateContext = createContext();
+export const StateContext = createContext({
+  searchInputValue: "",
+  setSearchInputValue: () => {},
+  cart: [],
+  setCart: () => {},
+});
 
 const App = () => {
   const [searchInputValue, setSearchInputValue] = useState("");
+  const [cart, setCart] = useState([]);
+  const [cat, Setcat] = useState("");
+  const [prange, Setprange] = useState(0);
   const [online, setOnline] = useState(navigator.onLine);
+  // const [token, setToken] = useState(null);
+  const token = JSON.parse(localStorage.getItem("Auth"));
 
   useLayoutEffect(() => {
     handleOnlineStatus();
@@ -86,17 +102,44 @@ const App = () => {
     };
   }, []);
 
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:4040/api/v1/getproducts", {
+          headers: {
+            Authorization: `Bearer ${token.token}`,
+          },
+        });
+        const response = await res.json();
+        setCart([...response.item]);
+      } catch (error) {
+        console.error("Error fetching products:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleOnlineStatus = () => {
     setOnline(navigator.onLine);
   };
-
+  
   return (
     <React.Fragment>
       <Provider store={brighspaceStore}>
         <StateContext.Provider
-          value={{ searchInputValue, setSearchInputValue }}
+          value={{
+            searchInputValue,
+            setSearchInputValue,
+            cart,
+            setCart,
+            cat,
+            Setcat,
+            prange,
+            Setprange,
+          }}
         >
+          <TokenExpirationChecker />
           {online ? (
             <RouterProvider router={router} />
           ) : (

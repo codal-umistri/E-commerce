@@ -1,15 +1,18 @@
-import React from "react";
-import { Flex, Image, Rate, Button, notification } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { BagItemsactions } from "../store/Bagitems";
+import { useContext, useState } from "react";
+import { Flex, Image, Rate, Button, notification, Modal } from "antd";
 import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { StateContext } from "../../App";
 
 const Cartitem = ({ item }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isModal2Open, setIsModal2Open] = useState(false);
+  const token = JSON.parse(localStorage.getItem("Auth"));
 
-  const bagitems = useSelector((store) => store.BagItems);
+
+  const { cart, setCart } =
+    useContext(StateContext);
+
 
   const openNotification = (type, message, item) => {
     notification[type]({
@@ -29,17 +32,102 @@ const Cartitem = ({ item }) => {
     });
   };
 
-  const handleRemoveFromBag = () => {
-    dispatch(BagItemsactions.removefromBag(item.id));
-    openNotification("error", "Item removed from cart", item);
+  const handleRemoveFromBag = async () => {
+    if (localStorage.getItem("Auth")) {
+      const res = await fetch(
+        "http://localhost:4040/api/v1/removeproductfromcart",
+        {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${token.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(item),
+        }
+      );
+      const resposne = await res.json();
+      //  Filter out the item with the same product_id from the cart
+      //  const updatedCart = cart.filter(cartItem => cartItem.id !== item.id);
+      const updatedCart = cart.filter(
+        (cartItem) => cartItem.id !== resposne.item.product_id
+      );
+      setCart(updatedCart);
+      openNotification("error", "Item removed from cart", item);
+    } else {
+      Modal.warning({
+        title: "Unauthorized",
+        content: "You are not Authenticated",
+        centered: true,
+        okText: "OK",
+        onOk: () => {
+          setIsModal2Open(false);
+        },
+      });
+    }
   };
 
-  const handleaddQuantity = () => {
-    dispatch(BagItemsactions.addQuantity(item.id));
-  };
+  const handleaddQuantity = async () => {
+    if (localStorage.getItem("Auth")) {
+      const res = await fetch("http://localhost:4040/api/v1/add-quantity", {
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      });
+      const resposne = await res.json();
 
-  const handleminusQuantity = () => {
-    dispatch(BagItemsactions.minusQuantity(item.id));
+      const updatedCart = cart.map((cartItem) => {
+        if (cartItem.id === resposne.item.product_id) {
+          return { ...cartItem, quantity: resposne.item.quantity };
+        }
+        return cartItem;
+      });
+      setCart(updatedCart);
+    } else {
+      Modal.warning({
+        title: "Unauthorized",
+        content: "You are not Authenticated",
+        centered: true,
+        okText: "OK",
+        onOk: () => {
+          setIsModal2Open(false);
+        },
+      });
+    }
+ };
+
+  const handleminusQuantity = async () => {
+    if (localStorage.getItem("Auth")) {
+      const res = await fetch("http://localhost:4040/api/v1/minus-quantity", {
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+      });
+      const resposne = await res.json();
+
+      const updatedCart = cart.map((cartItem) => {
+        if (cartItem.id === resposne.item.product_id) {
+          return { ...cartItem, quantity: resposne.item.quantity };
+        }
+        return cartItem;
+      });
+      setCart(updatedCart);
+    } else {
+      Modal.warning({
+        title: "Unauthorized",
+        content: "You are not Authenticated",
+        centered: true,
+        okText: "OK",
+        onOk: () => {
+          setIsModal2Open(false);
+        },
+      });
+    }
   };
 
   const handleClick = () => {
@@ -118,12 +206,11 @@ const Cartitem = ({ item }) => {
                 <Button onClick={handleaddQuantity}>
                   <PlusCircleOutlined />
                 </Button>
-                {bagitems.find((Item) => Item.item.id === item.id).quantity}
+                {cart.find((Item) => Item.id === item.id).quantity}
                 <Button
                   onClick={handleminusQuantity}
                   disabled={
-                    bagitems.find((Item) => Item.item.id === item.id)
-                      .quantity === 1
+                    cart.find((Item) => Item.id === item.id).quantity === 1
                       ? true
                       : false
                   }

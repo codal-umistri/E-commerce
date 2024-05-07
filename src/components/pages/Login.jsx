@@ -10,10 +10,9 @@ import {
   Checkbox,
 } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate();
 
   const validatePassword = (_, value) => {
     const uppercaseRegex = /[A-Z]/;
@@ -57,7 +56,7 @@ const Login = () => {
     const res = await response.json();
     if (res.auth) {
       localStorage.setItem("Auth", JSON.stringify(res.auth));
-      navigate("/");
+      window.location.href= "/"
     } else {
       console.log("no user found")
     }

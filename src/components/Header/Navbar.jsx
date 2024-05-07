@@ -17,32 +17,53 @@ import {
 import { ITEMS, MORE_ITEMS, ITEMS1 } from "../Constants/Items";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, } from "react-redux";
 import { useContext } from "react";
-import { SearchItemsactions } from "../store/searchitems";
 import { StateContext } from "../../App";
+import { SearchItemsactions } from "../store/searchitems";
 
 const { Text } = Typography;
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const Auth = JSON.parse(localStorage.getItem("Auth"));
-  console.log(Auth.type)
   const navigate = useNavigate();
   const location = useLocation();
-  const bagitems = useSelector((store) => store.BagItems);
-  const allproducts = useSelector((store) => store.SearchItems);
+  // const bagitems = useSelector((store) => store.BagItems);
+  // const allproducts = useSelector((store) => store.SearchItems);
 
-  const { setSearchInputValue, searchInputValue } = useContext(StateContext);
+  const { setSearchInputValue, searchInputValue, cart , cat , prange } = useContext(StateContext);
 
-  const handleSearch = () => {
-    !searchInputValue
-      ? dispatch(SearchItemsactions.AddAllProdcuts(allproducts.allProducts))
-      : dispatch(
-          SearchItemsactions.filterProductsBySearch({
-            input: searchInputValue,
-          })
-        );
+  const handleSearch = async() => {
+    try {
+      let apiUrl = 'http://localhost:4040/api/v1/products?';
+      if (cat) {
+        apiUrl += `category=${cat}`;
+      }
+      if (searchInputValue) {
+        apiUrl += '&';
+      }
+      if(searchInputValue)
+      {
+         apiUrl += `keyword=${searchInputValue}`
+      }
+      if (prange) {
+        apiUrl += '&';
+      }
+      if (prange) {
+        const [minPrice, maxPrice] = prange.split("-");
+        apiUrl += `minPrice=${minPrice}&maxPrice=${maxPrice}`;
+      }
+  
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+      const res = await response.json();
+      dispatch(SearchItemsactions.AddAllProdcuts(res.data));
+    } catch (error) {
+      console.error("Error fetching products:", error.message);
+    }
   };
 
   const handleChnage = (e) => {
@@ -52,24 +73,24 @@ const Navbar = () => {
     setSearchInputValue(e.target.value);
   };
 
-  const limitedBagItems = bagitems.slice(0, 4);
-  const menu = bagitems.length ? (
+  const limitedBagItems = cart?.slice(0, 4);
+  const menu = cart?.length ? (
     <Menu>
       {limitedBagItems.map((item) => (
-        <Menu.Item key={item.item.id}>
+        <Menu.Item key={item.id}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <img
-              src={item.item.images[0]}
-              alt={item.item.name}
+              src={item.images[0]}
+              alt={item.name}
               style={{ width: "30px", marginRight: "10px" }}
             />
             <div>
-              <div>{item.item.title}</div>
+              <div>{item.title}</div>
             </div>
           </div>
         </Menu.Item>
       ))}
-      {bagitems.length > 4 && (
+      {cart?.length > 4 && (
         <Menu.Item key="see-more" style={{ textAlign: "center" }}>
           <Link to="/cart" style={{ color: "blue" }}>
             See More
@@ -115,7 +136,7 @@ const Navbar = () => {
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={2}>
           <div className="login">
-            {Auth? (
+            {Auth?.token ? (
               <Dropdown
                 overlayStyle={{ width: "250px" }}
                 menu={{ items: ITEMS1 }}
@@ -153,7 +174,7 @@ const Navbar = () => {
                 navigate({ pathname: "/cart" });
               }}
             >
-              <Badge count={bagitems.length} className="ant-badge-count">
+              <Badge count={cart?.length} className="ant-badge-count">
                 <ShoppingCartOutlined />
                 &nbsp;
                 <Text>Cart</Text>
@@ -162,33 +183,33 @@ const Navbar = () => {
           </Dropdown>
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={3}>
-          {Auth?.type === 2 ? (
+          {Auth?.type === 2 ?
+          (<Flex
+            className="become-seller"
+            align="center"
+            justify="center"
+            onClick={() => {
+              navigate("/become-seller");
+            }}
+          >
+            <ShopOutlined />
+            &nbsp;
+            <Text>Admin</Text>
+          </Flex>) :
             <Flex
-              className="become-seller"
-              align="center"
-              justify="center"
-              onClick={() => {
-                navigate("/become-seller");
-              }}
-            >
-              <ShopOutlined />
-              &nbsp;
-              <Text>Admin</Text>
-            </Flex>
-          ) : (
-            <Flex
-              className="become-seller"
-              align="center"
-              justify="center"
-              onClick={() => {
-                navigate("/become-seller");
-              }}
-            >
-              <ShopOutlined />
-              &nbsp;
-              <Text>Become a Seller</Text>
-            </Flex>
-          )}
+            className="become-seller"
+            align="center"
+            justify="center"
+            onClick={() => {
+              navigate("/become-seller");
+            }}
+          >
+            <ShopOutlined />
+            &nbsp;
+            <Text>Become a Seller</Text>
+          </Flex>
+          }
+        
         </Col>
         <Col xs={20} sm={16} md={12} lg={4} xl={2}>
           <div className="more">

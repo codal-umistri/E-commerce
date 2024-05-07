@@ -6,9 +6,7 @@ import { SearchItemsactions } from "../store/searchitems";
 import { StateContext } from "../../App";
 
 const Catogory = ({clearSearchInput}) => {
-  const [cat, Setcat] = useState("");
-  const [prange, Setprange] = useState(0);
-  const { setSearchInputValue, searchInputValue } = useContext(StateContext);
+  const { searchInputValue, cat, Setcat, prange , Setprange } = useContext(StateContext);
 
   const dispatch = useDispatch();
 
@@ -18,7 +16,14 @@ const Catogory = ({clearSearchInput}) => {
       if (cat) {
         apiUrl += `category=${cat}`;
       }
-      if (cat && prange) {
+      if (searchInputValue) {
+        apiUrl += '&';
+      }
+      if(searchInputValue)
+      {
+         apiUrl += `keyword=${searchInputValue}`
+      }
+      if (prange) {
         apiUrl += '&';
       }
       if (prange) {
@@ -30,8 +35,8 @@ const Catogory = ({clearSearchInput}) => {
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
-      const data = await response.json();
-      dispatch(SearchItemsactions.AddAllProdcuts(data));
+      const res = await response.json();      
+      dispatch(SearchItemsactions.AddAllProdcuts(res.data));
     } catch (error) {
       console.error("Error fetching products:", error.message);
     }
