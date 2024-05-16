@@ -23,6 +23,7 @@ const Cart = () => {
   const [isModal1Open, setIsModal1Open] = useState(false);
   const [isModal2Open, setIsModal2Open] = useState(false);
   const [coupenndiscount, setcoupendiscount] = useState([]);
+  const token = JSON.parse(localStorage.getItem("Auth"));
 
   const { cart } = useContext(StateContext);
 
@@ -71,13 +72,13 @@ const Cart = () => {
         {
           method: "POST",
           headers: {
+            authorization: `Bearer ${token.token}`,
             "Content-Type": "application/json",
-            "Authorization": `Bearer sk_test_51OqXAgSINGykgmo3WnHByaJLJ1QXMFZKoSZtWe4wWQCcBefP03qVG1Oywhif7HB0ayxqbhhqeZsYeJKUjAJ4iZ9u00ajtAcFBs`,
           },
           body: JSON.stringify({
             products: cart,
             promoCode: promoCode,
-          }),
+          }), 
         }
       );
 

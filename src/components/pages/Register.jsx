@@ -45,7 +45,7 @@ const Register = () => {
 
     if (!value) {
       return Promise.reject(new Error("Please Enter Your 'Password'"));
-    } else if (!hasUppercase) {
+    } else if (!hasUppercase) {x
       return Promise.reject(
         new Error("Password must contain atleast one 'Uppercase' letter")
       );
@@ -123,6 +123,7 @@ const Register = () => {
                 hasFeedback
               >
                 <Input
+                className="first_name"
                   placeholder="First-Name"
                   style={{ height: "35px", width: "183px" }}
                 />
@@ -140,6 +141,7 @@ const Register = () => {
                 hasFeedback
               >
                 <Input
+                 className="last_name"
                   placeholder="Last-Name"
                   style={{ height: "35px", width: "183px" }}
                 />

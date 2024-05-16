@@ -42,7 +42,7 @@ const SingleProductCard = ({ item }) => {
 
       const resposne = await res.json();
       console.log(resposne);
-      cart ? setCart([...cart, resposne.item]) : setCart([resposne.item]);
+      cart ? setCart([...cart, resposne.item]) : setCart([...resposne.item]);
       openNotification("success", "Item added to cart", item);
     } else {
       Modal.warning({
@@ -140,7 +140,6 @@ const SingleProductCard = ({ item }) => {
         </div>
         <Flex align="center" justify="center" className="card">
           {cart?.find((Item) => {
-            // console.log(Item)
             return Item.id === item.id;
           }) ? (
             <Button

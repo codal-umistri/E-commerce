@@ -23,7 +23,7 @@ const Section = () => {
                   height={66}
                   width={66}
                   className="img"
-                />
+                  />
                 <Text>{item.cat_name}</Text>
               </Flex>
             );

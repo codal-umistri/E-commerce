@@ -109,7 +109,7 @@ const Navbar = () => {
   return (
     <header>
       <Row className="navbar" justify="space-around" align="middle">
-        <Col xs={20} sm={16} md={12} lg={8} xl={2} offset={1}>
+      <Col xs={24} sm={8} md={6} lg={4} xl={2} offset={1}>
           <div className="logo">
             <Image
               src="/images/logo1.png"
@@ -121,7 +121,7 @@ const Navbar = () => {
             />
           </div>
         </Col>
-        <Col xs={20} sm={16} md={12} lg={8} xl={10}>
+        <Col xs={24} sm={16} md={12} lg={12} xl={12}>
           <Flex className="search_container">
             <Input
               className="search-box"
@@ -134,7 +134,7 @@ const Navbar = () => {
             </Button>
           </Flex>
         </Col>
-        <Col xs={20} sm={16} md={12} lg={4} xl={2}>
+        <Col xs={24} sm={24} md={6} lg={4} xl={2}>
           <div className="login">
             {Auth?.token ? (
               <Dropdown
@@ -163,7 +163,7 @@ const Navbar = () => {
             )}
           </div>
         </Col>
-        <Col xs={20} sm={16} md={12} lg={4} xl={2}>
+        <Col xs={24} sm={24} md={6} lg={4} xl={2}>
           <Dropdown overlayStyle={{ width: "250px" }} overlay={menu}>
             <Flex
               className="cart-icon"
@@ -171,7 +171,8 @@ const Navbar = () => {
               justify="center"
               onClick={(e) => {
                 e.preventDefault();
-                navigate({ pathname: "/cart" });
+                window.location.href = '/cart'
+                // navigate({ pathname: "/cart" });
               }}
             >
               <Badge count={cart?.length} className="ant-badge-count">
@@ -182,7 +183,7 @@ const Navbar = () => {
             </Flex>
           </Dropdown>
         </Col>
-        <Col xs={20} sm={16} md={12} lg={4} xl={3}>
+        <Col xs={24} sm={24} md={6} lg={4} xl={3}>
           {Auth?.type === 2 ?
           (<Flex
             className="become-seller"
@@ -211,7 +212,7 @@ const Navbar = () => {
           }
         
         </Col>
-        <Col xs={20} sm={16} md={12} lg={4} xl={2}>
+        <Col xs={24} sm={24} md={6} lg={4} xl={2}>
           <div className="more">
             <Dropdown
               overlayStyle={{ width: "250px" }}

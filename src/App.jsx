@@ -106,6 +106,7 @@ const App = () => {
     const fetchData = async () => {
       try {
         const res = await fetch("http://localhost:4040/api/v1/getproducts", {
+          mode:"cors",
           headers: {
             Authorization: `Bearer ${token.token}`,
           },
@@ -123,7 +124,7 @@ const App = () => {
   const handleOnlineStatus = () => {
     setOnline(navigator.onLine);
   };
-  
+  console.log(cart);
   return (
     <React.Fragment>
       <Provider store={brighspaceStore}>

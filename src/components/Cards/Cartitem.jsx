@@ -7,12 +7,10 @@ import { StateContext } from "../../App";
 const Cartitem = ({ item }) => {
   const navigate = useNavigate();
   const [isModal2Open, setIsModal2Open] = useState(false);
+  const [expiredModalVisible, setExpiredModalVisible] = useState(false);
   const token = JSON.parse(localStorage.getItem("Auth"));
 
-
-  const { cart, setCart } =
-    useContext(StateContext);
-
+  const { cart, setCart } = useContext(StateContext);
 
   const openNotification = (type, message, item) => {
     notification[type]({
@@ -77,14 +75,17 @@ const Cartitem = ({ item }) => {
         body: JSON.stringify(item),
       });
       const resposne = await res.json();
-
-      const updatedCart = cart.map((cartItem) => {
-        if (cartItem.id === resposne.item.product_id) {
-          return { ...cartItem, quantity: resposne.item.quantity };
-        }
-        return cartItem;
-      });
-      setCart(updatedCart);
+      if (resposne.error_code == "Expired") {
+        setExpiredModalVisible(true);
+      } else {
+        const updatedCart = cart.map((cartItem) => {
+          if (cartItem.id === resposne.item.product_id) {
+            return { ...cartItem, quantity: resposne.item.quantity };
+          }
+          return cartItem;
+        });
+        setCart(updatedCart);
+      }
     } else {
       Modal.warning({
         title: "Unauthorized",
@@ -96,7 +97,7 @@ const Cartitem = ({ item }) => {
         },
       });
     }
- };
+  };
 
   const handleminusQuantity = async () => {
     if (localStorage.getItem("Auth")) {
@@ -109,14 +110,17 @@ const Cartitem = ({ item }) => {
         body: JSON.stringify(item),
       });
       const resposne = await res.json();
-
-      const updatedCart = cart.map((cartItem) => {
-        if (cartItem.id === resposne.item.product_id) {
-          return { ...cartItem, quantity: resposne.item.quantity };
-        }
-        return cartItem;
-      });
-      setCart(updatedCart);
+      if (resposne.error_code == "Expired") {
+        setExpiredModalVisible(true);
+      } else {
+        const updatedCart = cart.map((cartItem) => {
+          if (cartItem.id === resposne.item.product_id) {
+            return { ...cartItem, quantity: resposne.item.quantity };
+          }
+          return cartItem;
+        });
+        setCart(updatedCart);
+      }
     } else {
       Modal.warning({
         title: "Unauthorized",
@@ -134,6 +138,10 @@ const Cartitem = ({ item }) => {
     navigate({
       pathname: `/single-product/${item.id}`,
     });
+  };
+  const handleModalOk = () => {
+    setExpiredModalVisible(false);
+    window.location.href = "/login";
   };
 
   return (
@@ -222,6 +230,16 @@ const Cartitem = ({ item }) => {
           </Flex>
         </div>
       </Flex>
+      <Modal
+        title="Session Expired"
+        visible={expiredModalVisible}
+        centered
+        onOk={handleModalOk}
+        okText="OK"
+        cancelButtonProps={{ style: { display: "none" } }}
+      >
+        <p>Your session has expired. You need to log in again.</p>
+      </Modal>
     </div>
   );
 };

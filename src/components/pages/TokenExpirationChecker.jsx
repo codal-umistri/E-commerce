@@ -19,7 +19,7 @@ function TokenExpirationChecker() {
       }
     };
 
-    const intervalId = setInterval(checkTokenExpiration, 1 * 60 * 1000);
+    const intervalId = setInterval(checkTokenExpiration, 2 * 60 * 1000);
 
     return () => clearInterval(intervalId);
   }, [storedToken]); 
