@@ -30,7 +30,7 @@ const GotoTop = () => {
     <section className="section-wrapper">
       {isVisible && (
         <div className="top-btn" onClick={goToBtn}>
-          <Button style={{ all: "unset" }}>
+          <Button  className="responsive-button" style={{ all: "unset" }}>
             <FaArrowUp className="top-btn--icon" />
           </Button>
         </div>

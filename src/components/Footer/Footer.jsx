@@ -46,6 +46,7 @@ const Footer = () => {
             <div className="logo1"></div>
             <div className="button">
               <Dropdown.Button
+              className="dropdown"
                 icon={<DownOutlined />}
                 overlay={
                   <Menu onClick={handleLanguageChange}>
@@ -56,13 +57,13 @@ const Footer = () => {
                 }
               >
                 <Flex justify="center" align="center" gap={4}>
-                  <GrLanguage />
+                  <GrLanguage  className="ant-btn-logo"/>
                   <Text>{selectedLanguage}</Text>
                 </Flex>
               </Dropdown.Button>
             </div>
           </Flex>
-          <div className="country">
+          {/* <div className="country">
             <Flex gap={12}>
               {COUNTRYNAMES.map((item) => (
                 <Text className="country_name" key={item.id}>
@@ -70,13 +71,13 @@ const Footer = () => {
                 </Text>
               ))}
             </Flex>
-          </div>
-          <div className="country">
+          </div> */}
+          {/* <div className="country">
             <Flex gap={12}>
               <Text className="country_name">United Kingdom</Text>
               <Text className="country_name">United States</Text>
             </Flex>
-          </div>
+          </div> */}
         </Flex>
       </div>
 

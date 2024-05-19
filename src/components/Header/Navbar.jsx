@@ -121,7 +121,7 @@ const Navbar = () => {
             />
           </div>
         </Col>
-        <Col xs={24} sm={16} md={12} lg={12} xl={12}>
+        <Col xs={24} sm={20} md={20} lg={12} xl={12}>
           <Flex className="search_container">
             <Input
               className="search-box"
@@ -167,7 +167,7 @@ const Navbar = () => {
           <Dropdown overlayStyle={{ width: "250px" }} overlay={menu}>
             <Flex
               className="cart-icon"
-              align="center"
+              align="center" 
               justify="center"
               onClick={(e) => {
                 e.preventDefault();

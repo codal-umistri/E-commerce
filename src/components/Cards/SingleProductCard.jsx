@@ -99,75 +99,79 @@ const SingleProductCard = ({ item }) => {
 
   return (
     <React.Fragment>
-      <Card
-        title={item.title}
-        bordered={true}
-        style={{
-          width: 370,
-          height: 415,
-          marginTop: 13,
-          boxShadow: "4px 8px 8px rgba(0, 0, 0, 0.1)",
-          borderRadius: "10px",
-          border: "2px solid #37475a",
-        }}
-        cover={
-          <div style={{ padding: "13px" }}>
-            <Image
-              alt="example"
-              src={item.images[0]}
-              preview={false}
-              style={{
-                borderRadius: "0",
-                width: 250,
-                height: 120,
-                marginLeft: "50px",
-              }}
-              onClick={() => {
-                handleClick();
-              }}
-            />
-          </div>
-        }
-      >
-        <div className="discription">{item.description.slice(0, 35)}</div>
-        <div className="rating">
-          <Rate allowHalf disabled defaultValue={item.rating} />
-        </div>
-        <div className="price">
-          <Flex justify="center" align="center">
-            {item.price} <FaDollarSign />
-          </Flex>
-        </div>
-        <Flex align="center" justify="center" className="card">
-          {cart?.find((Item) => {
-            return Item.id === item.id;
-          }) ? (
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="form_btn"
-              style={{
-                width: "50%",
-                height: "35px",
-                backgroundColor: "red",
-              }}
-              onClick={handleRemoveFromBag}
-            >
-              remove from cart
-            </Button>
-          ) : (
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="form_btn"
-              style={{ width: "50%", height: "35px" }}
-              onClick={handleAddtoBag}
-            >
-              Add To Cart
-            </Button>
-          )}
-        </Flex>
-      </Card>
+     <Card
+     className="card"
+     title={item.title}
+     bordered={true}
+     style={{
+       width: 370,
+       height: 415,
+       marginTop: 13,
+       boxShadow: "4px 8px 8px rgba(0, 0, 0, 0.1)",
+       borderRadius: "10px",
+       border: "2px solid #37475a",
+     }}
+     cover={
+       <div style={{ padding: "13px" }}>
+         <Image
+          className="card-image"
+           alt="example"
+           src={item.images[0]}
+           preview={false}
+           style={{
+             borderRadius: "0",
+             width: 250,
+             height: 120,
+             marginLeft: "50px",
+           }}
+           onClick={() => {
+             handleClick();
+           }}
+         />
+       </div>
+     }
+   >
+     <div className="discription">{item.description.slice(0, 35)}</div>
+     <div className="rating">
+       <Rate allowHalf disabled defaultValue={item.rating} />
+     </div>
+     <div className="price">
+       <Flex justify="center" align="center">
+         {item.price} <FaDollarSign />
+       </Flex>
+     </div>
+     <Flex align="center" justify="center">
+
+       {cart?.find((Item) => {
+         return Item.id === item.id;
+       }) ? (
+         <Button
+           type="primary"
+           htmlType="submit"
+           className="form_btn_remove"
+          //  style={{
+          //    width: "50%",
+          //    height: "35px",
+          //    backgroundColor: "red",
+          //    marginTop:'15px'
+          //  }}
+           onClick={handleRemoveFromBag}
+         >
+           remove from cart
+         </Button>
+       ) : (
+         <Button
+           type="primary"
+           htmlType="submit"
+           className="form_btn_submit"
+          //  style={{ width: "50%", height: "35px",   marginTop:'15px' }}
+           onClick={handleAddtoBag}
+         >
+           Add To Cart
+         </Button>
+       )}
+     </Flex>
+   </Card>
     </React.Fragment>
   );
 };

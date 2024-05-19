@@ -6,8 +6,9 @@ const { Text } = Typography;
 const LongItem = () => {
   const navigate = useNavigate();
   return (
-    <Row justify="space-around">
-      <Col span={21}>
+    <Row>
+      <Col xs={24} sm={24} md={24} lg={20} xl={22}>
+        <div className="page_container">
         <div className="long_container">
           <div className="Container">
             <Flex vertical>
@@ -23,6 +24,7 @@ const LongItem = () => {
               </button>
             </Flex>
           </div>
+        </div>
         </div>
       </Col>
     </Row>

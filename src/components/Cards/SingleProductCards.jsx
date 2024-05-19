@@ -30,12 +30,12 @@ const SingleProductCards = () => {
     <React.Fragment>
       <Row style={{ marginTop: "2rem" }}>
         <Col span={24}>
-          <Flex justify="space-evenly" wrap="wrap">
+          <div className="singlecard_container">
             {items.map((item) => (
               
               <SingleProductCard key={item.id} item={item} />
             ))}
-          </Flex>
+          </div>
         </Col>
       </Row>
     </React.Fragment>

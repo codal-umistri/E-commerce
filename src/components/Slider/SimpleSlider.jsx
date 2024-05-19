@@ -2,12 +2,12 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { BANNERDATA } from "../Constants/Items";
 import { RESPONSIVE } from "../Constants/Items";
-import { Col, Row, Image } from "antd";
+import { Col, Row, Image} from "antd";
 
 const SimpleSlider = () => {
   return (
-    <Row className="slider" justify="space-around">
-      <Col span={23}>
+    <Row className="slider" justify="center">
+      <Col span={24}>
         <Carousel
           responsive={RESPONSIVE}
           showDots={true}
@@ -18,10 +18,10 @@ const SimpleSlider = () => {
           {BANNERDATA.map((data, index) => (
             <div key={index}>
               <Image
+              className="slider-image"
                 src={data.url}
                 alt="banner"
                 preview={false}
-                style={{ minWidth: "225vh", height: "280px" }}
               />
             </div>
           ))}
