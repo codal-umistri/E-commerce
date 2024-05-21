@@ -13,7 +13,7 @@ body {
     margin: 0;
     height: 100%;
     min-width: 100vh;
-    /* overflow-x: clip; */
+    overflow-x: hidden;
 }
 
 header {
@@ -711,8 +711,31 @@ footer {
     }
 }
 
+@media (min-width:320px) and (max-width:869px) {
+    .long_container {
+        background-position: 52% 0%;
+        height: 15.62rem !important;
+    }
 
-@media (min-width: 768px) and (max-width:1024px) {
+    .long_container .txt_1 {
+        font-size: 1.3rem !important;
+    }
+
+    .long_container .txt_2 {
+        font-size: 0.9rem !important;
+    }
+
+    .long_container .Container .btn {
+        height: 2.3rem;
+        width: 6.5rem;
+        font-size: 0.8rem !important;
+        position: absolute;
+        top: 140px;
+    }
+}
+
+
+@media (min-width: 868px) and (max-width:1024px) {
     .long_container {
         background-image: url("https://i.ebayimg.com/00/s/NDEzWDE2MDA=/z/HOMAAOSw0nFlrleq/$_57.JPG");
         background-position: center;
@@ -884,7 +907,7 @@ footer {
     position: sticky;
     /* margin-bottom: 1rem; */
     /* margin: 0 1rem 10px; */
-    top:15px
+    top: 15px
 }
 
 .promo_code {
@@ -954,7 +977,7 @@ footer {
     .price_container {
 
         margin-left: 15px;
-        top: 113px;
+        top: 113px
     }
 
 
@@ -1124,4 +1147,291 @@ footer {
     height: 50px;
     width: 50px;
     margin-right: 10px;
+}
+
+
+/* product preview */
+.preview_product {
+    background-color: white;
+    height: fit-content;
+    width: 90%;
+    margin-top: 15px;
+    border: 2px solid black;
+}
+
+.item_content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 18px 0px 0px 25px;
+}
+
+
+.preview_container {
+    overflow: hidden;
+    margin: 25px 0px 0px 25px;
+    border-radius: 15px;
+}
+
+.more_images {
+    width: 550px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+
+.more_image {
+    border: 1px solid black;
+    border-radius: 10px;
+    object-fit: cover;
+    height: 85px !important;
+    width: 95px !important;
+}
+
+.product_details {
+    font-size: 30px;
+    font-weight: 700;
+    color: #37475a;
+}
+
+.preview_title {
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.preview_description {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.preview_part {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 13px;
+}
+
+.preview_image {
+    border-radius: 15px;
+    border: 1px solid black;
+    width: 550px !important;
+    height: 400px !important;
+}
+
+.preview_rating {
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.preview_rate {
+    font-size: 23px;
+}
+
+.add_form_btn {
+    width: 135px !important;
+    height: 40px;
+}
+
+.remove_form_btn {
+    width: 135px !important;
+    height: 40px;
+    background-color: red;
+}
+
+.form_btn_buynow {
+    width: 135px !important;
+    height: 40px;
+    margin-left: 25px;
+}
+
+.preview_discount {
+    font-size: 23px;
+    font-weight: 500;
+    color: #CC0C39;
+}
+
+.preview_price {
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.preview_discounted_price {
+    font-size: 23px;
+    font-weight: 500;
+    color: #565959;
+}
+
+@media (min-width:300px) and (max-width:525px) {
+    .preview_container {
+        margin: 25px 0px 0px 0px;
+    }
+
+    .product_details {
+        font-size: 21px;
+        font-weight: 700;
+    }
+
+    .preview_image {
+        border-radius: 15px;
+        border: 1px solid black;
+        width: 450px !important;
+        height: 300px !important;
+    }
+
+    .more_image {
+        height: 65px !important;
+        width: 75px !important;
+    }
+
+    .preview_title {
+        margin-top: 5px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .preview_description {
+        width: 75%;
+        font-size: 19px;
+        font-weight: 500;
+    }
+
+    .preview_part {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width:768px) {
+    .preview_container {
+        margin: 25px 0px 0px 0px;
+    }
+
+    .product_details {
+        font-size: 21px;
+        font-weight: 700;
+    }
+
+    .preview_title {
+        margin-top: 5px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .more_image {
+        height: 75px !important;
+        width: 85px !important;
+    }
+
+    .preview_description {
+        width: 75%;
+        font-size: 19px;
+        font-weight: 500;
+    }
+
+    .preview_part {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width:1024px) {
+
+    .preview_product {
+        width: 80%;
+    }
+
+    .preview_part {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product_details {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .preview_title {
+        margin-top: 5px;
+        font-size: 21px;
+        font-weight: 700;
+    }
+
+    .preview_description {
+        width: 75%;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .remove_form_btn {
+        margin-bottom: 10px;
+    }
+
+    .add_form_btn {
+        margin-bottom: 10px;
+    }
+
+    .form_btn_buynow {
+        margin-bottom: 10px;
+    }
+
+    .item_content {
+        width: 100%;
+        margin: 0px;
+    }
+}
+
+@media (min-width:1024px) and (max-width:1390px) {
+
+    .preview_product {
+        width: 80%;
+    }
+
+    .preview_part {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product_details {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .preview_title {
+        margin-top: 5px;
+        font-size: 21px;
+        font-weight: 700;
+    }
+
+    .preview_description {
+        width: 75%;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .remove_form_btn {
+        margin-bottom: 10px;
+    }
+
+    .add_form_btn {
+        margin-bottom: 10px;
+    }
+
+    .form_btn_buynow {
+        margin-bottom: 10px;
+    }
+
+    .item_content {
+        width: 100%;
+        margin: 0px;
+    }
 }

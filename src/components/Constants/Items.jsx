@@ -358,12 +358,11 @@ export const RESPONSIVE = {
     items: 1,
   },
 };
-  
-  
+
 export const responsive = {
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1,
+    items: 2,
   },
   tablet: {
     breakpoint: { max: 800, min: 464 },
@@ -373,8 +372,13 @@ export const responsive = {
     breakpoint: { max: 1440, min: 1024 },
     items: 3,
   },
+  desktop: {
+    breakpoint: { max: 1900, min: 1339 },
+    items: 3,
+    slidesToSlide: 3,
+  },
   superLargeDesktop: {
-    breakpoint: { max: 2560, min: 1440 },
+    breakpoint: { min: 1900, max: 2560 },
     items: 4,
     slidesToSlide: 3,
   },
@@ -1026,7 +1030,7 @@ export const STATES = [
   },
 ];
 
- export const COUPENCODE = [
+export const COUPENCODE = [
   {
     Code: "ABC",
     discountPercentage: 25,

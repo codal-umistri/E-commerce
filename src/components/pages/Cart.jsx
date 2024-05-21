@@ -111,7 +111,7 @@ const Cart = () => {
             </Flex>
           )}
         </Col>
-        <Col xs={24} md={24} lg={6} xl={6}>
+        <Col xs={24} md={24} lg={6} xl={7}>
           <div className="price_container">
             <Flex vertical>
               <Flex justify="center">

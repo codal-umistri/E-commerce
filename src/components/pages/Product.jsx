@@ -36,82 +36,56 @@ const Product = () => {
 
   return (
     <Flex justify="center">
-      <Row
-        style={{
-          backgroundColor: "white",
-          height: "fit-content",
-          minHeight: "fit-content",
-          width: "90%",
-          marginTop: "15px",
-          border: "2px solid black",
-        }}
-      >
-        <Col span={13}>
-          <Flex gap={13} vertical style={{ overflow: "hidden" }}>
-            <div
-              style={{
-                overflow: "hidden",
-                marginLeft: "25px",
-                marginTop: "25px",
-                borderRadius: "15px",
-              }}
-            >
+      <Row className="preview_product">
+        <Col xs={24} md={24} lg={24} xl={11}>
+          <div className="preview_part" style={{ overflow: "hidden" }}>
+            <div className="preview_container">
               <Image
+                className="preview_image"
                 src={imgsrc}
-                width={620}
-                height={520}
                 preview={{
                   mask: <div />,
                 }}
-                style={{ border: "1px solid black", borderRadius: "15px" }}
               />
             </div>
-            <Flex
-              style={{
-                width: "620px",
-                marginTop: "15px",
-                marginLeft: "15px",
-                marginBottom: "15px",
-              }}
-              justify="space-evenly"
-              align="center"
-            >
+            <div className="more_images">
               {item.images?.map((item, index) => (
                 <Image
-                  height={85}
-                  width={85}
                   src={item}
                   onMouseOver={() => Setimgsrc(item)}
                   preview={false}
-                  style={{
-                    border: "1px solid black",
-                    borderRadius: "10px",
-                    objectFit: "cover",
-                  }}
+                  className="more_image"
                   key={index}
                 ></Image>
               ))}
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         </Col>
-        <Col span={10} style={{ marginTop: "18px" }}>
-          <Flex className="item_content" vertical gap={13}>
-            <h1 style={{ color: "#37475a" }}>Product Details</h1>
-            <span style={{ fontSize: "27px", fontWeight: "500" }}>
-              {item.title}
-            </span>
-            <span style={{ fontSize: "20px", fontWeight: "500" }}>
-              {item.description}
-            </span>
-            <Flex gap={8}>
-              <span>{item.rating}</span>
+        <Col
+          xs={24}
+          md={24}
+          lg={24}
+          xl={10}
+          style={{ marginTop: "18px", marginLeft: "15px" }}
+        >
+          <div className="item_content">
+            <span className="product_details">Product Details</span>
+            <span className="preview_title">{item.title}</span>
+            <span className="preview_description">{item.description}</span>
+            <Flex gap={8} align="center">
+              <span className="preview_rating">{item.rating}</span>
               {item.rating && (
-                <Rate allowHalf disabled  defaultValue={parseInt(item.rating)} />
+                <Rate
+                  className="preview_rate"
+                  allowHalf
+                  disabled
+                  defaultValue={parseInt(item.rating)}
+                />
               )}
             </Flex>
             <Flex align="center" gap={25}>
               <Flex align="center" gap={10}>
-                <span style={{ fontSize: "22px", color: "#CC0C39" }}>
+                <span className="preview_discount">
                   -{item.discountPercentage}%
                 </span>
                 <span
@@ -120,11 +94,12 @@ const Product = () => {
                     fontWeight: "475",
                     color: "#0F1111",
                   }}
+                  className="preview_price"
                 >
                   {item.price} $/-
                 </span>
               </Flex>
-              <span style={{ fontSize: "18px", color: "#565959" }}>
+              <span className="preview_discounted_price">
                 <del>
                   {Math.round(
                     (item.price * 100) / (100 - item.discountPercentage)
@@ -138,37 +113,36 @@ const Product = () => {
               <span
                 style={
                   item.stock < 35
-                    ? { fontSize: "19px", color: "#CC0C39" }
-                    : { fontSize: "19px", color: "green" }
+                    ? { fontSize: "22px", color: "#CC0C39" }
+                    : { fontSize: "22px", color: "green" }
                 }
               >
                 Availabe in stock :- {item.stock}
               </span>
             </Flex>
-            {item.id &&
-            <Flex
-              style={{ marginTop: "25px" }}
-              justify={
-                cart.find((Item) => {
+            {item.id && (
+              <Flex
+                justify={
+                  cart.find((Item) => {
+                    return Item.id == item.id;
+                  })
+                    ? "center"
+                    : "space-around"
+                }
+              >
+                {cart.find((Item) => {
                   return Item.id == item.id;
-                })
-                  ? "center"
-                  : "space-around"
-              }
-            >
-              {cart.find((Item) => {
-                return Item.id == item.id;
-              }) ? (
-                <Buttons item={item} />
-              ) : (
-                <React.Fragment>
+                }) ? (
                   <Buttons item={item} />
-                  <SingleButtons tag={"Buy Now"} item={item} />
+                ) : (
+                  <React.Fragment>
+                    <Buttons item={item} />
+                    <SingleButtons tag={"Buy Now"} item={item} />
                   </React.Fragment>
-              )}
-            </Flex>
-}
-          </Flex>
+                )}
+              </Flex>
+            )}
+          </div>
         </Col>
       </Row>
     </Flex>

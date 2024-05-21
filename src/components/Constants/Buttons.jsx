@@ -95,7 +95,7 @@ const Buttons = ({ item }) => {
         <Button
           type="primary"
           htmlType="submit"
-          className="form_btn"
+          className="remove_form_btn"
           style={{ width: "35%", height: "40px", backgroundColor: "red" }}
           onClick={handleRemoveFromBag}
         >
@@ -114,7 +114,7 @@ const Buttons = ({ item }) => {
           <Button
             type="primary"
             htmlType="submit"
-            className="form_btn"
+            className="add_form_btn"
             style={{ width: "35%", height: "40px" }}
             onClick={handleAddtoBag}
           >

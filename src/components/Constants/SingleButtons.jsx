@@ -66,8 +66,7 @@ const SingleButtons = ({ tag, item }) => {
       <Button
         type="primary"
         htmlType="submit"
-        className="form_btn"
-        style={{ width: "35%", height: "40px" }}
+        className="form_btn_buynow"
         onClick={() => handleAddtoBag()}
       >
         {tag}
