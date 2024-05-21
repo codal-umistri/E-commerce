@@ -62,7 +62,7 @@ const Login = () => {
     }
   };
   return (
-    <Flex justify="center" align="center" style={{ minHeight: "100vh" }}>
+    <Flex justify="center" align="center" style={{ minWidth:"100vw", height:"100%", minHeight:'100vh'}}>
       <Row className="login_container">
         <Col span={24} style={{ textAlign: "center" }}>
           <div className="logo_container">

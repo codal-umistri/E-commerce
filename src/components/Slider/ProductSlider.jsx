@@ -36,6 +36,7 @@ const ProductSlider = () => {
           containerClass="carousel-container"
           removeArrowOnDeviceType={["tablet", "mobile", "superLargeDesktop"]}
           responsive={responsive}
+          arrows={false}
         >
           {items.map((item) => (
             <SingleProductCard key={item.id} item={item} />

@@ -29,7 +29,7 @@ const SingleProductCards = () => {
   return (
     <React.Fragment>
       <Row style={{ marginTop: "2rem" }}>
-        <Col span={24}>
+        <Col span={24}> 
           <div className="singlecard_container">
             {items.map((item) => (
               

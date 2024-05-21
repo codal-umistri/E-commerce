@@ -334,10 +334,10 @@ export const BANNERDATA = [
     id: 5,
     url: "https://rukminim2.flixcart.com/fk-p-flap/3376/560/image/739ed527dbf977fe.jpg?q=50",
   },
-  {
-    id: 6,
-    url: "https://rukminim2.flixcart.com/fk-p-flap/3376/270/image/ed12b7707a04473c.jpg?q=50",
-  },
+  // {
+  //   id: 6,
+  //   url: "https://rukminim2.flixcart.com/fk-p-flap/3376/270/image/ed12b7707a04473c.jpg?q=50",
+  // },
 ];
 
 export const RESPONSIVE = {
@@ -361,22 +361,22 @@ export const RESPONSIVE = {
   
   
 export const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 3000, min: 0 },
-    items: 3,
-    slidesToSlide: 3,
-  },
-  desktop: {
-    breakpoint: { max: 1024, min: 800 },
-    items: 4,
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
   },
   tablet: {
     breakpoint: { max: 800, min: 464 },
     items: 2,
   },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
+  laptop: {
+    breakpoint: { max: 1440, min: 1024 },
+    items: 3,
+  },
+  superLargeDesktop: {
+    breakpoint: { max: 2560, min: 1440 },
+    items: 4,
+    slidesToSlide: 3,
   },
 };
 
@@ -396,7 +396,7 @@ export const responsiveforsection = {
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1,
+    items: 3,
   },
 };
 

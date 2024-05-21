@@ -1,13 +1,5 @@
 import React, { useContext } from "react";
-import {
-  Col,
-  Row,
-  Flex,
-  ConfigProvider,
-  Button,
-  Input,
-  Modal,
-} from "antd";
+import { Col, Row, Flex, ConfigProvider, Button, Input, Modal } from "antd";
 import Cartitem from "../Cards/Cartitem";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
@@ -78,7 +70,7 @@ const Cart = () => {
           body: JSON.stringify({
             products: cart,
             promoCode: promoCode,
-          }), 
+          }),
         }
       );
 
@@ -96,12 +88,13 @@ const Cart = () => {
 
   return (
     <React.Fragment>
-      <Row style={{ marginTop: "1rem", backgroundColor: "transparent" }}>
-        <Col span={15}>
+      <Row
+        style={{ marginTop: "1rem", backgroundColor: "transparent" }}
+        className="row"
+      >
+        <Col xs={24} md={24} lg={17} xl={16} className="cart_item">
           {cart?.length ? (
-            cart.map((item) => (
-              <Cartitem item={item} key={item.id} />
-            ))
+            cart.map((item) => <Cartitem item={item} key={item.id} />)
           ) : (
             <Flex justify="center" align="center" style={{ height: "100%" }}>
               <Link
@@ -118,131 +111,104 @@ const Cart = () => {
             </Flex>
           )}
         </Col>
-        <Col span={7} offset={1} className="price_container">
-          <Flex vertical>
-            <Flex justify="center">
-              <span
-                style={{
-                  fontSize: "18px",
-                  fontWeight: "500",
-                  padding: "10px 0px",
-                  color: "#007185",
-                  opacity: 0.8,
-                }}
-              >
-                PRICE DETAILS
-              </span>
-            </Flex>
-            <hr />
-            <Flex style={{ margin: "10px 0px" }} justify="space-around">
-              <Flex vertical gap={20}>
-                <span style={{ fontSize: "18px" }}>
-                  Price (
-                  {cart.reduce((acc, cul) => {
-                    return (acc = acc + cul.quantity);
-                  }, 0)}{" "}
-                  items)
-                </span>
-                <span style={{ fontSize: "18px" }}>Discount</span>
+        <Col xs={24} md={24} lg={6} xl={6}>
+          <div className="price_container">
+            <Flex vertical>
+              <Flex justify="center">
                 <span
-                  className={
-                    cart.reduce((acc, cul) => {
-                      return (acc = acc + cul.quantity);
-                    }, 0)
-                      ? "showdelivery"
-                      : "notshowcoupen"
-                  }
-                >
-                  Delivery Charges
-                </span>
-                <span
-                  style={{
-                    fontSize: "20px",
-                    fontWeight: "650",
-                  }}
-                >
-                  Total Price
-                </span>
-              </Flex>
-              <Flex vertical gap={20}>
-                <span style={{ fontSize: "18px" }}>
-                  {cart.reduce((acc, cul) => {
-                    return (acc = acc + cul.price * cul.quantity);
-                  }, 0)}
-                  $/-
-                </span>
-                <span
+                  className="price_details"
                   style={{
                     fontSize: "18px",
-                    color: "green",
-                    marginRight: "10px",
+                    fontWeight: "500",
+                    padding: "10px 0px",
+                    color: "#007185",
+                    opacity: 0.8,
                   }}
                 >
-                  -
-                  {cart.reduce((acc, cul) => {
-                    const price =
-                      (cul.price *
-                        cul.quantity *
-                        cul.discountPercentage) /
-                      100;
-                    return (acc = acc + Math.round(price));
-                  }, 0)}
-                  $/-
+                  PRICE DETAILS
                 </span>
-                <span
-                  style={{ color: "green" }}
-                  className={
-                    cart.reduce((acc, cul) => {
+              </Flex>
+              <hr />
+              <Flex style={{ margin: "10px 0px" }} justify="space-around">
+                <Flex vertical gap={20}>
+                  <span style={{ fontSize: "18px" }} className="price_info">
+                    Price (
+                    {cart.reduce((acc, cul) => {
                       return (acc = acc + cul.quantity);
-                    }, 0)
-                      ? "showdelivery"
-                      : "notshowcoupen"
-                  }
-                >
-                  Free
-                </span>
-                <Flex justify="center">
-                  {promoCode == null ? (
-                    <span
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: "600",
-                        marginRight: "10px",
-                      }}
-                    >
-                      {cart.reduce((acc, cul) => {
-                        return (acc = acc + cul.price * cul.quantity);
-                      }, 0) -
-                        cart.reduce((acc, cul) => {
-                          const price =
-                            (cul.price *
-                              cul.quantity *
-                              cul.discountPercentage) /
-                            100;
-                          return (acc = acc + Math.round(price));
-                        }, 0)}
-                      $/-
-                    </span>
-                  ) : (
-                    <span
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: "600",
-                        marginRight: "10px",
-                      }}
-                    >
-                      {cart.reduce((acc, cul) => {
-                        return (acc = acc + cul.price * cul.quantity);
-                      }, 0) -
-                        cart.reduce((acc, cul) => {
-                          const price =
-                            (cul.price *
-                              cul.quantity *
-                              cul.discountPercentage) /
-                            100;
-                          return (acc = acc + Math.round(price));
-                        }, 0) -
-                        ((cart.reduce((acc, cul) => {
+                    }, 0)}{" "}
+                    items)
+                  </span>
+                  <span style={{ fontSize: "18px" }} className="discount">
+                    Discount
+                  </span>
+                  <span
+                    className={
+                      cart.reduce((acc, cul) => {
+                        return (acc = acc + cul.quantity);
+                      }, 0)
+                        ? "showdelivery"
+                        : "notshowcoupen"
+                    }
+                  >
+                    Delivery Charges
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "650",
+                    }}
+                    className="total_price"
+                  >
+                    Total Price
+                  </span>
+                </Flex>
+                <Flex vertical gap={20}>
+                  <span style={{ fontSize: "18px" }} className="price_info">
+                    {cart.reduce((acc, cul) => {
+                      return (acc = acc + cul.price * cul.quantity);
+                    }, 0)}
+                    $/-
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "18px",
+                      color: "green",
+                      marginRight: "10px",
+                    }}
+                    className="discount"
+                  >
+                    -
+                    {cart.reduce((acc, cul) => {
+                      const price =
+                        (cul.price * cul.quantity * cul.discountPercentage) /
+                        100;
+                      return (acc = acc + Math.round(price));
+                    }, 0)}
+                    $/-
+                  </span>
+                  <span
+                    style={{ color: "green" }}
+                    className={
+                      cart.reduce((acc, cul) => {
+                        return (acc = acc + cul.quantity);
+                      }, 0)
+                        ? "showdelivery"
+                        : "notshowcoupen"
+                    }
+                  >
+                    Free
+                  </span>
+                  <Flex justify="center">
+                    {promoCode == null ? (
+                      <span
+                        style={{
+                          fontSize: "18px",
+                          fontWeight: "600",
+                          marginRight: "10px",
+                        }}
+                        className="total_price"
+                      >
+                        {cart.reduce((acc, cul) => {
                           return (acc = acc + cul.price * cul.quantity);
                         }, 0) -
                           cart.reduce((acc, cul) => {
@@ -252,90 +218,74 @@ const Cart = () => {
                                 cul.discountPercentage) /
                               100;
                             return (acc = acc + Math.round(price));
-                          }, 0)) *
-                          coupenndiscount[0]?.discountPercentage) /
-                          100}
-                      $/-
-                    </span>
-                  )}
+                          }, 0)}
+                        $/-
+                      </span>
+                    ) : (
+                      <span
+                        style={{
+                          fontSize: "18px",
+                          fontWeight: "600",
+                          marginRight: "10px",
+                        }}
+                        className="total_price"
+                      >
+                        {cart.reduce((acc, cul) => {
+                          return (acc = acc + cul.price * cul.quantity);
+                        }, 0) -
+                          cart.reduce((acc, cul) => {
+                            const price =
+                              (cul.price *
+                                cul.quantity *
+                                cul.discountPercentage) /
+                              100;
+                            return (acc = acc + Math.round(price));
+                          }, 0) -
+                          ((cart.reduce((acc, cul) => {
+                            return (acc = acc + cul.price * cul.quantity);
+                          }, 0) -
+                            cart.reduce((acc, cul) => {
+                              const price =
+                                (cul.price *
+                                  cul.quantity *
+                                  cul.discountPercentage) /
+                                100;
+                              return (acc = acc + Math.round(price));
+                            }, 0)) *
+                            coupenndiscount[0]?.discountPercentage) /
+                            100}
+                        $/-
+                      </span>
+                    )}
+                  </Flex>
                 </Flex>
               </Flex>
-            </Flex>
-            <Flex align="center" justify="center" gap={3}>
-              <span
-                className={promoCode !== null ? "showcoupen" : "notshowcoupen"}
-                style={{ color: "green" }}
-              >
-                {coupenndiscount[0]?.discountPercentage}%{" "}
-              </span>
-              {
+              <Flex align="center" justify="center" gap={3}>
                 <span
-                  className={promoCode !== null ? "showbadge" : "notshowcoupen"}
+                  className={
+                    promoCode !== null ? "showcoupen" : "notshowcoupen"
+                  }
                   style={{ color: "green" }}
                 >
-                  Discount
+                  {coupenndiscount[0]?.discountPercentage}%{" "}
                 </span>
-              }
+                {
+                  <span
+                    className={
+                      promoCode !== null ? "showbadge" : "notshowcoupen"
+                    }
+                    style={{ color: "green" }}
+                  >
+                    Discount
+                  </span>
+                }
+              </Flex>
             </Flex>
-          </Flex>
-          <Flex justify="space-evenly" style={{ margin: "16px 0px" }}>
-            <Input
-              placeholder="Enter Promo Code"
-              value={input}
-              onChange={(e) => setinput(e.target.value)}
-              disabled={
-                cart.reduce((acc, cul) => {
-                  return (acc = acc + cul.quantity);
-                }, 0) === 0
-                  ? true
-                  : false
-              }
-              style={{ marginRight: "10px", width: "200px" }}
-            />
-            <Button
-              type="primary"
-              onClick={applyPromoCode}
-              disabled={
-                cart.reduce((acc, cul) => {
-                  return (acc = acc + cul.quantity);
-                }, 0) === 0
-                  ? true
-                  : false
-              }
-              style={{ height: "35px", backgroundColor: "green" }}
-            >
-              Apply
-            </Button>
-            <Button
-              type="primary"
-              onClick={cancelPromoCode}
-              disabled={
-                promoCode == null ||
-                cart.reduce((acc, cul) => {
-                  return (acc = acc + cul.quantity);
-                }, 0) === 0
-                  ? true
-                  : false
-              }
-              style={{ height: "35px", backgroundColor: "green" }}
-            >
-              Cancel
-            </Button>
-          </Flex>
-          <Flex justify="center" style={{ margin: "24px 0px" }}>
-            <ConfigProvider
-              theme={{
-                components: {
-                  Button: {
-                    colorPrimaryHover: "green",
-                  },
-                },
-              }}
-            >
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="form_btn"
+            <div className="promo_code">
+              <Input
+                placeholder="Enter Promo Code"
+                value={input}
+                onChange={(e) => setinput(e.target.value)}
                 disabled={
                   cart.reduce((acc, cul) => {
                     return (acc = acc + cul.quantity);
@@ -343,13 +293,69 @@ const Cart = () => {
                     ? true
                     : false
                 }
-                style={{ width: "50%", height: "35px" }}
-                onClick={() => handlePlaceOrder()}
+                style={{ marginRight: "10px", width: "200px" }}
+              />
+              <Button
+                type="primary"
+                className="apply"
+                onClick={applyPromoCode}
+                disabled={
+                  cart.reduce((acc, cul) => {
+                    return (acc = acc + cul.quantity);
+                  }, 0) === 0
+                    ? true
+                    : false
+                }
+                style={{ height: "35px", backgroundColor: "green" }}
               >
-                PLACE ORDER
+                Apply
               </Button>
-            </ConfigProvider>
-          </Flex>
+              <Button
+                type="primary"
+                className="cancel"
+                onClick={cancelPromoCode}
+                disabled={
+                  promoCode == null ||
+                  cart.reduce((acc, cul) => {
+                    return (acc = acc + cul.quantity);
+                  }, 0) === 0
+                    ? true
+                    : false
+                }
+                style={{ height: "35px", backgroundColor: "green" }}
+              >
+                Cancel
+              </Button>
+            </div>
+            <Flex justify="center" style={{ margin: "24px 0px" }}>
+              <ConfigProvider
+                theme={{
+                  components: {
+                    Button: {
+                      colorPrimaryHover: "green",
+                    },
+                  },
+                }}
+              >
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="form_btn"
+                  disabled={
+                    cart.reduce((acc, cul) => {
+                      return (acc = acc + cul.quantity);
+                    }, 0) === 0
+                      ? true
+                      : false
+                  }
+                  style={{ width: "50%", height: "35px" }}
+                  onClick={() => handlePlaceOrder()}
+                >
+                  PLACE ORDER
+                </Button>
+              </ConfigProvider>
+            </Flex>
+          </div>
         </Col>
       </Row>
       <Footer />

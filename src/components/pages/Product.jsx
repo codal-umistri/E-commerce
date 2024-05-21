@@ -24,6 +24,7 @@ const Product = () => {
         }
         const data = await response.json();
         setItem(data.item);
+
         Setimgsrc(data.item.images[0]);
       } catch (error) {
         console.error("Error fetching data:", error);

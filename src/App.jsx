@@ -124,7 +124,7 @@ const App = () => {
   const handleOnlineStatus = () => {
     setOnline(navigator.onLine);
   };
-  console.log(cart);
+  // console.log(cart);
   return (
     <React.Fragment>
       <Provider store={brighspaceStore}>

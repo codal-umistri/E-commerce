@@ -23,7 +23,7 @@ const MultipleProductCards = () => {
   }, []);
   return (
     <React.Fragment>
-      <Row style={{ marginTop: "2rem" }}>
+      <Row style={{ marginTop: "2rem" }} className="main_rox">
         <Col span={24}>
           <Flex justify="space-evenly" wrap="wrap">
             {Array.isArray(Data) &&

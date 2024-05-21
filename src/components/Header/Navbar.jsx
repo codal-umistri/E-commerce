@@ -108,71 +108,66 @@ const Navbar = () => {
 
   return (
     <header>
-      <Row className="navbar" justify="space-around" align="middle">
-      <Col xs={24} sm={8} md={6} lg={4} xl={2} offset={1}>
-          <div className="logo">
-            <Image
-              src="/images/logo1.png"
-              alt="asca"
-              preview={false}
-              onClick={() => {
-                navigate({ pathname: "/" });
-              }}
-            />
-          </div>
-        </Col>
-        <Col xs={24} sm={20} md={20} lg={12} xl={12}>
-          <Flex className="search_container">
-            <Input
-              className="search-box"
-              placeholder="Search for Products, Brands and More"
-              onChange={(e) => handleChnage(e)}
-              value={searchInputValue}
-            />
-            <Button className="search-btn" onClick={() => handleSearch()}>
-              <TfiSearch />
-            </Button>
-          </Flex>
-        </Col>
-        <Col xs={24} sm={24} md={6} lg={4} xl={2}>
-          <div className="login">
-            {Auth?.token ? (
-              <Dropdown
-                overlayStyle={{ width: "250px" }}
-                menu={{ items: ITEMS1 }}
-              >
-                <Link to="/">
-                  <Flex align="center" justify="center" className="login_text">
-                    <GoPerson style={{ all: "unset" }} /> &nbsp;
-                    <Text>{Auth.name}</Text>
-                  </Flex>
-                </Link>
-              </Dropdown>
-            ) : (
-              <Dropdown
-                overlayStyle={{ width: "250px" }}
-                menu={{ items: ITEMS }}
-              >
-                <Link to="/login">
-                  <Flex align="center" justify="center" className="login_text">
-                    <GoPerson style={{ all: "unset" }} /> &nbsp;
-                    <Text>Login</Text>
-                  </Flex>
-                </Link>
-              </Dropdown>
-            )}
-          </div>
-        </Col>
-        <Col xs={24} sm={24} md={6} lg={4} xl={2}>
+    <div className="main-navbar">
+      <div className="logo-and-search">
+        <div className="logo">
+          <Image
+            src="/images/logo1.png"
+            alt="asca"
+            preview={false}
+            onClick={() => {
+              navigate({ pathname: "/" });
+            }}
+          />
+        </div>
+        <Flex className="search_container">
+          <Input
+            className="search-box"
+            placeholder="Search for Products, Brands and More"
+            onChange={(e) => handleChnage(e)}
+            value={searchInputValue}
+          />
+          <Button className="search-btn" onClick={() => handleSearch()}>
+            <TfiSearch />
+          </Button>
+        </Flex>
+      </div>
+      <div className="other-elements">
+        <div className="login">
+          {Auth?.token ? (
+            <Dropdown
+              overlayStyle={{ width: "250px" }}
+              menu={{ items: ITEMS1 }}
+            >
+              <Link to="/">
+                <Flex align="center" justify="center" className="login_text">
+                  <GoPerson style={{ all: "unset" }} /> &nbsp;
+                  <Text>{Auth.name}</Text>
+                </Flex>
+              </Link>
+            </Dropdown>
+          ) : (
+            <Dropdown
+              overlayStyle={{ width: "250px" }}
+              menu={{ items: ITEMS }}
+            >
+              <Link to="/login">
+                <Flex align="center" justify="center" className="login_text">
+                  <GoPerson style={{ all: "unset" }} /> &nbsp;
+                  <Text>Login</Text>
+                </Flex>
+              </Link>
+            </Dropdown>
+          )}
+        </div>
+        <div className="cart-icon">
           <Dropdown overlayStyle={{ width: "250px" }} overlay={menu}>
             <Flex
-              className="cart-icon"
-              align="center" 
+              align="center"
               justify="center"
               onClick={(e) => {
                 e.preventDefault();
-                window.location.href = '/cart'
-                // navigate({ pathname: "/cart" });
+                window.location.href = '/cart';
               }}
             >
               <Badge count={cart?.length} className="ant-badge-count">
@@ -182,53 +177,33 @@ const Navbar = () => {
               </Badge>
             </Flex>
           </Dropdown>
-        </Col>
-        <Col xs={24} sm={24} md={6} lg={4} xl={3}>
-          {Auth?.type === 2 ?
-          (<Flex
-            className="become-seller"
+        </div>
+        <div className="become-seller">
+          <Flex
             align="center"
             justify="center"
             onClick={() => {
-              navigate("/become-seller");
+              navigate(Auth?.type === 2 ? "/admin" : "/become-seller");
             }}
           >
             <ShopOutlined />
             &nbsp;
-            <Text>Admin</Text>
-          </Flex>) :
-            <Flex
-            className="become-seller"
-            align="center"
-            justify="center"
-            onClick={() => {
-              navigate("/become-seller");
-            }}
-          >
-            <ShopOutlined />
-            &nbsp;
-            <Text>Become a Seller</Text>
+            <Text>{Auth?.type === 2 ? "Admin" : "Become a Seller"}</Text>
           </Flex>
-          }
-        
-        </Col>
-        <Col xs={24} sm={24} md={6} lg={4} xl={2}>
-          <div className="more">
-            <Dropdown
-              overlayStyle={{ width: "250px" }}
-              menu={{ items: MORE_ITEMS }}
-            >
-              <Link
-                onClick={(e) => e.preventDefault()}
-                style={{ all: "unset" }}
-              >
-                <HiOutlineDotsVertical />
-              </Link>
-            </Dropdown>
-          </div>
-        </Col>
-      </Row>
-    </header>
+        </div>
+        <div className="more">
+          <Dropdown
+            overlayStyle={{ width: "250px" }}
+            menu={{ items: MORE_ITEMS }}
+          >
+            <Link onClick={(e) => e.preventDefault()} style={{ all: "unset" }}>
+              <HiOutlineDotsVertical />
+            </Link>
+          </Dropdown>
+        </div>
+      </div>
+    </div>
+  </header>
   );
 };
 

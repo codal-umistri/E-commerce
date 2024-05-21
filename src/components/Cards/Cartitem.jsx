@@ -149,6 +149,7 @@ const Cartitem = ({ item }) => {
       <Flex>
         <div className="image">
           <Image
+           className="cart_image"
             preview={false}
             src={item.images[0]}
             height={175}
@@ -168,8 +169,8 @@ const Cartitem = ({ item }) => {
           style={{ marginLeft: "2rem", marginTop: "0.3rem" }}
         >
           <Flex vertical>
-            <span style={{ fontSize: "23px" }}>{item.title}</span>
-            <span style={{ fontSize: "17px", marginTop: "0.3rem" }}>
+            <span className="item_title" style={{ fontSize: "23px" }}>{item.title}</span>
+            <span  className="item_description" style={{ fontSize: "17px", marginTop: "0.3rem" }}>
               {item.description.slice(0, 85)}
             </span>
             <Flex className="rating" vertical>

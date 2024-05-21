@@ -7,7 +7,7 @@ const LongItem = () => {
   const navigate = useNavigate();
   return (
     <Row>
-      <Col xs={24} sm={24} md={24} lg={20} xl={22}>
+      <Col span={24}>
         <div className="page_container">
         <div className="long_container">
           <div className="Container">

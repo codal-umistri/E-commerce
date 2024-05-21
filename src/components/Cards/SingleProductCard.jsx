@@ -15,8 +15,9 @@ const SingleProductCard = ({ item }) => {
     notification[type]({
       message: message,
       description: (
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div className="notification">
           <Image
+          className="notification_image"
             src={item.images[0]}
             width={50}
             height={50}

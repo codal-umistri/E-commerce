@@ -8,6 +8,7 @@ const Buttons = ({ item }) => {
   const { cart, setCart } = useContext(StateContext);
 
   const openNotification = (type, message, item) => {
+     console.log(item)
     notification[type]({
       message: message,
       description: (
