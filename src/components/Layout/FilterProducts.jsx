@@ -3,26 +3,28 @@ import { Row, Col } from "antd";
 import Catogory from "../Sidebar/Catogory";
 import AllProducts from "../pages/AllProducts";
 import { StateContext } from "../../App";
+import Footer from "../Footer/Footer";
 
 const FilterProducts = () => {
   const { setSearchInputValue, searchInputValue } = useContext(StateContext);
-  console.log(searchInputValue + " from filtered");
 
   const clearSearchInput = () => {
-    console.log(searchInputValue);
     setSearchInputValue("");
   };
 
   return (
     <React.Fragment>
       <Row>
-        <Col span={5}>
+        <Col span={24}>
           <Catogory clearSearchInput={clearSearchInput} />
         </Col>
-        <Col span={19}>
+        </Row>
+        <Row>
+        <Col span={24} >
           <AllProducts />
         </Col>
       </Row>
+      <Footer/>
     </React.Fragment>
   );
 };

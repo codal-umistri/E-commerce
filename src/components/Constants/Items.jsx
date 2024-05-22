@@ -12,6 +12,8 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import { FaStarOfLife } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
+const token = JSON.parse(localStorage.getItem("Auth"));
+
 export const ITEMS1 = [
   {
     label: (
@@ -114,7 +116,22 @@ export const ITEMS1 = [
           gap: "6px",
         }}
         onClick={() => {
-          localStorage.clear();
+          fetch("http://localhost:4040/api/v1/clearCart", {
+            method: "DELETE",
+            headers: {
+              authorization: `Bearer ${token.token}`,
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Logout successful", data);
+              localStorage.clear();
+              window.location.href = "/login";
+            })
+            .catch((error) => {
+              console.error("Error during logout:", error);
+            });
         }}
       >
         <LogoutOutlined />
@@ -334,10 +351,6 @@ export const BANNERDATA = [
     id: 5,
     url: "https://rukminim2.flixcart.com/fk-p-flap/3376/560/image/739ed527dbf977fe.jpg?q=50",
   },
-  // {
-  //   id: 6,
-  //   url: "https://rukminim2.flixcart.com/fk-p-flap/3376/270/image/ed12b7707a04473c.jpg?q=50",
-  // },
 ];
 
 export const RESPONSIVE = {

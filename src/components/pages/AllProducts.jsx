@@ -1,21 +1,16 @@
-import React, { useContext } from "react";
-import { Col, Flex, Row } from "antd";
+import React, { useContext, useEffect } from "react";
+import { Col, Row, Spin } from "antd";
 import { Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { Spin } from "antd";
 import { SearchItemsactions } from "../store/searchitems";
 import { StateContext } from "../../App";
+
 const SingleProductCard = lazy(() => import("../Cards/SingleProductCard"));
 
 const AllProducts = () => {
-
   const dispatch = useDispatch();
-  let Items = useSelector((store) => {
-    return store.SearchItems;
-  });
-
-  const {  searchInputValue, cat, prange } = useContext(StateContext);
+  const Items = useSelector((store) => store.SearchItems);
+  const { searchInputValue, cat, prange } = useContext(StateContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -27,9 +22,8 @@ const AllProducts = () => {
         if (searchInputValue) {
           apiUrl += '&';
         }
-        if(searchInputValue)
-        {
-           apiUrl += `keyword=${searchInputValue}`
+        if (searchInputValue) {
+          apiUrl += `keyword=${searchInputValue}`;
         }
         if (prange) {
           apiUrl += '&';
@@ -42,41 +36,45 @@ const AllProducts = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
-        const res = await response.json();      
+        const res = await response.json();
         dispatch(SearchItemsactions.AddAllProdcuts(res.data));
       } catch (error) {
         console.error("Error fetching products:", error.message);
       }
     };
     fetchProducts();
-  }, []);
+  }, [dispatch, searchInputValue, cat, prange]);
 
   return (
     <React.Fragment>
       {Items?.filteredProducts?.length ? (
         <Row style={{ marginTop: "2rem" }}>
           <Col span={24}>
-            <Flex justify="space-evenly" wrap="wrap">
+            <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
               <Suspense
                 fallback={
-                  <Flex justify="center" align="center">
+                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Spin tip="Loading" size="large" />
-                  </Flex>
+                  </div>
                 }
               >
-                {Items?.filteredProducts?.map((item) => {
-                  return <SingleProductCard key={item.id} item={item} />;
-                })}
+                {Items?.filteredProducts?.map((item) => (
+                  <SingleProductCard key={item.id} item={item} />
+                ))}
               </Suspense>
-            </Flex>
+            </div>
           </Col>
         </Row>
       ) : (
-        <Flex justify="center" align="center" style={{width:"100%" , height:"100%"}}>
-          <h2>No items found</h2>
-        </Flex>
+        <Row style={{ marginTop: "2rem" }}>
+          <Col span={24}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+                <h2>No items found</h2>
+            </div>
+          </Col>
+        </Row>
       )}
-   </React.Fragment>
+    </React.Fragment>
   );
 };
 
