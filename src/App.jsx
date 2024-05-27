@@ -21,6 +21,8 @@ import CancelPayment from "./components/pages/CancelPayment.jsx";
 import Layout from "./components/Layout/Layout.jsx";
 import OfflinePage from "./components/pages/oflinePage.jsx";
 import TokenExpirationChecker from "./components/pages/TokenExpirationChecker.jsx";
+import Otp from "./components/pages/Otp.jsx";
+import ConfirmPassword from "./components/pages/ConfirmPassword.jsx";
 
 const scrollToTop = () => {
   window.scrollTo(0, 0);
@@ -75,6 +77,15 @@ const router = createBrowserRouter([
     path: "/cancel",
     element: <CancelPayment />,
   },
+  {
+    path:'/otp',
+    element: <Otp />,
+  },
+  {
+    path:'/confirm-password',
+    element: <ConfirmPassword/>,
+
+  }
 ]);
 
 export const StateContext = createContext({
@@ -140,7 +151,7 @@ const App = () => {
             Setprange,
           }}
         >
-          <TokenExpirationChecker />
+          {/* <TokenExpirationChecker /> */}
           {online ? (
             <RouterProvider router={router} />
           ) : (

@@ -183,7 +183,7 @@ const Navbar = () => {
             align="center"
             justify="center"
             onClick={() => {
-              navigate(Auth?.type === 2 ? "/admin" : "/become-seller");
+              navigate(Auth?.type === 2 ? "/" : "/become-seller");
             }}
           >
             <ShopOutlined />

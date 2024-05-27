@@ -11,8 +11,10 @@ import {
 } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
+  const [errormsg, SetErrormsg] = useState(null);
 
   const validatePassword = (_, value) => {
     const uppercaseRegex = /[A-Z]/;
@@ -58,7 +60,7 @@ const Login = () => {
       localStorage.setItem("Auth", JSON.stringify(res.auth));
       window.location.href= "/"
     } else {
-      console.log("no user found")
+      SetErrormsg('check your email & password')
     }
   };
   return (
@@ -131,6 +133,11 @@ const Login = () => {
                 placeholder=" Enter Your Password"
                 style={{ width: "82%", height: "40px" }}
               />
+               {errormsg && (
+              <span className={errormsg ? "showerror" : "notshowerror"}>
+                {errormsg}
+              </span>
+            )}
             </Form.Item>
             <Flex
               style={{ marginTop: "0.3rem" }}

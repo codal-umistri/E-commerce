@@ -45,7 +45,7 @@ const Register = () => {
 
     if (!value) {
       return Promise.reject(new Error("Please Enter Your 'Password'"));
-    } else if (!hasUppercase) {x
+    } else if (!hasUppercase) {
       return Promise.reject(
         new Error("Password must contain atleast one 'Uppercase' letter")
       );

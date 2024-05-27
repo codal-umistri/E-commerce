@@ -8,28 +8,34 @@ import {
   Image,
   Flex,
 } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import CryptoJS from "crypto-js";
+import { useLocation } from "react-router-dom";
 
-const ForgotPassword = () => {
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+const Otp = () => {
   const navigate = useNavigate();
+  const query = useQuery();
+  const hash = query.get("hash");
+  const [errormsg, SetErrormsg] = useState(null);
+
   const handleSubmit = async (data) => {
-    const emailHash = CryptoJS.SHA256(data.email).toString(CryptoJS.enc.Hex);
-    const response = await fetch(
-      "http://localhost:4040/api/v1/send-password-reset-otp",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...data, emailHash }),
-      }
-    );
+    const response = await fetch("http://localhost:4040/api/v1/check-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...data, hash }),
+    });
 
     const res = await response.json();
     if (res.success) {
-      navigate(`/otp?hash=${emailHash}`);
+      navigate(`/confirm-password?hash=${hash}`);
+    } else {
+      SetErrormsg("Check your Otp again");
     }
   };
 
@@ -71,25 +77,27 @@ const ForgotPassword = () => {
             }}
           >
             <Form.Item
-              name="email"
+              name="otp"
               rules={[
                 {
-                  type: "email",
-                  message: "Please Enter Valid 'Email'",
+                  required: true,
+                  message: "Please enter the OTP",
                 },
                 {
-                  required: true,
+                  len: 5,
+                  message: "OTP must be 5 characters",
                 },
               ]}
               hasFeedback
             >
-              <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Enter Your Email"
-                style={{ width: "92%", height: "40px" }}
-              />
+              <Input placeholder="Enter OTP"  onChange={()=> SetErrormsg(null)} />
+              {errormsg && (
+              <span className={errormsg ? "showerror" : "notshowerror"}>
+                {errormsg}
+              </span>
+            )}
             </Form.Item>
-
+          
             <Form.Item>
               <ConfigProvider
                 theme={{
@@ -106,7 +114,7 @@ const ForgotPassword = () => {
                   classNames="form_btn"
                   style={{ width: "55%", height: "35px", marginLeft: "70px" }}
                 >
-                  Send Reset Link
+                  Verify OTP
                 </Button>
               </ConfigProvider>
             </Form.Item>
@@ -134,4 +142,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default Otp;

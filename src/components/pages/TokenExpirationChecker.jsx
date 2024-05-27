@@ -37,6 +37,7 @@ function TokenExpirationChecker() {
       onOk={handleModalOk}
       okText="OK"
       cancelButtonProps={{ style: { display: 'none' } }}
+      closeIcon={true}
     >
       <p>Your session has expired. You need to log in again.</p>
     </Modal>
